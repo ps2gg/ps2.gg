@@ -1,0 +1,73 @@
+version: "3.4"
+
+services:
+  #
+  # Inter-service communication
+  #
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+
+  #
+  # Framework services
+  #
+  notifications:
+    image: 127.0.0.1:5000/ps2gg:dev
+    entrypoint: "sh /app/docker/entrypoint.dev.sh notifications"
+    volumes:
+      - ../../:/app
+    environment:
+      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/development"
+      EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
+
+  notifications_db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: development
+
+  users:
+    image: 127.0.0.1:5000/ps2gg:dev
+    entrypoint: "sh /app/docker/entrypoint.dev.sh users"
+    volumes:
+      - ../../:/app
+    environment:
+      POSTGRES_DSN: "postgresql://postgres:postgres@users_db/development"
+      EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
+
+  users_db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: development
+
+  #
+  # Planetside services
+  #
+  census:
+    image: 127.0.0.1:5000/ps2gg:dev
+    entrypoint: "yarn nx serve census"
+    volumes:
+      - ../../:/app
+
+  peepo:
+    image: 127.0.0.1:5000/ps2gg:dev
+    entrypoint: "yarn nx serve peepo"
+    volumes:
+      - ../../:/app
+
+  population:
+    image: 127.0.0.1:5000/ps2gg:dev
+    entrypoint: "sh /app/docker/entrypoint.dev.sh population"
+    volumes:
+      - ../../:/app
+    environment:
+      POSTGRES_DSN: "postgresql://postgres:postgres@population_db/development"
+      EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
+
+  population_db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: development

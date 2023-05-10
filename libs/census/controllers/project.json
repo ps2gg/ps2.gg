@@ -1,0 +1,34 @@
+{
+  "name": "census-controllers",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/census/controllers/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/census/controllers",
+        "main": "libs/census/controllers/src/index.ts",
+        "tsConfig": "libs/census/controllers/tsconfig.lib.json",
+        "assets": ["libs/census/controllers/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/census/controllers/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/census/controllers"],
+      "options": {
+        "jestConfig": "libs/census/controllers/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

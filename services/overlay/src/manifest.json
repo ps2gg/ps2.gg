@@ -1,0 +1,48 @@
+{
+  "manifest_version": 1,
+  "type": "WebApp",
+  "meta": {
+    "name": "ps2.gg",
+    "version": "0.0.1",
+    "minimum-overwolf-version": "0.77.10",
+    "author": "ps2.gg",
+    "icon": "assets/overwolf/icon.png",
+    "icon_gray": "assets/overwolf/icon-inactive.png",
+    "launcher_icon": "desktop-icon.ico",
+    "description": "Planetside's inofficial Ranked Mode."
+  },
+  "data": {
+    "start_window": "Home",
+    "windows": {
+      "Home": {
+        "file": "index.html",
+        "transparent": false,
+        "resizable": true,
+        "use_os_windowing": true,
+        "size": {
+          "width": 700,
+          "height": 400
+        },
+        "min_size": {
+          "width": 400,
+          "height": 400
+        }
+      }
+    },
+    "RatingUpdate": {
+        "file": "update.html",
+        "transparent": true,
+        "resizable": false,
+        "use_os_windowing": false,
+        "size": {
+          "width": 700,
+          "height": 400
+        },
+        "min_size": {
+          "width": 400,
+          "height": 400
+        }
+      }
+    }
+  }
+}

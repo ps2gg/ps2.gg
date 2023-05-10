@@ -1,0 +1,11 @@
+# Base image for all production images in this monorepo
+FROM node:18-bullseye
+
+RUN apt install -y curl
+
+COPY . /app
+WORKDIR /app
+
+RUN yarn --prod
+
+ENV NODE_ENV=production

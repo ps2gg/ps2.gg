@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "serve": {
+      "implementation": "./overwolf/executor",
+      "schema": "./overwolf/schema.json",
+      "description": "Loads a react dev server and bundles an overwolf app"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+version: '3.4'
+
+x-api-healthcheck:
+  &api-healthcheck
+  test: 'curl -f localhost:3000/healthz'
+  interval: 10s
+  timeout: 5s
+  retries: 5
+  start_period: 60s
+
+services:
+  #
+  # Inter-service communication
+  #
+  rabbitmq:
+    image: rabbitmq:3.8-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
+  redis:
+    image: redis:4.0-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - redis:/data
+
+  #
+  # Framework services
+  #
+  notifications:
+    secrets:
+      - discord_token_peepo
+    networks:
+      - ps2gg_internal
+    healthcheck: *api-healthcheck
+
+  notifications_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - notifications_db:/var/lib/postgresql/data
+
+  users:
+    networks:
+      - ps2gg_internal
+    healthcheck: *api-healthcheck
+
+  users_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - users_db:/var/lib/postgresql/data
+
+  #
+  # Planetside services
+  #
+  population:
+    networks:
+      - ps2gg_internal
+    healthcheck: *api-healthcheck
+
+  population_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - population_db:/var/lib/postgresql/data
+
+  census:
+    networks:
+      - ps2gg_internal
+
+  peepo:
+    secrets:
+      - discord_token_peepo
+    networks:
+      - ps2gg_internal
+
+networks:
+  ps2gg_internal:
+    external: true
+  ps2gg_external:
+    external: true
+
+secrets:
+  discord_token_peepo:
+    external: true
+
+volumes:
+  rabbitmq:
+  redis:
+  notifications_db:
+  users_db:
+  population_db:

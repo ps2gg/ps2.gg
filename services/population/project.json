@@ -1,0 +1,105 @@
+{
+  "name": "population",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "services/population/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/services/population",
+        "main": "services/population/src/main.ts",
+        "tsConfig": "services/population/tsconfig.app.json",
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "dtoFileNameSuffix": "RestResource.ts",
+              "controllerFileNameSuffix": "Controller.ts",
+              "classValidatorShim": false,
+              "introspectComments": true
+            }
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "build-worker": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/services/population",
+        "main": "services/population/src/worker.ts",
+        "tsConfig": "services/population/tsconfig.app.json"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "build-migration": {
+      "executor": "@ps2gg/nx/nest:migration",
+      "options": {
+        "tsConfig": "services/population/tsconfig.migration.json"
+      },
+      "configurations": {
+        "production": {
+          "outDir": "dist/migrations"
+        }
+      }
+    },
+    "deploy": {
+      "executor": "packages/nest:deploy",
+      "options": {
+        "images": ["nasons-api", "nasons-worker"]
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn ts-node -r tsconfig-paths/register -P services/population/tsconfig.app.json ./node_modules/typeorm/cli.js -d services/population/src/infrastructure/TypeOrm/DataSource.ts"
+      }
+    },
+    "typeorm-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn nx run population:typeorm migration:generate services/population/src/infrastructure/TypeOrm/Migrations/{args.name} --pretty"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "population:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "population:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["services/population/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/services/population"],
+      "options": {
+        "jestConfig": "services/population/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

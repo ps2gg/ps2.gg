@@ -1,0 +1,128 @@
+networks:
+  ps2gg_external:
+    external: true
+  ps2gg_internal:
+    external: true
+secrets:
+  discord_token_peepo:
+    external: true
+services:
+  census:
+    entrypoint: yarn nx serve census
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - /opt/planetside/ps2gg:/app:rw
+  notifications:
+    entrypoint: sh /app/docker/entrypoint.dev.sh notifications
+    environment:
+      EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
+      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/development
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 1m
+      test: curl -f localhost:3000/healthz
+      timeout: 5s
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    secrets:
+    - source: discord_token_peepo
+    volumes:
+    - /opt/planetside/ps2gg:/app:rw
+  notifications_db:
+    environment:
+      POSTGRES_DB: development
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - notifications_db:/var/lib/postgresql/data:rw
+  peepo:
+    entrypoint: yarn nx serve peepo
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    secrets:
+    - source: discord_token_peepo
+    volumes:
+    - /opt/planetside/ps2gg:/app:rw
+  population:
+    entrypoint: sh /app/docker/entrypoint.dev.sh population
+    environment:
+      EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
+      POSTGRES_DSN: postgresql://postgres:postgres@population_db/development
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 1m
+      test: curl -f localhost:3000/healthz
+      timeout: 5s
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - /opt/planetside/ps2gg:/app:rw
+  population_db:
+    environment:
+      POSTGRES_DB: development
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - population_db:/var/lib/postgresql/data:rw
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_USER: rabbitmq
+    image: rabbitmq:3.8-alpine
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq:rw
+  redis:
+    image: redis:4.0-alpine
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - redis:/data:rw
+  users:
+    entrypoint: sh /app/docker/entrypoint.dev.sh users
+    environment:
+      EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
+      POSTGRES_DSN: postgresql://postgres:postgres@users_db/development
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 1m
+      test: curl -f localhost:3000/healthz
+      timeout: 5s
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - /opt/planetside/ps2gg:/app:rw
+  users_db:
+    environment:
+      POSTGRES_DB: development
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - users_db:/var/lib/postgresql/data:rw
+version: '3.4'
+volumes:
+  notifications_db: {}
+  population_db: {}
+  rabbitmq: {}
+  redis: {}
+  users_db: {}
+

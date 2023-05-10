@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "cli": "nx",
+  "properties": {
+    "buildDir": {
+      "type": "string",
+      "description": "Output path for overwolf build"
+    }
+  },
+  "required": ["buildDir"]
+}
