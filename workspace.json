@@ -32,6 +32,11 @@
     "population-types": "libs/population/types",
     "users": "services/users",
     "users-client": "libs/users/client",
-    "users-types": "libs/users/types"
+    "users-types": "libs/users/types",
+    "nx-jest": "libs/nx/jest",
+    "nx-nest": "libs/nx/nest",
+    "nx-nest-app": "libs/nx/nest-app",
+    "nx-nest-domain-events": "libs/nx/nest-domain-events",
+    "nx-nest-microservice-rabbitmq": "libs/nx/nest-microservice-rabbitmq"
   }
 }
