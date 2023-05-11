@@ -21,7 +21,6 @@
     "discord-logging": "libs/discord/logging",
     "discord-util": "libs/discord/util",
     "events-ws": "libs/events/ws",
-    "nest": "packages/nest",
     "notifications": "services/notifications",
     "notifications-client": "libs/notifications/client",
     "notifications-types": "libs/notifications/types",

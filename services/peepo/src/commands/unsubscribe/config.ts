@@ -1,7 +1,7 @@
 import { servers } from '@ps2gg/common/constants'
 import { CommandConfig } from '@ps2gg/discord/command'
 
-export const unsubscribe: CommandConfig = {
+export const Unsubscribe: CommandConfig = {
   name: 'unsubscribe',
   description: 'Unsubscribe from an event',
   options: [

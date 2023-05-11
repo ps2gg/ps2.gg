@@ -1,6 +1,6 @@
 import { CommandConfig } from '@ps2gg/discord/command'
 
-export const match: CommandConfig = {
+export const Match: CommandConfig = {
   name: 'match',
   description: 'Shows all alt characters of a given player',
   options: [

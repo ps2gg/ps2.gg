@@ -1,7 +1,7 @@
 import { ComponentConfig } from '@ps2gg/discord/command'
 import { ButtonStyle } from 'discord.js'
 
-export const explain: ComponentConfig = {
+export const Explain: ComponentConfig = {
   id: 'alt-explain',
   state: {
     default: {

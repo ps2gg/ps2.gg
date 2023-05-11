@@ -1,7 +1,7 @@
 import { ComponentConfig } from '@ps2gg/discord/command'
 import { ButtonStyle } from 'discord.js'
 
-export const update: ComponentConfig = {
+export const Update: ComponentConfig = {
   id: 'alt-update',
   state: {
     default: {

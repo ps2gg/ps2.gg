@@ -1,7 +1,7 @@
 import { ComponentConfig } from '@ps2gg/discord/command'
 import { ButtonStyle } from 'discord.js'
 
-export const reset: ComponentConfig = {
+export const Reset: ComponentConfig = {
   id: 'alt-reset',
   state: {
     default: {

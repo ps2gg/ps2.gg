@@ -1,7 +1,7 @@
 import { ComponentConfig } from '@ps2gg/discord/command'
 import { ButtonStyle } from 'discord.js'
 
-export const unsubscribe: ComponentConfig = {
+export const Unsubscribe: ComponentConfig = {
   id: 'notify.unsubscribe',
   state: {
     default: {

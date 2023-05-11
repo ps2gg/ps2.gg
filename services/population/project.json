@@ -57,7 +57,7 @@
       }
     },
     "deploy": {
-      "executor": "packages/nest:deploy",
+      "executor": "@ps2gg/nest:deploy",
       "options": {
         "images": ["nasons-api", "nasons-worker"]
       }

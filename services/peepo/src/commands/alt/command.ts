@@ -1,19 +1,17 @@
 import { getAltMatches, getPlayerSearchSuggestions, updateAllAlts } from '@ps2gg/alts/ws'
 import { Autocomplete, AutocompleteResponse, Command, Component, ComponentResponse, SubCommand, CommandResponse } from '@ps2gg/discord/command'
 import { getMatchNameSuggestions as getMatchAutocompleteResponse } from './autocomplete/matchName'
-import { explain } from './components/explain'
-import { reset } from './components/reset'
-import { update } from './components/update'
-import { alt } from './config'
+import { Explain } from './components/explain'
+import { Reset } from './components/reset'
+import { Update } from './components/update'
+import { Alt } from './config'
 import { getAltEmbed } from './embeds/match'
 import { getAltTreeEmbed } from './embeds/tree'
-import { MatchOptions, match } from './subcommands/match'
+import { MatchOptions, Match } from './subcommands/match'
 
-@Command(alt)
+@Command(Alt)
 export class AltCommand {
-  description = 'Match the alt characters of a given player'
-
-  @SubCommand(match)
+  @SubCommand(Match)
   async match(options: MatchOptions): Promise<CommandResponse> {
     const { name } = options
     const matches = await getAltMatches(name)
@@ -25,7 +23,7 @@ export class AltCommand {
     }
   }
 
-  @Component(update)
+  @Component(Update)
   async update(interactionContext: string[]): Promise<ComponentResponse> {
     const name = interactionContext[0]
     await updateAllAlts(name)
@@ -35,7 +33,7 @@ export class AltCommand {
     }
   }
 
-  @Component(explain)
+  @Component(Explain)
   async explain(interactionContext: string[]): Promise<ComponentResponse> {
     const name = interactionContext[0]
     const matches = await getAltMatches(name)
@@ -44,7 +42,7 @@ export class AltCommand {
     }
   }
 
-  @Component(reset)
+  @Component(Reset)
   async reset(interactionContext: string[]): Promise<ComponentResponse> {
     const name = interactionContext[0]
     const matches = await getAltMatches(name)
@@ -53,7 +51,7 @@ export class AltCommand {
     }
   }
 
-  @Autocomplete(match, 'name')
+  @Autocomplete(Match, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
     const suggestions = await getPlayerSearchSuggestions(query || 'brgh')
     return getMatchAutocompleteResponse(suggestions)

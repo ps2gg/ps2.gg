@@ -1,7 +1,7 @@
 import { servers } from '@ps2gg/common/constants'
 import { CommandConfig } from '@ps2gg/discord/command'
 
-export const notify: CommandConfig = {
+export const Notify: CommandConfig = {
   name: 'notify',
   description: 'Get notifications when something happens ingame',
   options: [

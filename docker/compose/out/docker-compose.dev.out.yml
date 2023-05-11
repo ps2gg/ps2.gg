@@ -13,7 +13,7 @@ services:
     networks:
       ps2gg_internal: null
     volumes:
-    - /opt/planetside/ps2gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   notifications:
     entrypoint: sh /app/docker/entrypoint.dev.sh notifications
     environment:
@@ -31,7 +31,7 @@ services:
     secrets:
     - source: discord_token_peepo
     volumes:
-    - /opt/planetside/ps2gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   notifications_db:
     environment:
       POSTGRES_DB: development
@@ -50,7 +50,7 @@ services:
     secrets:
     - source: discord_token_peepo
     volumes:
-    - /opt/planetside/ps2gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   population:
     entrypoint: sh /app/docker/entrypoint.dev.sh population
     environment:
@@ -66,7 +66,7 @@ services:
     networks:
       ps2gg_internal: null
     volumes:
-    - /opt/planetside/ps2gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   population_db:
     environment:
       POSTGRES_DB: development
@@ -107,7 +107,7 @@ services:
     networks:
       ps2gg_internal: null
     volumes:
-    - /opt/planetside/ps2gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   users_db:
     environment:
       POSTGRES_DB: development
