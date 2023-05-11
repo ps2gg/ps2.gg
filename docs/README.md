@@ -6,6 +6,7 @@ The files in this folder will help you get started with any technology stack fro
 
 ## Guides
 
+- [First Time Setup](#first-time-setup)
 - [Create a backend microservice](./Backend.md)
 - [Create a Discord bot](./Discord.md)
 - [Create a Web UI](./Frontend.md)
@@ -15,7 +16,7 @@ The files in this folder will help you get started with any technology stack fro
 
 ## First Time Setup
 
-If this is your first time working on the stack, you'll definitely want to read through these considerations, as to not pull your hair out when interacting with the code.
+If this is your first time working on the stack, you'll definitely want to consider the following, as to not pull your hair out when interacting with the codebase.
 
 <br>
 
@@ -27,16 +28,16 @@ Make sure you've got your shortcuts for file navigation set up. Looking up files
 
 ### Code Style
 
-We use eslint and prettier to enforce our code style, so to save you some time, we suggest installing their extensions into your editor, as they will automatically adjust your code as needed.
+We use eslint and prettier to enforce our code style. You can save yourself a lot of time by installing their extensions in your editor, as they will automatically adjust your code as needed.
 
 <br>
 
 ### Learning Curve
 
-There is a considerable learning curve to get the hang of things. Don't worry if you can't get things done as quickly as you'd like at first, we all took weeks to get comfortable shipping features without much friction. Just know that in the long run, by following the processes, we save ourselves a lot of time and create consistently high quality, maintainable code.
+There is a considerable learning curve to get the hang of things. Don't worry if you can't get things done as quickly as you'd like at first, we all took weeks to get comfortable shipping features without much friction. Just know that in the long run, we save ourselves a lot of time and create consistent high quality, maintainable code.
 
 <br>
 
-### We're there to help you out
+### We're here to help you out
 
-Remember, if there are any hurdles, you can ask us for help at any time.
+Remember, if there are any hurdles, you can always hit us up in DMs.

@@ -1,6 +1,6 @@
 # ps2.gg
 
-This is the home of ps2.gg, where we make UI mods that enhance your Planetside experience.<br>
+This is the home of ps2.gg, where UI mods are made that turn Planetside into a better game.<br>
 This monorepo includes all microservices used to serve the website and overlay.
 
 <br>
@@ -38,21 +38,21 @@ The following scripts will get you started with a running stack:
 
 ## Microservices
 
-| Name             | open source | Description                                               | Port             | Domain | Secrets             |
-| ---------------- | ----------- | --------------------------------------------------------- | ---------------- | ------ | ------------------- |
-| census           | 🗸           | Relays Census data to internal services                   | -/-              | -/-    | -/-                 |
-| peepo            | 🗸           | Big Peepo Discord bot                                     | -/-              | -/-    | discord_token_peepo |
-| population       | 🗸           | Provides real-time population data                        | :3000            | -/-    | -/-                 |
-| population_db    | 🗸           | Postgres db that stores population data                   | :5672            | -/-    | -/-                 |
-| notifications    |             | Allows users to subscribe to select internal DB events    | :3000/3001(ws)   | -/-    | -/-                 |
-| notifications_db | 🗸           | Postgres db that stores notification data                 | :5672            | -/-    | -/-                 |
-| users            |             | Verifies and links users on different platforms           | :3000            | -/-    | -/-                 |
-| users_db         | 🗸           | Postgres db that stores linked user data                  | :5672            | -/-    | -/-                 |
-| alts             |             | Matches alt characters                                    | :3000/3030(auth) | -/-    | -/-                 |
-| alts_db          | 🗸           | Mongodb that stores alt data and item sales               | :27017           | -/-    | -/-                 |
-| redis            | 🗸           | Caches resource intensive operations                      | :6379            | -/-    | -/-                 |
-| rabbitmq         | 🗸           | Makes database change events accessible to other services | :5672            | -/-    | -/-                 |
-| registry         | 🗸           | Hosts Docker images                                       | :5000            | -/-    | -/-                 |
+| Name             | open source | Description                                               | Port             | Secrets             |
+| ---------------- | ----------- | --------------------------------------------------------- | ---------------- | ------------------- |
+| census           | 🗸           | Relays Census data to internal services                   | -/-              | -/-                 |
+| peepo            | 🗸           | Big Peepo Discord bot                                     | -/-              | discord_token_peepo |
+| population       | 🗸           | Provides real-time population data                        | :3000            | -/-                 |
+| population_db    | 🗸           | Postgres db that stores population data                   | :5672            | -/-                 |
+| notifications    |             | Allows users to subscribe to select internal DB events    | :3000/3001(ws)   | -/-                 |
+| notifications_db | 🗸           | Postgres db that stores notification data                 | :5672            | -/-                 |
+| users            |             | Verifies and links users on different platforms           | :3000            | -/-                 |
+| users_db         | 🗸           | Postgres db that stores linked user data                  | :5672            | -/-                 |
+| alts             |             | Matches alt characters                                    | :3000/3030(auth) | -/-                 |
+| alts_db          | 🗸           | Mongodb that stores alt data and item sales               | :27017           | -/-                 |
+| redis            | 🗸           | Caches resource intensive operations                      | :6379            | -/-                 |
+| rabbitmq         | 🗸           | Makes database change events accessible to other services | :5672            | -/-                 |
+| registry         | 🗸           | Hosts Docker images                                       | :5000            | -/-                 |
 
 <br>
 
