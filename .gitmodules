@@ -1,0 +1,3 @@
+[submodule "libs/discord"]
+	path = libs/discord
+	url = https://github.com/ps2gg/ps2.gg-discord
