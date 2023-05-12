@@ -5,6 +5,9 @@ if [ -z ${1+x} ]; then
   exit 1
 fi
 
+# Init submodules
+git submodule update --recursive --remote --init
+
 # Remove previous builds
 rm -rf dist
 
