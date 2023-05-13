@@ -4,7 +4,7 @@ export class NotificationsWebSocketClient extends WebSocketClient {
   private _subscriptions: EventRequest[] = []
   private _events: { event: string; fn: (...params: any[]) => any }[] = []
 
-  constructor(_url: string, private _userId: string) {
+  constructor(private _userId: string, _url = 'ws://notifications:3001/v1') {
     super(_url)
     this.onMessage((message: EventResponse) => this._handleEvent(message))
   }
@@ -45,7 +45,7 @@ export class NotificationsWebSocketClient extends WebSocketClient {
     const event = this._events.find((e) => e.event === message.event)
 
     if (!event) return
-    event.fn()
+    event.fn(message)
   }
 
   private _acknowledgeSubscription(message: EventResponse): void {
