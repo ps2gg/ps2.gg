@@ -3,10 +3,15 @@ import { servers } from '@ps2gg/common/constants'
 import { getServerId } from '@ps2gg/common/util'
 import { NotificationsClient } from '@ps2gg/notifications/client'
 import { User } from '@ps2gg/users/types'
-import { sanitizeScope, scopes } from '../../domain/scopes'
+import { sanitizeScope, scopes } from '../../util/scopes'
 
 const subscriptions = new NotificationsClient()
 
+/**
+ * TODO: Let notification API handle these with a simple "all" request
+ * the repo would look up existing subscriptions of the user and remove
+ * them accordingly
+ */
 export async function unsubscribe(user: User, scope: string, server: string): Promise<void> {
   if (server === 'All') {
     await unsubscribeFromAllServers(user, scope)

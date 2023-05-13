@@ -1,10 +1,10 @@
 import { getServerId } from '@ps2gg/common/util'
-import { Component, Command, linkedUser, ComponentResponse, Autocomplete, AutocompleteResponse, CommandResponse, MainCommand } from '@ps2gg/discord/command'
+import { Component, Command, linkedUser, ComponentResponse, Autocomplete, AutocompleteResponse, CommandResponse, Main } from '@ps2gg/discord/command'
 import { NotificationsClient } from '@ps2gg/notifications/client'
 import { Subscription } from '@ps2gg/notifications/types'
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
-import { getScopeSuggestions, sanitizeScope } from '../../domain/scopes'
+import { getScopeSuggestions, sanitizeScope } from '../../util/scopes'
 import { Unsubscribe } from './components/unsubscribe'
 import { NotifyOptions, Notify } from './config'
 import { getFailureEmbed } from './embeds/failure'
@@ -16,7 +16,7 @@ export class NotifyCommand {
   private _notifications = new NotificationsClient()
   private _population = new PopulationClient()
 
-  @MainCommand(Notify)
+  @Main(Notify)
   async notify(options: NotifyOptions, @linkedUser user: User): Promise<CommandResponse> {
     const { server, scope } = options
     const type = scope.split(' ')[0]

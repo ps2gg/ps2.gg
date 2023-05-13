@@ -12,7 +12,6 @@ git submodule update --recursive --remote --init
 rm -rf dist
 
 # node_modules
-# no need for prod since it's built in the Dockerfile
 if [ "$1" = 'dev' ]; then
   yarn
 else

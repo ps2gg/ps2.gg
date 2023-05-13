@@ -1,13 +1,13 @@
-import { Autocomplete, AutocompleteResponse, Command, CommandResponse, MainCommand, linkedUser } from '@ps2gg/discord/command'
+import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
-import { getScopeSuggestions, sanitizeScope } from '../../domain/scopes'
+import { getScopeSuggestions, sanitizeScope } from '../../util/scopes'
 import { UnsubscribeOptions, Unsubscribe } from './config'
 import { getUnsubscribeEmbed } from './embeds/unsubscribe'
 import { unsubscribe } from './unsubscribe'
 
 @Command(Unsubscribe)
 export class UnsubscribeCommand {
-  @MainCommand(Unsubscribe)
+  @Main(Unsubscribe)
   async unsubscribe(options: UnsubscribeOptions, @linkedUser user: User): Promise<CommandResponse> {
     const { server, scope } = options
     await unsubscribe(user, scope, server)
