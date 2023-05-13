@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # Fetch all branches for nx base comparison
           submodules: recursive
           token: ${{ secrets.ACCESS_TOKEN }}
       - uses: actions/setup-node@v3
