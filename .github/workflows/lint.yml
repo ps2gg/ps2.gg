@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: 18
       - run: yarn install --frozen-lockfile
-      - run: yarn nx affected:lint --base master
+      - run: yarn nx affected:lint --base=origin/master

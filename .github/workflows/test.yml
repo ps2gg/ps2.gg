@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: 18
       - run: yarn install --frozen-lockfile
-      - run: yarn nx affected:test --base master
+      - run: yarn nx affected:test --base=origin/master
