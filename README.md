@@ -28,7 +28,7 @@ The following scripts will get you started with a running stack:
 ### Requirements
 
 - [Docker](https://www.docker.com/) in Swarm Mode.
-- [Node](https://nodejs.org) with [yarn](https://www.npmjs.com/package/yarn)
+- [Node](https://nodejs.org) with [bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
 - The required docker secrets (see table below)
   <br>
 
@@ -37,8 +37,6 @@ The following scripts will get you started with a running stack:
 <br>
 
 ## Microservices
-
-Services with a 🔹 denote that they're open source.
 
 | Name                | Description                                     | Port       | Secrets             |
 | ------------------- | ----------------------------------------------- | ---------- | ------------------- |
@@ -55,6 +53,9 @@ Services with a 🔹 denote that they're open source.
 | redis 🔹            | Caches expensive operations                     | :6379      | -/-                 |
 | rabbitmq 🔹         | Inter-service communication                     | :5672      | -/-                 |
 | registry 🔹         | Hosts Docker images                             | :5000      | -/-                 |
+
+Services with a 🔹 denote that they're open source.<br>
+More secrets may be required for production deployments. See [docker-compose.prod.yml](/docker/compose/docker-compose.prod.yml).
 
 <br>
 

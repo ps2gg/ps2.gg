@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  peepo:
+    secrets:
+      - discord_token_peepo
+
+secrets:
+  discord_token_peepo:
+    external: true

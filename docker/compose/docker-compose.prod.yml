@@ -1,9 +1,0 @@
-version: '3.4'
-services:
-  peepo:
-    image: 127.0.0.1:5000/ps2gg:prod
-    entrypoint: ['sh', '/app/services/peepo/src/entrypoint.sh']
-    secrets:
-      - discord_token_peepo
-    networks:
-      - ps2gg_internal

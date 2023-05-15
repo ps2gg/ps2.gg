@@ -8,7 +8,7 @@ secrets:
     external: true
 services:
   census:
-    entrypoint: yarn nx serve census
+    entrypoint: sh /app/docker/entrypoint.dev.sh census
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg_internal: null
@@ -27,14 +27,12 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
+      ps2gg_external: null
       ps2gg_internal: null
-    secrets:
-    - source: discord_token_peepo
     volumes:
     - /opt/ps2gg/ps2.gg:/app:rw
   notifications_db:
     environment:
-      POSTGRES_DB: development
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     image: postgres:15.2-alpine
@@ -42,8 +40,15 @@ services:
       ps2gg_internal: null
     volumes:
     - notifications_db:/var/lib/postgresql/data:rw
+  overlay:
+    entrypoint: sh /app/docker/entrypoint.dev.sh overlay
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg_internal: null
+    volumes:
+    - /opt/ps2gg/ps2.gg:/app:rw
   peepo:
-    entrypoint: yarn nx serve peepo
+    entrypoint: sh /app/docker/entrypoint.dev.sh peepo
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg_internal: null
@@ -55,7 +60,7 @@ services:
     entrypoint: sh /app/docker/entrypoint.dev.sh population
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@population_db/development
+      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/development
     healthcheck:
       interval: 10s
       retries: 5
@@ -64,12 +69,12 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
+      ps2gg_external: null
       ps2gg_internal: null
     volumes:
     - /opt/ps2gg/ps2.gg:/app:rw
   population_db:
     environment:
-      POSTGRES_DB: development
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     image: postgres:15.2-alpine
@@ -96,7 +101,7 @@ services:
     entrypoint: sh /app/docker/entrypoint.dev.sh users
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@users_db/development
+      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/development
     healthcheck:
       interval: 10s
       retries: 5
@@ -105,12 +110,12 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
+      ps2gg_external: null
       ps2gg_internal: null
     volumes:
     - /opt/ps2gg/ps2.gg:/app:rw
   users_db:
     environment:
-      POSTGRES_DB: development
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     image: postgres:15.2-alpine

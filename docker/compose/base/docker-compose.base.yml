@@ -1,0 +1,31 @@
+version: '3.4'
+services:
+  rabbitmq:
+    image: rabbitmq:3.8-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
+  redis:
+    image: redis:4.0-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - redis:/data
+  #
+  # Other services are generated through generate.ts
+  #
+
+networks:
+  ps2gg_internal:
+    external: true
+  ps2gg_external:
+    external: true
+
+volumes:
+  rabbitmq:
+  redis:
+  notifications_db:
+  users_db:
+  population_db:

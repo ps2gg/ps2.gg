@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  #
+  # Inter-service communication
+  #
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq_pass
+    secrets:
+      - rabbitmq_pass
+
+secrets:
+  rabbitmq_pass:
+    external: true

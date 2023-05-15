@@ -13,16 +13,14 @@ rm -rf dist
 
 # node_modules
 if [ "$1" = 'dev' ]; then
-  yarn
+  bun install
 else
-  yarn
-  yarn nx build peepo --prod
-  yarn nx build census --prod
-  yarn nx build nasons --prod
-  yarn nx build speedruns --prod
-  yarn nx build notifications --prod
-  yarn nx build subscriptions --prod
-  yarn nx build users --prod
+  bun install
+  bun nx build peepo --prod
+  bun nx build census --prod
+  bun nx build population --prod
+  bun nx build notifications --prod
+  bun nx build users --prod
 fi
 
 clear

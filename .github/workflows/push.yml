@@ -1,0 +1,16 @@
+name: Push
+
+on: [push]
+
+jobs:
+  affected:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup@v1
+      - run: bun nx affected:lint --base=origin/master --parallel=12
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup@v1
+      - run: bun nx affected:test --base=origin/master --parallel=12

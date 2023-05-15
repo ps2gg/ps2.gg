@@ -1,0 +1,122 @@
+version: '3.4'
+  
+services:
+  census:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh census"
+    networks:
+      - ps2gg_internal
+    
+
+  notifications:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh notifications"
+    networks:
+      - ps2gg_internal
+      - ps2gg_external
+    healthcheck:
+      test: 'curl -f localhost:3000/healthz'
+      timeout: 5s
+      interval: 10s
+      start_period: 60s
+      retries: 5
+    
+    
+    secrets:
+      - notifications_db_pass
+    
+
+  notifications_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - notifications_db:/var/lib/postgresql/data
+    
+    
+    secrets:
+      - notifications_db_pass
+
+
+  overlay:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh overlay"
+    networks:
+      - ps2gg_internal
+    
+
+  peepo:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh peepo"
+    networks:
+      - ps2gg_internal
+    
+
+  population:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh population"
+    networks:
+      - ps2gg_internal
+      - ps2gg_external
+    healthcheck:
+      test: 'curl -f localhost:3000/healthz'
+      timeout: 5s
+      interval: 10s
+      start_period: 60s
+      retries: 5
+    
+    
+    secrets:
+      - population_db_pass
+    
+
+  population_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - population_db:/var/lib/postgresql/data
+    
+    
+    secrets:
+      - population_db_pass
+
+
+  users:
+    image: 127.0.0.1:5000/ps2gg:prod
+    entrypoint: "sh /app/docker/entrypoint.prod.sh users"
+    networks:
+      - ps2gg_internal
+      - ps2gg_external
+    healthcheck:
+      test: 'curl -f localhost:3000/healthz'
+      timeout: 5s
+      interval: 10s
+      start_period: 60s
+      retries: 5
+    
+    
+    secrets:
+      - users_db_pass
+    
+
+  users_db:
+    image: postgres:15.2-alpine
+    networks:
+      - ps2gg_internal
+    volumes:
+      - users_db:/var/lib/postgresql/data
+    
+    
+    secrets:
+      - users_db_pass
+
+
+secrets:
+    
+    notifications_db_pass:
+      external: true
+    population_db_pass:
+      external: true
+    users_db_pass:
+      external: true

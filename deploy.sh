@@ -16,9 +16,15 @@ docker rm $(docker ps -a -q)
 clear
 
 # Generate config
+cd docker/compose
+bun generate.ts
+cd ../../
+
 docker-compose \
-  -f "docker/compose/docker-compose.base.yml" \
-  -f "docker/compose/docker-compose.$1.yml" \
+  -f "docker/compose/base/docker-compose.base.yml" \
+  -f "docker/compose/base/docker-compose.$1.yml" \
+  -f "docker/compose/generated/docker-compose.$1.yml" \
+  -f "docker/compose/override/docker-compose.$1.yml" \
   config >"docker/compose/out/docker-compose.$1.out.yml"
 
 # Deploy
