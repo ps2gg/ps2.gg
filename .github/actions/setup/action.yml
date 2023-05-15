@@ -6,9 +6,9 @@ runs:
   steps:
   - uses: oven-sh/setup-bun@v1
   - uses: actions/cache@v3
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+    with:
+      path: node_modules
+      key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
+      restore-keys: |
+        ${{ runner.os }}-node-
   - run: bun install
