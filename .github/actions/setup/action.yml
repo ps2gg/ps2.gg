@@ -11,4 +11,5 @@ runs:
       key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
       restore-keys: |
         ${{ runner.os }}-node-
-  - run: bun install
+  - shell: bash
+    run: bun install
