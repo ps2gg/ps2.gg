@@ -6,11 +6,11 @@ jobs:
   affected:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup@v1
+      - uses: ./.github/actions/setup
       - run: bun nx affected:lint --base=origin/master --parallel=12
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup@v1
+      - uses: ./.github/actions/setup
       - run: bun nx affected:test --base=origin/master --parallel=12
