@@ -2,6 +2,7 @@ name: 'Setup'
 description: 'Sets up a Javascript environment'
 
 runs:
+  using: 'composite'
   steps:
   - uses: actions/checkout@v3
     with:
