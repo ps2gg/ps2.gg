@@ -28,11 +28,11 @@ The following scripts will get you started with a running stack:
 ### Requirements
 
 - [Docker](https://www.docker.com/) in Swarm Mode.
-- [Node](https://nodejs.org) with [bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
+- [bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
 - The required docker secrets (see table below)
   <br>
 
-**Please note**: Not all services are open source, so you may need to adjust the [docker-compose.yml](/docker/compose/docker-compose.dev.yml) to match your level of access. (accesibilities are described in the table below)
+**Please note**: Not all services are open source, so you may need to adjust the [docker-compose.yml](/docker/compose/out/docker-compose.prod.out.yml) to match your level of access. (accesibilities are described in the table below)
 
 <br>
 
