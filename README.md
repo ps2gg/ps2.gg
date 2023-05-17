@@ -28,7 +28,7 @@ The following scripts will get you started with a running stack:
 ### Requirements
 
 - [Docker](https://www.docker.com/) in Swarm Mode.
-- [bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
+- [Bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
 - The required docker secrets (see table below)
   <br>
 
