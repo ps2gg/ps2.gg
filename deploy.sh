@@ -24,12 +24,12 @@ docker-compose \
   -f "docker/compose/base/docker-compose.$1.yml" \
   -f "docker/compose/generated/docker-compose.$1.yml" \
   -f "docker/compose/override/docker-compose.$1.yml" \
-  config >"docker/compose/out/docker-compose.$1.out.yml"
+  config >"docker/compose/out/docker-compose.$1.yml"
 
 # Deploy
 docker stack deploy \
   --prune \
-  --compose-file "docker/compose/out/docker-compose.$1.out.yml" \
+  --compose-file "docker/compose/out/docker-compose.$1.yml" \
   "ps2gg"
 
 echo "🙏 dev garanty no ban you too the circle of paffdaddy 🙏"
