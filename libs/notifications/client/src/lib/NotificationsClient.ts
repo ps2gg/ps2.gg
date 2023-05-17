@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { ServerId } from '@ps2gg/census/types'
 import { HttpClient } from '@ps2gg/common/http'
 import { PopulationSubscription, Subscription } from '@ps2gg/notifications/types'

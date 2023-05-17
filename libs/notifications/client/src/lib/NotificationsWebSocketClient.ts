@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { EventRequest, EventResponse, EventSubscription, WebSocketClient } from '@ps2gg/events/ws'
 
 export class NotificationsWebSocketClient extends WebSocketClient {
