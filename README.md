@@ -32,7 +32,7 @@ The following scripts will get you started with a running stack:
 - The required docker secrets (see table below)
   <br>
 
-**Please note**: Not all services are open source, so you may need to adjust the [docker-compose.yml](/docker/compose/out/docker-compose.dev.out.yml) to match your level of access. (accesibilities are described in the table below)
+**Please note**: Not all services are open source, so you may need to adjust the [docker-compose.yml](/docker/compose/out/docker-compose.dev.yml) to match your level of access. (accesibilities are described in the table below)
 
 <br>
 
@@ -55,7 +55,7 @@ The following scripts will get you started with a running stack:
 | registry 🔹         | Hosts Docker images                             | :5000      | -/-                 |
 
 Services with a 🔹 denote that they're open source.<br>
-More secrets may be required for production deployments. See [docker-compose.prod.yml](/docker/compose/out/docker-compose.prod.out.yml).
+More secrets may be required for production deployments. See [docker-compose.prod.yml](/docker/compose/out/docker-compose.prod.yml).
 
 <br>
 
