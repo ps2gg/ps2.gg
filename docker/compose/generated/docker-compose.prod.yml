@@ -24,6 +24,7 @@ services:
     
     secrets:
       - notifications_db_pass
+      - rabbitmq_pass
     
 
   notifications_db:
@@ -31,11 +32,14 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - notifications_db:/var/lib/postgresql/data
-    
+      - notifications_db_prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: notifications
+      POSTGRES_PASSWORD_FILE: /run/secrets/notifications_db_pass
     
     secrets:
       - notifications_db_pass
+      - rabbitmq_pass
 
 
   overlay:
@@ -68,6 +72,7 @@ services:
     
     secrets:
       - population_db_pass
+      - rabbitmq_pass
     
 
   population_db:
@@ -75,11 +80,14 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - population_db:/var/lib/postgresql/data
-    
+      - population_db_prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: population
+      POSTGRES_PASSWORD_FILE: /run/secrets/population_db_pass
     
     secrets:
       - population_db_pass
+      - rabbitmq_pass
 
 
   users:
@@ -98,6 +106,7 @@ services:
     
     secrets:
       - users_db_pass
+      - rabbitmq_pass
     
 
   users_db:
@@ -105,11 +114,14 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - users_db:/var/lib/postgresql/data
-    
+      - users_db_prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: users
+      POSTGRES_PASSWORD_FILE: /run/secrets/users_db_pass
     
     secrets:
       - users_db_pass
+      - rabbitmq_pass
 
 
 secrets:
@@ -120,3 +132,11 @@ secrets:
       external: true
     users_db_pass:
       external: true
+volumes:
+  census_db_prod:
+  notifications_db_prod:
+  overlay_db_prod:
+  peepo_db_prod:
+  population_db_prod:
+  users_db_prod:
+  

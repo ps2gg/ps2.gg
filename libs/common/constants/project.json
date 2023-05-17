@@ -5,25 +5,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/libs/common/constants",
         "main": "libs/common/constants/src/index.ts",
         "tsConfig": "libs/common/constants/tsconfig.lib.json",
-        "assets": ["libs/common/constants/*.md"]
+        "assets": [
+          "libs/common/constants/*.md"
+        ]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/common/constants/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/common/constants/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common/constants"],
+      "outputs": [
+        "coverage/libs/common/constants"
+      ],
       "options": {
         "jestConfig": "libs/common/constants/jest.config.ts",
         "passWithNoTests": true

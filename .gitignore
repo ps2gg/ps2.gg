@@ -45,3 +45,5 @@ Thumbs.db
 
 # Logs
 *.log
+
+docker/secrets.txt

@@ -1,12 +1,12 @@
 import request from 'axios'
 
 export class CensusQuery {
-  private _collectionName: string
+  private _collectionName = ''
   private _awaitingCollection = true
   private _awaitingCondition = false
   private _isFirstParam = true
   baseUrl = `http://census.daybreakgames.com/s:ps2gg/get/ps2:v2/`
-  composedUrl: string
+  composedUrl = ''
 
   constructor(baseUrl?: string) {
     if (baseUrl) this.baseUrl = baseUrl
@@ -100,6 +100,7 @@ export class CensusQuery {
         isFirst = false
       }
 
+      // @ts-ignore
       joinString += `${key}:${this._createJoinString(args[key])}`
     }
 
@@ -171,6 +172,7 @@ export class CensusQuery {
   }
 
   // Some query params can take one or several arguments
+  // @ts-ignore
   private _createParamString(obj): string {
     if (typeof obj === 'string') return obj
     else if (obj.constructor === Array) return obj.join(',')
@@ -179,6 +181,7 @@ export class CensusQuery {
   }
 
   // Some join arg values can have multiple values
+  // @ts-ignore
   private _createJoinString(obj): string {
     if (typeof obj === 'string') return obj
     else if (obj.constructor === Array) return obj.join("'")

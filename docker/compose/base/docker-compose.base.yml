@@ -26,6 +26,3 @@ networks:
 volumes:
   rabbitmq:
   redis:
-  notifications_db:
-  users_db:
-  population_db:

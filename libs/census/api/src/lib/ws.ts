@@ -11,7 +11,7 @@ class CensusWs {
   private _useFallback = false
   private _socket: any
   private _client: any
-  private _lastMessageAt: Date
+  private _lastMessageAt = new Date(0)
   private _wsUrl = 'wss://push.nanite-systems.net/streaming?environment=ps2&service-id=s:ps2gg'
   private _wsFallbackUrl = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:ps2gg'
 
@@ -43,7 +43,7 @@ class CensusWs {
     }
   }
 
-  private async _createClient(urlOverride): Promise<any> {
+  private async _createClient(urlOverride: string | undefined): Promise<any> {
     if (this._state === 'connecting') return
     this._state = 'connecting'
     this._useFallback = !!urlOverride
@@ -57,18 +57,18 @@ class CensusWs {
     return new Promise((resolve) => this._setClientListeners(c, url, resolve))
   }
 
-  private _setClientListeners(c, url, resolve) {
-    c.on('connect', (s) => this._onConnect(url, c, s, resolve))
-    c.on('connectFailed', async (err) => this._onConnectFailed(err))
+  private _setClientListeners(c: any, url: string, resolve: any) {
+    c.on('connect', (s: any) => this._onConnect(url, c, s, resolve))
+    c.on('connectFailed', async (err: Error) => this._onConnectFailed(err))
   }
 
-  private _setSocketListeners(c, s, resolve) {
+  private _setSocketListeners(c: any, s: any, resolve: any) {
     s.on('message', async (message: { utf8Data: string }) => this._onMessage(message, c, s, resolve))
-    s.on('close', async (err) => this._onClose(err))
-    s.on('error', async (err) => this._onError(err))
+    s.on('close', async (err: Error) => this._onClose(err))
+    s.on('error', async (err: Error) => this._onError(err))
   }
 
-  private _onConnect(url, c, s, resolve) {
+  private _onConnect(url: string, c: any, s: any, resolve: any) {
     logger.info({ url }, 'Connected')
 
     this._state = 'open'
@@ -81,27 +81,27 @@ class CensusWs {
     this._setSocketListeners(c, s, resolve)
   }
 
-  private _onConnectFailed(err) {
+  private _onConnectFailed(err: Error) {
     logger.error(err)
     this._state = 'closed'
     // Fall back to official API if nanite systems is down
     this._init(this._wsFallbackUrl)
   }
 
-  private _onMessage(message: { utf8Data: string }, c, s, resolve) {
+  private _onMessage(message: { utf8Data: string }, c: any, s: any, resolve: any) {
     resolve({ c, s })
     this._state = 'open'
     if (this._useFallback) this._lastMessageAt = new Date()
     this._publish(JSON.parse(message.utf8Data))
   }
 
-  private _onClose(err) {
+  private _onClose(err: Error) {
     logger.error(err)
     this._state = 'closed'
     this._init()
   }
 
-  private _onError(err) {
+  private _onError(err: Error) {
     logger.error(err)
     this._state = 'closed'
     this._socket.close()
@@ -125,13 +125,13 @@ class CensusWs {
     }
   }
 
-  private _publish(data) {
+  private _publish(data: any) {
     for (const fn of this._fns) {
       fn(data)
     }
   }
 
-  private _sendWs(s, data) {
+  private _sendWs(s: any, data: any) {
     s.send(JSON.stringify(data))
   }
 

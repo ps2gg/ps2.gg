@@ -22,7 +22,7 @@ services:
       start_period: 60s
       retries: 5
     environment:
-      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/development"
+      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
     
     volumes:
@@ -33,7 +33,7 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - notifications_db:/var/lib/postgresql/data
+      - notifications_db_dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -69,7 +69,7 @@ services:
       start_period: 60s
       retries: 5
     environment:
-      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/development"
+      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
     
     volumes:
@@ -80,7 +80,7 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - population_db:/var/lib/postgresql/data
+      - population_db_dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -100,7 +100,7 @@ services:
       start_period: 60s
       retries: 5
     environment:
-      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/development"
+      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
     
     volumes:
@@ -111,9 +111,18 @@ services:
     networks:
       - ps2gg_internal
     volumes:
-      - users_db:/var/lib/postgresql/data
+      - users_db_dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     
 
+
+volumes:
+  census_db_dev:
+  notifications_db_dev:
+  overlay_db_dev:
+  peepo_db_dev:
+  population_db_dev:
+  users_db_dev:
+  

@@ -7,11 +7,3 @@ services:
 secrets:
   discord_token_peepo:
     external: true
-  notifications_db_pass:
-    external: true
-  users_db_pass:
-    external: true
-  population_db_pass:
-    external: true
-  rabbitmq_pass:
-    external: true

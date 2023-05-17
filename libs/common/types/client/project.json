@@ -6,24 +6,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/libs/common/types/client",
         "main": "libs/common/types/client/src/index.ts",
         "tsConfig": "libs/common/types/client/tsconfig.lib.json",
-        "assets": ["libs/common/types/client/*.md"]
+        "assets": [
+          "libs/common/types/client/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/common/types/client/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/common/types/client/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common/types/client"],
+      "outputs": [
+        "coverage/libs/common/types/client"
+      ],
       "options": {
         "jestConfig": "libs/common/types/client/jest.config.ts",
         "passWithNoTests": true

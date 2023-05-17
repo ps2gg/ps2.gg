@@ -1,12 +1,12 @@
 import pino, { Logger } from 'pino'
 
-const production = process.env.NODE_ENV === 'production'
+const production = process.env['NODE_ENV'] === 'production'
 
 export function createLogger(context?: string): Logger {
   return pino(getLoggerOptions(context))
 }
 
-function getLoggerOptions(service) {
+function getLoggerOptions(service?: string) {
   return {
     name: service,
     level: production ? 'info' : 'debug',

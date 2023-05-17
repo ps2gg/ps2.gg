@@ -11,6 +11,7 @@ export async function getAssistXpEvents(): Promise<CensusAssistXpEvents> {
   const parsed = {}
 
   for (const assist of filtered) {
+    // @ts-ignore
     parsed[assist.experience_id] = assist.description
   }
   logger.info(parsed, 'Retrieved assist events')
@@ -18,7 +19,8 @@ export async function getAssistXpEvents(): Promise<CensusAssistXpEvents> {
   return parsed
 }
 
-function filterExperienceEvents({ description }) {
+function filterExperienceEvents(experience: ExperienceEvent) {
+  const { description } = experience
   const killAssistStrings = ['Kill Player Assist', 'Kill Player Priority Assist', 'Kill Player High Priority Assist', 'Kill Assist - ']
   // 1v1 detection will still work without this, but we save some throughput
   const killAssistExcludeStrings = ['- Engi Turret', '- Phalanx', '- Drop Pod', '- R Drone']
@@ -27,8 +29,15 @@ function filterExperienceEvents({ description }) {
     if (killAssistExcludeStrings.find((s) => description.includes(s))) continue
     if (description.includes(string)) return true
   }
+
+  return false
 }
 
 export type CensusAssistXpEvents = {
   [id: string]: string
+}
+
+type ExperienceEvent = {
+  experience_id: string
+  description: string
 }

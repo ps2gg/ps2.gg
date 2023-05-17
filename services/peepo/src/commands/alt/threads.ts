@@ -1,7 +1,7 @@
 import { emojis } from '@ps2gg/discord/constants'
 import { Message } from 'discord.js'
 
-const prod = process.env.NODE_ENV === 'production'
+const prod = process.env['NODE_ENV'] === 'production'
 const general = '<#716155535594094663>'
 
 export async function removeNoneThreadedMessage(message: Message<boolean>): Promise<void> {

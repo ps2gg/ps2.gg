@@ -13,7 +13,6 @@ docker network create --driver overlay --attachable ps2gg_external
 # Cleanup
 echo "Cleaning up unused containers..."
 docker rm $(docker ps -a -q)
-clear
 
 # Generate config
 cd docker/compose

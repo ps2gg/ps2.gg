@@ -5,24 +5,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/libs/notifications/client",
         "main": "libs/notifications/client/src/index.ts",
         "tsConfig": "libs/notifications/client/tsconfig.lib.json",
-        "assets": ["libs/notifications/client/*.md"]
+        "assets": [
+          "libs/notifications/client/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/census/types/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/census/types/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/census/types"],
+      "outputs": [
+        "coverage/libs/census/types"
+      ],
       "options": {
         "jestConfig": "libs/census/types/jest.config.ts",
         "passWithNoTests": true

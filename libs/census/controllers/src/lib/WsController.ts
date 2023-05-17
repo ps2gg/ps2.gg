@@ -57,9 +57,13 @@ export class WsController {
     if (payload.event_name === 'Death') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
+      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
+      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onDeath(timestamp, server, continent, winner, loser, loadout, vehicle)
@@ -75,9 +79,13 @@ export class WsController {
     if (payload.event_name === 'VehicleDestroy') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
+      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
+      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onVehicleDestroy(timestamp, server, continent, winner, loser, loadout, vehicle)
@@ -105,7 +113,9 @@ export class WsController {
     if (!payload) return
 
     if (payload.event_name === 'ContinentLock') {
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
 
       this.onContinentLock(server, continent)
@@ -149,7 +159,7 @@ export class WsController {
     character_id: any
     vehicle_id: any
     character_loadout_id: any
-  }) {
+  }): WinnerLoser {
     return {
       winner: {
         character_id: payload.attacker_character_id,
@@ -163,4 +173,9 @@ export class WsController {
       },
     }
   }
+}
+
+type WinnerLoser = {
+  winner: PlayerLoadout
+  loser: PlayerLoadout
 }

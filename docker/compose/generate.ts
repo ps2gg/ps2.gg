@@ -34,11 +34,11 @@ function getServices(): Service[] {
 
 function getServiceType(path: string) {
   const project = require(`../../${path}/project.json`)
-  const isNestApp = project.targets["build-migration"] // only nest apps have this
+  const isNestApp = project.targets['build-migration'] // only nest apps have this
   return isNestApp ? 'nest' : 'general'
 }
 
-function generateCompose(services: Service[], env: string ): string {
+function generateCompose(services: Service[], env: string): string {
   let compose = `version: \'3.4\'
   
 services:`
@@ -48,10 +48,15 @@ services:`
   }
 
   if (env === 'prod') {
-      compose += `
+    compose += `
 secrets:
     ${getAllSecrets()}`
   }
+
+  compose += `
+volumes:
+  ${services.map((service) => `${service.name}_db_${env}:`).join('\n  ')}
+  `
 
   return compose
 }
@@ -62,7 +67,7 @@ function generateService(service: Service, env: string) {
       return generateNestService(service, env)
     default:
       return generateGeneralService(service, env)
-  } 
+  }
 }
 
 function generateNestService(service: Service, env: string) {
@@ -80,7 +85,7 @@ function generateNestService(service: Service, env: string) {
     image: postgres:15.2-alpine
     ${networks(['internal'])}
     volumes:
-      - ${service.name}_db:/var/lib/postgresql/data
+      - ${service.name}_db_${env}:/var/lib/postgresql/data
     ${environment('postgres', env, service.name)}
     ${secrets('nest', env, service.name, false)}\n
 `

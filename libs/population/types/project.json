@@ -6,24 +6,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/libs/population/types",
         "main": "libs/population/types/src/index.ts",
         "tsConfig": "libs/population/types/tsconfig.lib.json",
-        "assets": ["libs/population/types/*.md"]
+        "assets": [
+          "libs/population/types/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/population/types/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/population/types/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/population/types"],
+      "outputs": [
+        "coverage/libs/population/types"
+      ],
       "options": {
         "jestConfig": "libs/population/types/jest.config.ts",
         "passWithNoTests": true
