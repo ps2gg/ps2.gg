@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/population",
         "main": "services/population/src/main.ts",
@@ -25,14 +27,16 @@
       },
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "inspect": false
         }
       }
     },
     "build-worker": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/population",
         "main": "services/population/src/worker.ts",
@@ -59,7 +63,10 @@
     "deploy": {
       "executor": "@ps2gg/nest:deploy",
       "options": {
-        "images": ["nasons-api", "nasons-worker"]
+        "images": [
+          "nasons-api",
+          "nasons-worker"
+        ]
       }
     },
     "typeorm": {
@@ -87,14 +94,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["services/population/**/*.ts"]
+        "lintFilePatterns": [
+          "services/population/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/services/population"],
+      "outputs": [
+        "coverage/services/population"
+      ],
       "options": {
         "jestConfig": "services/population/jest.config.ts",
         "passWithNoTests": true

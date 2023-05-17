@@ -13,6 +13,7 @@ export async function getBases(): Promise<Bases> {
     const { map_region_id, facility_name } = base
 
     if (!facility_name) continue
+    // @ts-ignore
     parsed[map_region_id] = facility_name
   }
   logger.info(parsed, 'Retrieved bases')

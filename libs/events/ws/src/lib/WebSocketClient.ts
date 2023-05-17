@@ -1,6 +1,6 @@
 import { createLogger } from '@ps2gg/common/logging'
 import { client } from 'websocket'
-import { EventRequest, EventSubscription } from './EventTypes'
+import { EventRequest } from './EventTypes'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 

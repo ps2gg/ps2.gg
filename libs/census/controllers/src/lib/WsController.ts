@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { censusWs } from '@ps2gg/census/api'
 import { CensusWsEvent, Heartbeat, PlayerLoadout } from '@ps2gg/census/types'
 import { continents, infantry, servers, vehicles } from '@ps2gg/common/constants'
@@ -15,7 +16,7 @@ export class WsController {
     this._registerEventListeners(eventTypes)
   }
 
-  private _registerEventListeners(eventTypes): void {
+  private _registerEventListeners(eventTypes: string | string[]): void {
     if (eventTypes.includes('Heartbeat')) censusWs.use((data) => this._onHeartbeat(data))
     if (eventTypes.includes('PlayerLogin')) censusWs.use((data) => this._onLogin(data))
     if (eventTypes.includes('PlayerLogout')) censusWs.use((data) => this._onLogout(data))
@@ -29,6 +30,7 @@ export class WsController {
   onHeartbeat(heartbeat: Heartbeat): void {}
   private _onHeartbeat(data: CensusWsEvent): void {
     if (data.type === 'heartbeat') {
+      // @ts-ignore
       this.onHeartbeat(data.online)
     }
   }
@@ -55,9 +57,13 @@ export class WsController {
     if (payload.event_name === 'Death') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
+      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
+      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onDeath(timestamp, server, continent, winner, loser, loadout, vehicle)
@@ -73,9 +79,13 @@ export class WsController {
     if (payload.event_name === 'VehicleDestroy') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
+      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
+      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onVehicleDestroy(timestamp, server, continent, winner, loser, loadout, vehicle)
@@ -103,7 +113,9 @@ export class WsController {
     if (!payload) return
 
     if (payload.event_name === 'ContinentLock') {
+      // @ts-ignore
       const server = servers[payload.world_id]
+      // @ts-ignore
       const continent = continents[payload.zone_id]
 
       this.onContinentLock(server, continent)
@@ -140,7 +152,14 @@ export class WsController {
     }
   }
 
-  private _getWinnerLoser(payload) {
+  private _getWinnerLoser(payload: {
+    attacker_character_id: any
+    attacker_vehicle_id: any
+    attacker_loadout_id: any
+    character_id: any
+    vehicle_id: any
+    character_loadout_id: any
+  }): WinnerLoser {
     return {
       winner: {
         character_id: payload.attacker_character_id,
@@ -154,4 +173,9 @@ export class WsController {
       },
     }
   }
+}
+
+type WinnerLoser = {
+  winner: PlayerLoadout
+  loser: PlayerLoadout
 }

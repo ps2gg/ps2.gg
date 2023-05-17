@@ -6,24 +6,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/libs/census/controllers",
         "main": "libs/census/controllers/src/index.ts",
         "tsConfig": "libs/census/controllers/tsconfig.lib.json",
-        "assets": ["libs/census/controllers/*.md"]
+        "assets": [
+          "libs/census/controllers/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/census/controllers/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/census/controllers/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/census/controllers"],
+      "outputs": [
+        "coverage/libs/census/controllers"
+      ],
       "options": {
         "jestConfig": "libs/census/controllers/jest.config.ts",
         "passWithNoTests": true

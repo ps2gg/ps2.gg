@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  #
+  # Inter-service communication
+  #
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+  #
+  # Other services are generated through generate.ts
+  #

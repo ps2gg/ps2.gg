@@ -11,18 +11,14 @@ git submodule update --recursive --remote --init
 # Remove previous builds
 rm -rf dist
 
-# node_modules
+# Build services
 if [ "$1" = 'dev' ]; then
-  yarn
+  bun install
 else
-  yarn
-  yarn nx build peepo --prod
-  yarn nx build census --prod
-  yarn nx build nasons --prod
-  yarn nx build speedruns --prod
-  yarn nx build notifications --prod
-  yarn nx build subscriptions --prod
-  yarn nx build users --prod
+  bun install
+  for dir in ./services/*/; do
+    bun nx build $(basename "$dir") --prod
+  done
 fi
 
 clear
@@ -33,7 +29,7 @@ docker service create -d \
   --name registry \
   -p 5000:5000 \
   --mount type=volume,source=registry,destination=/var/lib/registry,volume-driver=local \
-  registry:latest
+  registry:latest &2> /dev/null
 
 # Build to local registry
 docker build . \

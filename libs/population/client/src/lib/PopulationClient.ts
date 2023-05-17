@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { HttpClient } from '@ps2gg/common/http'
 import { Population } from '@ps2gg/population/types'
 

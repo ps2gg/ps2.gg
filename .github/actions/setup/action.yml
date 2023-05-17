@@ -1,0 +1,21 @@
+name: 'Setup'
+description: 'Sets up a Javascript environment'
+
+runs:
+  using: 'composite'
+  steps:
+  - uses: oven-sh/setup-bun@v1
+  - uses: actions/cache@v3
+    with:
+      path: node_modules
+      key: ${{ runner.os }}-node_modules-${{ hashFiles('bun.lockb') }}
+      restore-keys: |
+        ${{ runner.os }}-node_modules-${{ hashFiles('bun.lockb') }}
+  - uses: actions/cache@v3
+    with:
+      path: node_modules/.cache/nx
+      key: ${{ runner.os }}-cache-nx-${{ hashFiles('bun.lockb') }}
+      restore-keys: |
+        ${{ runner.os }}-cache-nx-${{ hashFiles('bun.lockb') }}
+  - shell: bash
+    run: bun install

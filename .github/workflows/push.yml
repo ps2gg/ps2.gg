@@ -1,0 +1,26 @@
+name: Push
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all branches for nx base comparison
+          submodules: recursive
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - uses: ./.github/actions/setup
+      - run: bun nx affected:lint --base=origin/master --parallel=12
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all branches for nx base comparison
+          submodules: recursive
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - uses: ./.github/actions/setup
+      - run: bun nx affected:test --base=origin/master --parallel=12
