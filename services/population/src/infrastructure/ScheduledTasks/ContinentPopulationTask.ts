@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { Cron } from '@nestjs/schedule'
 import { getContinentPopulation } from '@ps2gg/census/collections'
-import { ServerId } from '@ps2gg/census/types'
 import { continents, servers } from '@ps2gg/common/constants'
 import { SetPopulation } from '../../application/Command/SetPopulation'
 
@@ -23,8 +22,11 @@ export class ContinentPopulationTask {
 
       for (const continentId of Object.keys(continents)) {
         const { population } = server.zones.all.find((p) => p.id === parseInt(continentId))
-        const scope: string = continents[continentId]
-        await this._commandBus.execute(new SetPopulation(serverId as ServerId, scope, population.tr, population.nc, population.vs))
+        const scope = `${continents[continentId]}.${servers[serverId]}`
+        const { tr, nc, vs } = population
+        const populationSum = tr + nc + vs
+        const resetReceivedState = populationSum === 0
+        await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
       }
     }
   }

@@ -14,8 +14,8 @@ export const Notify: CommandConfig = {
     },
     {
       type: 'string',
-      name: 'scope',
-      description: 'Categories ▸ c: continent, f: facility',
+      name: 'event',
+      description: 'Which event should trigger a notification',
       required: true,
       autocomplete: true,
     },
@@ -24,5 +24,5 @@ export const Notify: CommandConfig = {
 
 export type NotifyOptions = {
   server: string
-  scope: string
+  event: string
 }

@@ -10,7 +10,7 @@
 
 ## Microservices and how they communicate
 
-### RabbitMQ
+### Event Propagation
 
 ### WebSockets
 

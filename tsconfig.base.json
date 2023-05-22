@@ -32,19 +32,20 @@
       "@ps2gg/discord/controllers": ["libs/discord/controllers/src/index.ts"],
       "@ps2gg/discord/logging": ["libs/discord/logging/src/index.ts"],
       "@ps2gg/discord/util": ["libs/discord/util/src/index.ts"],
+      "@ps2gg/events/subscriptions": ["libs/events/subscriptions/src/index.ts"],
+      "@ps2gg/events/types": ["libs/events/types/src/index.ts"],
       "@ps2gg/events/ws": ["libs/events/ws/src/index.ts"],
-      "@ps2gg/notifications/client": ["libs/notifications/client/src/index.ts"],
       "@ps2gg/notifications/types": ["libs/notifications/types/src/index.ts"],
-      "@ps2gg/players-api": ["libs/players/api/src/index.ts"],
-      "@ps2gg/population/client": ["libs/population/client/src/index.ts"],
-      "@ps2gg/population/types": ["libs/population/types/src/index.ts"],
-      "@ps2gg/users/client": ["libs/users/client/src/index.ts"],
-      "@ps2gg/users/types": ["libs/users/types/src/index.ts"],
       "@ps2gg/nx/jest": ["libs/nx/jest/src/index.ts"],
       "@ps2gg/nx/nest": ["libs/nx/nest/src/index.ts"],
       "@ps2gg/nx/nest-app": ["libs/nx/nest-app/src/index.ts"],
       "@ps2gg/nx/nest-domain-events": ["libs/nx/nest-domain-events/src/index.ts"],
-      "@ps2gg/nx/nest-microservice-rabbitmq": ["libs/nx/nest-microservice-rabbitmq/src/index.ts"]
+      "@ps2gg/nx/nest-microservice-rabbitmq": ["libs/nx/nest-microservice-rabbitmq/src/index.ts"],
+      "@ps2gg/players-api": ["libs/players/api/src/index.ts"],
+      "@ps2gg/population/client": ["libs/population/client/src/index.ts"],
+      "@ps2gg/population/types": ["libs/population/types/src/index.ts"],
+      "@ps2gg/users/client": ["libs/users/client/src/index.ts"],
+      "@ps2gg/users/types": ["libs/users/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "**/Migrations"]

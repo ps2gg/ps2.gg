@@ -9,7 +9,7 @@ export class SpeedrunController extends WsController {
     super(['Death'])
   }
 
-  onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {
+  override onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {
     logger.info(`Kill | Winner: ${winner.character_id} | Loser: ${loser.character_id}`)
   }
 }

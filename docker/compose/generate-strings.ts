@@ -25,7 +25,7 @@ export function environment(type: string, env: string, name: string) {
 
   if (type === 'nest' && env === 'dev') {
     config += `
-      POSTGRES_DSN: "postgresql://postgres:postgres@notifications_db/postgres"
+      POSTGRES_DSN: "postgresql://postgres:postgres@${name}_db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"`
   } else if (type === 'postgres' && env === 'dev') {
     config += `

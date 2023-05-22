@@ -1,3 +1,4 @@
+import { SubscriptionEntity } from '@ps2gg/events/subscriptions'
 import { getProdPostgresDSN } from '@ps2gg/nx/nest-app'
 import { DataSource } from 'typeorm'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
@@ -15,7 +16,7 @@ const prod = existsSync('/run/secrets/population_db_pass')
 export const options: PostgresConnectionOptions = {
   type: 'postgres',
   url: prod ? getProdPostgresDSN('population', readFileSync) : (process.env['POSTGRES_DSN'] as string),
-  entities: [`${__dirname}/../../domain/Entity/*.{ts,js}`],
+  entities: [`${__dirname}/../../domain/Entity/*.{ts,js}`, SubscriptionEntity],
   entityPrefix: '',
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),

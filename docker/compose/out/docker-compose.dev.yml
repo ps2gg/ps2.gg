@@ -14,39 +14,6 @@ services:
       ps2gg_internal: null
     volumes:
     - /opt/ps2gg/ps2.gg:/app:rw
-  notifications:
-    entrypoint: sh /app/docker/entrypoint.dev.sh notifications
-    environment:
-      EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/postgres
-    healthcheck:
-      interval: 10s
-      retries: 5
-      start_period: 1m
-      test: curl -f localhost:3000/healthz
-      timeout: 5s
-    image: 127.0.0.1:5000/ps2gg:dev
-    networks:
-      ps2gg_external: null
-      ps2gg_internal: null
-    volumes:
-    - /opt/ps2gg/ps2.gg:/app:rw
-  notifications_db:
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-    image: postgres:15.2-alpine
-    networks:
-      ps2gg_internal: null
-    volumes:
-    - notifications_db_dev:/var/lib/postgresql/data:rw
-  overlay:
-    entrypoint: sh /app/docker/entrypoint.dev.sh overlay
-    image: 127.0.0.1:5000/ps2gg:dev
-    networks:
-      ps2gg_internal: null
-    volumes:
-    - /opt/ps2gg/ps2.gg:/app:rw
   peepo:
     entrypoint: sh /app/docker/entrypoint.dev.sh peepo
     image: 127.0.0.1:5000/ps2gg:dev
@@ -60,7 +27,7 @@ services:
     entrypoint: sh /app/docker/entrypoint.dev.sh population
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/postgres
+      POSTGRES_DSN: postgresql://postgres:postgres@population_db/postgres
     healthcheck:
       interval: 10s
       retries: 5
@@ -101,7 +68,7 @@ services:
     entrypoint: sh /app/docker/entrypoint.dev.sh users
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@notifications_db/postgres
+      POSTGRES_DSN: postgresql://postgres:postgres@users_db/postgres
     healthcheck:
       interval: 10s
       retries: 5
@@ -126,8 +93,6 @@ services:
 version: '3.4'
 volumes:
   census_db_dev: {}
-  notifications_db_dev: {}
-  overlay_db_dev: {}
   peepo_db_dev: {}
   population_db_dev: {}
   rabbitmq: {}

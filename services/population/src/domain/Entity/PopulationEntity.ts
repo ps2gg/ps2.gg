@@ -1,15 +1,17 @@
 import { AggregateRoot } from '@nestjs/cqrs'
-import { ServerId } from '@ps2gg/census/types'
+import { Subscribable } from '@ps2gg/events/subscriptions'
+import { SubscribableEntity } from '@ps2gg/events/types'
 import { Population } from '@ps2gg/population/types'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity()
-export class PopulationEntity extends AggregateRoot implements Population {
-  @PrimaryColumn('text')
-  readonly serverId: ServerId
-
+@Subscribable()
+export class PopulationEntity extends AggregateRoot implements Population, SubscribableEntity {
   @PrimaryColumn('text')
   readonly scope: string
+
+  @Column('boolean', { nullable: true })
+  readonly resetReceivedState: boolean
 
   @Column('int', { nullable: false })
   readonly tr: number
@@ -20,12 +22,15 @@ export class PopulationEntity extends AggregateRoot implements Population {
   @Column('int', { nullable: false })
   readonly vs: number
 
-  constructor(server: ServerId, scope: string, tr: number, nc: number, vs: number) {
+  constructor(population: Population) {
     super()
-    this.serverId = server
+    if (!population) return
+    const { scope, tr, nc, vs } = population
     this.scope = scope
     this.tr = tr
     this.nc = nc
     this.vs = vs
+    // @ts-ignore
+    console.log(this.__isSubscribable)
   }
 }

@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { ServerId } from '@ps2gg/census/types'
 import { Population } from '@ps2gg/population/types'
 import { SetPopulation } from '../../application/Command/SetPopulation'
 import { GetPopulation } from '../../application/Query/GetPopulation'
@@ -11,12 +10,11 @@ export class PopulationController {
 
   @Post('/')
   async save(@Body() population: Population): Promise<Population> {
-    return this._commandBus.execute(new SetPopulation(population.serverId, population.scope, population.tr, population.nc, population.vs))
+    return this._commandBus.execute(new SetPopulation(population))
   }
 
   @Get('/')
-  async get(@Query('serverId') serverId: ServerId, @Query('scope') scope: string): Promise<Population> {
-    return this._queryBus.execute(new GetPopulation(serverId, scope))
+  async get(@Query('scope') scope: string): Promise<Population> {
+    return this._queryBus.execute(new GetPopulation(scope))
   }
 }
-
