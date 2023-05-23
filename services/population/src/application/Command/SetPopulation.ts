@@ -1,6 +1,22 @@
-import { ServerId } from '@ps2gg/census/types'
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
+import { createLogger } from '@ps2gg/common/logging'
 import { Population } from '@ps2gg/population/types'
+import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
+import { PopulationRepository } from '../../infrastructure/TypeOrm/Repository/PopulationRepository'
 
-export class SetPopulation implements Population {
-  constructor(public serverId: ServerId, public scope: string, public tr: number, public nc: number, public vs: number) {}
+const logger = createLogger()
+
+export class SetPopulation {
+  constructor(readonly population: Population) {}
+}
+
+@CommandHandler(SetPopulation)
+export class SetPopulationHandler implements ICommandHandler<SetPopulation, PopulationEntity> {
+  constructor(private _repository: PopulationRepository) {}
+
+  async execute(command: SetPopulation): Promise<PopulationEntity> {
+    logger.info(command, 'Setting population')
+
+    return this._repository.save(command.population)
+  }
 }

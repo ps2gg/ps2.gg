@@ -1,2 +1,3 @@
 **/*.spec.ts
 **/Migrations
+**/jest.config.ts

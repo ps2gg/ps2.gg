@@ -1,12 +1,12 @@
 [submodule "services/users"]
-path = services/users
-url = https://github.com/ps2gg/ps2.gg-users
-[submodule "services/notifications"]
-path = services/notifications
-url = https://github.com/ps2gg/ps2.gg-notifications
+	path = services/users
+	url = https://github.com/ps2gg/ps2.gg-users
 [submodule "libs/nx"]
-path = libs/nx
-url = https://github.com/ps2gg/ps2.gg-nx
+	path = libs/nx
+	url = https://github.com/ps2gg/ps2.gg-nx
 [submodule "libs/discord"]
-path = libs/discord
-url = https://github.com/ps2gg/ps2.gg-discord
+	path = libs/discord
+	url = https://github.com/ps2gg/ps2.gg-discord
+[submodule "libs/events/subscriptions"]
+	path = libs/events/subscriptions
+	url = https://github.com/ps2gg/ps2.gg-events-subscriptions

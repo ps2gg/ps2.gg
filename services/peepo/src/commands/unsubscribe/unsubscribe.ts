@@ -1,11 +1,10 @@
 import { ServerId } from '@ps2gg/census/types'
 import { servers } from '@ps2gg/common/constants'
-import { getServerId } from '@ps2gg/common/util'
-import { NotificationsClient } from '@ps2gg/notifications/client'
+import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
 import { sanitizeScope, scopes } from '../../util/scopes'
 
-const subscriptions = new NotificationsClient()
+const population = new PopulationClient()
 
 /**
  * TODO: Let notification API handle these with a simple "all" request
@@ -21,28 +20,32 @@ export async function unsubscribe(user: User, scope: string, server: string): Pr
 }
 
 async function unsubscribeFromAllServers(user: User, scope: string) {
-  for (const serverId of Object.keys(servers)) {
+  for (const server of Object.values(servers)) {
     if (scope === 'All') {
-      unsubscribeFromAllScopes(user, serverId as ServerId)
+      unsubscribeFromAllScopes(user, server)
     } else {
-      await subscriptions.removePopulationSubscription(user.id, sanitizeScope(scope), serverId as ServerId)
+      await population.removeSubscription(user.id, getCompositeScope(scope, server))
     }
   }
 }
 
-async function unsubscribeFromSingleServer(user: User, scope: string, server: ServerId) {
-  const serverId = getServerId(server)
-
+async function unsubscribeFromSingleServer(user: User, scope: string, server: string) {
   if (scope === 'All') {
-    await unsubscribeFromAllScopes(user, serverId)
+    await unsubscribeFromAllScopes(user, server)
   } else {
-    await subscriptions.removePopulationSubscription(user.id, sanitizeScope(scope), serverId)
+    await population.removeSubscription(user.id, getCompositeScope(scope, server))
   }
 }
 
-async function unsubscribeFromAllScopes(user: User, serverId: ServerId) {
+async function unsubscribeFromAllScopes(user: User, server: string) {
   for (const s of scopes) {
     const scope = sanitizeScope(s)
-    await subscriptions.removePopulationSubscription(user.id, sanitizeScope(scope), serverId)
+    await population.removeSubscription(user.id, getCompositeScope(scope, server))
   }
+}
+
+function getCompositeScope(scope: string, server: string): string {
+  scope = sanitizeScope(scope)
+
+  return `${scope}.${server}`
 }

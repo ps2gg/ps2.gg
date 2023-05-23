@@ -1,4 +1,5 @@
 import { DynamicModule, Global, Module } from '@nestjs/common'
+import { EventModule } from '@ps2gg/events/subscriptions'
 import { defaultPinoHttpOptions } from '@ps2gg/nx/nest-app'
 import { DomainEventsModule } from '@ps2gg/nx/nest-domain-events'
 import { LoggerModule } from 'nestjs-pino'
@@ -41,7 +42,7 @@ export class InfrastructureModule {
   static forApi(): DynamicModule {
     return {
       module: InfrastructureModule,
-      imports: [HttpControllerModule],
+      imports: [HttpControllerModule, InfrastructureModule, EventModule.forApi()],
     }
   }
 

@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
+    "test": "nx run-many --parallel=12 --target=test --all",
     "lint": "nx run-many --parallel=12 --target=lint --all --fix"
   },
   "private": true,
@@ -66,7 +66,6 @@
     "@nrwl/jest": "14.8.6",
     "@nrwl/nest": "14.8.6",
     "@nrwl/node": "14.8.6",
-    "@nrwl/react": "14.8.6",
     "@nrwl/tao": "14.8.6",
     "@nrwl/web": "14.8.6",
     "@nrwl/workspace": "14.8.6",

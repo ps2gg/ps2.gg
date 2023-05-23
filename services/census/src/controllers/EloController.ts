@@ -13,11 +13,19 @@ export class EloController extends WsController {
 
   async onGainExperience(experience_id: string, timestamp: Date, character_id: string, other_id: string): Promise<void> {}
 
-  onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {
+  override onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {
     // logger.info(`Player Death ${loser.character_id}`)
   }
 
-  onVehicleDestroy(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {
+  override onVehicleDestroy(
+    timestamp: Date,
+    server: string,
+    continent: string,
+    winner: PlayerLoadout,
+    loser: PlayerLoadout,
+    loadout: string,
+    vehicle: string
+  ): void {
     // console.log(winner, loser, loadout, vehicle)
     // logger.info(`Vehicle Destroy`)
   }

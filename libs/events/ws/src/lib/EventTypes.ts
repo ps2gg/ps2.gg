@@ -1,4 +1,4 @@
-import { Subscription } from '@ps2gg/notifications/types'
+import { DynamicSubscription } from '@ps2gg/events/types'
 
 export type EventSubscription = {
   events: string[]
@@ -11,7 +11,7 @@ export type EventAction = {
 
 export type EventResponse = {
   event: string
-  data: any & { subscription: Subscription }
+  data: any & { subscription: DynamicSubscription }
 }
 
 export type EventRequest = {

@@ -1,12 +1,13 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { EventRequest, EventResponse, EventSubscription, WebSocketClient } from '@ps2gg/events/ws'
 
-export class NotificationsWebSocketClient extends WebSocketClient {
+export class EventClient extends WebSocketClient {
   private _subscriptions: EventRequest[] = []
   private _events: { event: string; fn: (...params: any[]) => any }[] = []
 
-  constructor(private _userId: string, _url = 'ws://notifications:3001/v1') {
-    super(_url)
+  constructor(private _userId: string, service: string) {
+    const url = `ws://${service}:3001/v1/events`
+    super(url)
     this.onMessage((message: EventResponse) => this._handleEvent(message))
   }
 
@@ -53,7 +54,7 @@ export class NotificationsWebSocketClient extends WebSocketClient {
     const subscriptionId = message.data?.subscription?.subscriptionId
 
     if (!subscriptionId) return
-    this._logger.debug({ subscriptionId }, 'Notification acknowledged')
+    this._logger.debug({ subscriptionId }, 'Event acknowledged')
     this.send({ event: 'notified', data: { subscriptionId } })
   }
 

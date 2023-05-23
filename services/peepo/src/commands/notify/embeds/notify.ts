@@ -1,15 +1,54 @@
+import { getServerTimezone } from '@ps2gg/common/util'
 import { EmbedColors } from '@ps2gg/discord/constants'
+import { code } from '@ps2gg/discord/util'
 import { Population } from '@ps2gg/population/types'
 import { APIEmbed } from 'discord.js'
 
-export function getNotifyEmbed(server: string, scope: string, population: Population, type: string): APIEmbed {
+export function getNotifyEmbed(server: string, event: string, population: Population, type: string): APIEmbed {
   const { tr, vs, nc } = population
-  const source = type === 'f:' ? 'Falcon (census.lithafalcon.cc)' : 'Pomf (saerro.ps2.live)'
+  const source = type === 'Fight' ? 'Falcon (census.lithafalcon.cc)' : 'Pomf (saerro.ps2.live)'
   return {
-    title: `You are now subscribed to ${scope} Farm on ${server}!`,
+    title: `Notifications are underway!`,
     color: EmbedColors.Success,
+    fields: [
+      {
+        name: 'Server',
+        value: code(server),
+        inline: true,
+      },
+      {
+        name: 'Event',
+        value: code(event),
+        inline: true,
+      },
+      {
+        name: 'Between',
+        value: code(`16PM - 2AM ${getServerTimezone(server)}`),
+        inline: true,
+      },
+      {
+        name: 'Min. TR',
+        value: code('12 Players'),
+        inline: true,
+      },
+      {
+        name: 'Min. NC',
+        value: code('12 Players'),
+        inline: true,
+      },
+      {
+        name: 'Min. VS',
+        value: code('12 Players'),
+        inline: true,
+      },
+
+      {
+        name: 'Current Population',
+        value: code(`${tr}TR · ${nc}NC · ${vs}VS`),
+      },
+    ],
     footer: {
-      text: `Minimum Players: 12\nCurrent Population: ${tr}TR · ${nc}NC · ${vs}VS\nPopulation data kindly provided by ${source}`,
+      text: `Population data kindly provided by ${source}`,
     },
   }
 }

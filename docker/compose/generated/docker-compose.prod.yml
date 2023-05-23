@@ -8,47 +8,6 @@ services:
       - ps2gg_internal
     
 
-  notifications:
-    image: 127.0.0.1:5000/ps2gg:prod
-    entrypoint: "sh /app/docker/entrypoint.prod.sh notifications"
-    networks:
-      - ps2gg_internal
-      - ps2gg_external
-    healthcheck:
-      test: 'curl -f localhost:3000/healthz'
-      timeout: 5s
-      interval: 10s
-      start_period: 60s
-      retries: 5
-    
-    
-    secrets:
-      - notifications_db_pass
-      - rabbitmq_pass
-    
-
-  notifications_db:
-    image: postgres:15.2-alpine
-    networks:
-      - ps2gg_internal
-    volumes:
-      - notifications_db_prod:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: notifications
-      POSTGRES_PASSWORD_FILE: /run/secrets/notifications_db_pass
-    
-    secrets:
-      - notifications_db_pass
-      - rabbitmq_pass
-
-
-  overlay:
-    image: 127.0.0.1:5000/ps2gg:prod
-    entrypoint: "sh /app/docker/entrypoint.prod.sh overlay"
-    networks:
-      - ps2gg_internal
-    
-
   peepo:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh peepo"
@@ -126,16 +85,12 @@ services:
 
 secrets:
     
-    notifications_db_pass:
-      external: true
     population_db_pass:
       external: true
     users_db_pass:
       external: true
 volumes:
   census_db_prod:
-  notifications_db_prod:
-  overlay_db_prod:
   peepo_db_prod:
   population_db_prod:
   users_db_prod:

@@ -9,4 +9,4 @@ fi
 ~/.bun/bin/bun nx run $1:typeorm-migration --name $1_dev >/dev/null 2>&1
 ~/.bun/bin/bun nx run $1:typeorm schema:sync
 
-~/.bun/bin/bun nx serve $1
+yarn nx serve $1

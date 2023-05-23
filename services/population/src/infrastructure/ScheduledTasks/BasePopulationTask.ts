@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { Cron } from '@nestjs/schedule'
 import { getBasePopulation, getBases } from '@ps2gg/census/collections'
-import { ServerId } from '@ps2gg/census/types'
 import { servers } from '@ps2gg/common/constants'
 import { SetPopulation } from '../../application/Command/SetPopulation'
 
@@ -27,10 +26,13 @@ export class BasePopulationTask {
 
         if (!base) continue
         const population = base.faction_population_upper_bound
+        const scope = `${bases[baseId].replace("'", '')}.${servers[serverId]}`
         const tr = parseInt(population.TR)
         const nc = parseInt(population.NC)
         const vs = parseInt(population.VS)
-        await this._commandBus.execute(new SetPopulation(serverId as ServerId, bases[baseId], tr, nc, vs))
+        const populationSum = tr + nc + vs
+        const resetReceivedState = populationSum === 0
+        await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
       }
     }
   }

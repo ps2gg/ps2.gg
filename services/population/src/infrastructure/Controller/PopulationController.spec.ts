@@ -4,7 +4,6 @@ import { PopulationController } from './PopulationController';
 import { SetPopulation } from '../../application/Command/SetPopulation';
 import { GetPopulation } from '../../application/Query/GetPopulation';
 import { Population } from '@ps2gg/population/types';
-import { ServerId } from '@ps2gg/census/types';
 
 describe('PopulationController', () => {
   let controller: PopulationController;
@@ -38,11 +37,11 @@ describe('PopulationController', () => {
   describe('save', () => {
     it('should return the saved population', async () => {
       const population: Population = {
-        serverId: '13' as ServerId,
-        scope: 'zone',
+        scope: 'zone.Emerald',
         tr: 100,
         nc: 200,
         vs: 300,
+        resetReceivedState: false,
       };
       const expectedOutput = population;
 
@@ -51,28 +50,27 @@ describe('PopulationController', () => {
       const result = await controller.save(population);
 
       expect(result).toEqual(expectedOutput);
-      expect(commandBus.execute).toHaveBeenCalledWith(new SetPopulation(population.serverId, population.scope, population.tr, population.nc, population.vs));
+      expect(commandBus.execute).toHaveBeenCalledWith(new SetPopulation(population));
     });
   });
 
   describe('get', () => {
-    it('should return the population for the given serverId and scope', async () => {
-      const serverId: ServerId = '13';
-      const scope = 'zone';
+    it('should return the population for the given server and scope', async () => {
+      const scope = 'zone.Emerald';
       const expectedOutput: Population = {
-        serverId,
         scope,
         tr: 100,
         nc: 200,
         vs: 300,
+        resetReceivedState: false,
       };
 
       jest.spyOn(queryBus, 'execute').mockResolvedValueOnce(expectedOutput);
 
-      const result = await controller.get(serverId, scope);
+      const result = await controller.get(scope);
 
       expect(result).toEqual(expectedOutput);
-      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(serverId, scope));
+      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(scope));
     });
   });
 });
