@@ -24,7 +24,6 @@ export function getServerTimezone(server: string): string {
 
 export function getOffsetAdjustedTimeOfDay(time: number, timezone: string): number {
   const utcOffsetMs = getUTCOffsetMs(timezone)
-  console.log(utcOffsetMs)
   const timeOfDayMs = time % (24 * 60 * 60 * 1000)
   const offsetTimeOfDayMs = (timeOfDayMs - utcOffsetMs) % (24 * 60 * 60 * 1000)
   return offsetTimeOfDayMs >= 0 ? offsetTimeOfDayMs : offsetTimeOfDayMs + 24 * 60 * 60 * 1000

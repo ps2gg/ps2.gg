@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
+    "test": "nx run-many --parallel=12 --target=test --all",
     "lint": "nx run-many --parallel=12 --target=lint --all --fix"
   },
   "private": true,

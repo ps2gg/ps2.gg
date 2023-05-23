@@ -23,7 +23,6 @@
     "events-subscriptions": "libs/events/subscriptions",
     "events-types": "libs/events/types",
     "events-ws": "libs/events/ws",
-    "notifications-types": "libs/notifications/types",
     "nx-jest": "libs/nx/jest",
     "nx-nest": "libs/nx/nest",
     "nx-nest-app": "libs/nx/nest-app",
