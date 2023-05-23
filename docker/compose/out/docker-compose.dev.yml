@@ -13,16 +13,16 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   peepo:
     entrypoint: sh /app/docker/entrypoint.dev.sh peepo
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg-internal: null
     secrets:
-      - source: discord_token_peepo
+    - source: discord_token_peepo
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   population:
     entrypoint: sh /app/docker/entrypoint.dev.sh population
     environment:
@@ -39,7 +39,7 @@ services:
       ps2gg-external: null
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   population-db:
     environment:
       POSTGRES_PASSWORD: postgres
@@ -48,7 +48,7 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - population-db-dev:/var/lib/postgresql/data:rw
+    - population-db-dev:/var/lib/postgresql/data:rw
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_PASS: rabbitmq
@@ -57,13 +57,13 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - rabbitmq:/var/lib/rabbitmq:rw
+    - rabbitmq:/var/lib/rabbitmq:rw
   redis:
     image: redis:4.0-alpine
     networks:
       ps2gg-internal: null
     volumes:
-      - redis:/data:rw
+    - redis:/data:rw
   users:
     entrypoint: sh /app/docker/entrypoint.dev.sh users
     environment:
@@ -80,7 +80,7 @@ services:
       ps2gg-external: null
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - /opt/ps2gg/ps2.gg:/app:rw
   users-db:
     environment:
       POSTGRES_PASSWORD: postgres
@@ -89,12 +89,13 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - users-db-dev:/var/lib/postgresql/data:rw
+    - users-db-dev:/var/lib/postgresql/data:rw
 version: '3.4'
 volumes:
-  census_db_dev: {}
-  peepo_db_dev: {}
+  census-db-dev: {}
+  peepo-db-dev: {}
   population-db-dev: {}
   rabbitmq: {}
   redis: {}
   users-db-dev: {}
+
