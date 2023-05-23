@@ -3,14 +3,14 @@ services:
   rabbitmq:
     image: rabbitmq:3.8-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
       - rabbitmq:/var/lib/rabbitmq
 
   redis:
     image: redis:4.0-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
       - redis:/data
   #
@@ -18,9 +18,9 @@ services:
   #
 
 networks:
-  ps2gg_internal:
+  ps2gg-internal:
     external: true
-  ps2gg_external:
+  ps2gg-external:
     external: true
 
 volumes:

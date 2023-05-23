@@ -43,11 +43,11 @@ The following scripts will get you started with a running stack:
 | census 🔹           | Internally relays Census data                   | -/-        | -/-                 |
 | peepo 🔹            | Big Peepo Discord bot                           | -/-        | discord_token_peepo |
 | population 🔹       | Real-time population data                       | :3000      | -/-                 |
-| population_db 🔹    | Postgres                                        | :5672      | -/-                 |
+| population-db 🔹    | Postgres                                        | :5672      | -/-                 |
 | notifications       | Allows users to subscribe to internal events    | :3000/3001 | -/-                 |
 | notifications_db 🔹 | Postgres                                        | :5672      | -/-                 |
 | users               | Verifies and links users on different platforms | :3000      | -/-                 |
-| users_db 🔹         | Postgres                                        | :5672      | -/-                 |
+| users-db 🔹         | Postgres                                        | :5672      | -/-                 |
 | alts                | Matches alt characters                          | :3000/3030 | -/-                 |
 | alts_db 🔹          | Mongodb                                         | :27017     | -/-                 |
 | redis 🔹            | Caches expensive operations                     | :6379      | -/-                 |

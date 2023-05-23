@@ -6,10 +6,10 @@ services:
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_USER: rabbitmq
-      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq_pass
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq-pass
     secrets:
-      - rabbitmq_pass
+      - rabbitmq-pass
 
 secrets:
-  rabbitmq_pass:
+  rabbitmq-pass:
     external: true

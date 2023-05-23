@@ -13,7 +13,7 @@ export function networks(networks: string[]) {
 
   for (const network of networks) {
     config += `
-      - ps2gg_${network}`
+      - ps2gg-${network}`
   }
 
   return config
@@ -25,7 +25,7 @@ export function environment(type: string, env: string, name: string) {
 
   if (type === 'nest' && env === 'dev') {
     config += `
-      POSTGRES_DSN: "postgresql://postgres:postgres@${name}_db/postgres"
+      POSTGRES_DSN: "postgresql://postgres:postgres@${name}-db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"`
   } else if (type === 'postgres' && env === 'dev') {
     config += `
@@ -34,7 +34,7 @@ export function environment(type: string, env: string, name: string) {
   } else if (type === 'postgres' && env === 'prod') {
     config += `
       POSTGRES_USER: ${name}
-      POSTGRES_PASSWORD_FILE: /run/secrets/${name}_db_pass`
+      POSTGRES_PASSWORD_FILE: /run/secrets/${name}-db-pass`
   }
 
   return config
@@ -51,11 +51,11 @@ export function secrets(type: string, env: string, name: string, add = true) {
   if (env === 'dev' || type !== 'nest') return ''
   if (add)
     allSecrets += `
-    ${name}_db_pass:
+    ${name}-db-pass:
       external: true`
 
   return `
     secrets:
-      - ${name}_db_pass
-      - rabbitmq_pass`
+      - ${name}-db-pass
+      - rabbitmq-pass`
 }
