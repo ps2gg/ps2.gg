@@ -55,7 +55,7 @@ secrets:
 
   compose += `
 volumes:
-  ${services.map((service) => `${service.name}_db_${env}:`).join('\n  ')}
+  ${services.map((service) => `${service.name}-db-${env}:`).join('\n  ')}
   `
 
   return compose
@@ -81,11 +81,11 @@ function generateNestService(service: Service, env: string) {
     ${secrets('nest', env, service.name)}
     ${volumes(env)}
 
-  ${service.name}_db:
+  ${service.name}-db:
     image: postgres:15.2-alpine
     ${networks(['internal'])}
     volumes:
-      - ${service.name}_db_${env}:/var/lib/postgresql/data
+      - ${service.name}-db-${env}:/var/lib/postgresql/data
     ${environment('postgres', env, service.name)}
     ${secrets('nest', env, service.name, false)}\n
 `

@@ -1,25 +1,25 @@
 networks:
-  ps2gg_external:
+  ps2gg-external:
     external: true
-  ps2gg_internal:
+  ps2gg-internal:
     external: true
 secrets:
   discord_token_peepo:
     external: true
   notifications_db_pass:
     external: true
-  population_db_pass:
+  population-db-pass:
     external: true
-  rabbitmq_pass:
+  rabbitmq-pass:
     external: true
-  users_db_pass:
+  users-db-pass:
     external: true
 services:
   census:
     entrypoint: sh /app/docker/entrypoint.prod.sh census
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
   notifications:
     entrypoint: sh /app/docker/entrypoint.prod.sh notifications
     healthcheck:
@@ -30,35 +30,35 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_external: null
-      ps2gg_internal: null
+      ps2gg-external: null
+      ps2gg-internal: null
     secrets:
-    - source: notifications_db_pass
-    - source: rabbitmq_pass
+      - source: notifications_db_pass
+      - source: rabbitmq-pass
   notifications_db:
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/notifications_db_pass
       POSTGRES_USER: notifications
     image: postgres:15.2-alpine
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     secrets:
-    - source: notifications_db_pass
-    - source: rabbitmq_pass
+      - source: notifications_db_pass
+      - source: rabbitmq-pass
     volumes:
-    - notifications_db_prod:/var/lib/postgresql/data:rw
+      - notifications_db_prod:/var/lib/postgresql/data:rw
   overlay:
     entrypoint: sh /app/docker/entrypoint.prod.sh overlay
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
   peepo:
     entrypoint: sh /app/docker/entrypoint.prod.sh peepo
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     secrets:
-    - source: discord_token_peepo
+      - source: discord_token_peepo
   population:
     entrypoint: sh /app/docker/entrypoint.prod.sh population
     healthcheck:
@@ -69,40 +69,40 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_external: null
-      ps2gg_internal: null
+      ps2gg-external: null
+      ps2gg-internal: null
     secrets:
-    - source: population_db_pass
-    - source: rabbitmq_pass
-  population_db:
+      - source: population-db-pass
+      - source: rabbitmq-pass
+  population-db:
     environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/population_db_pass
+      POSTGRES_PASSWORD_FILE: /run/secrets/population-db-pass
       POSTGRES_USER: population
     image: postgres:15.2-alpine
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     secrets:
-    - source: population_db_pass
-    - source: rabbitmq_pass
+      - source: population-db-pass
+      - source: rabbitmq-pass
     volumes:
-    - population_db_prod:/var/lib/postgresql/data:rw
+      - population-db-prod:/var/lib/postgresql/data:rw
   rabbitmq:
     environment:
-      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq_pass
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq-pass
       RABBITMQ_DEFAULT_USER: rabbitmq
     image: rabbitmq:3.8-alpine
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     secrets:
-    - source: rabbitmq_pass
+      - source: rabbitmq-pass
     volumes:
-    - rabbitmq:/var/lib/rabbitmq:rw
+      - rabbitmq:/var/lib/rabbitmq:rw
   redis:
     image: redis:4.0-alpine
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     volumes:
-    - redis:/data:rw
+      - redis:/data:rw
   users:
     entrypoint: sh /app/docker/entrypoint.prod.sh users
     healthcheck:
@@ -113,31 +113,30 @@ services:
       timeout: 5s
     image: 127.0.0.1:5000/ps2gg:prod
     networks:
-      ps2gg_external: null
-      ps2gg_internal: null
+      ps2gg-external: null
+      ps2gg-internal: null
     secrets:
-    - source: rabbitmq_pass
-    - source: users_db_pass
-  users_db:
+      - source: rabbitmq-pass
+      - source: users-db-pass
+  users-db:
     environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/users_db_pass
+      POSTGRES_PASSWORD_FILE: /run/secrets/users-db-pass
       POSTGRES_USER: users
     image: postgres:15.2-alpine
     networks:
-      ps2gg_internal: null
+      ps2gg-internal: null
     secrets:
-    - source: rabbitmq_pass
-    - source: users_db_pass
+      - source: rabbitmq-pass
+      - source: users-db-pass
     volumes:
-    - users_db_prod:/var/lib/postgresql/data:rw
+      - users-db-prod:/var/lib/postgresql/data:rw
 version: '3.4'
 volumes:
   census_db_prod: {}
   notifications_db_prod: {}
   overlay_db_prod: {}
   peepo_db_prod: {}
-  population_db_prod: {}
+  population-db-prod: {}
   rabbitmq: {}
   redis: {}
-  users_db_prod: {}
-
+  users-db-prod: {}

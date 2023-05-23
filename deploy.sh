@@ -7,8 +7,8 @@ fi
 
 # Custom overlay network to connect new and legacy stack
 echo "Setting up overlay network"
-docker network create --driver overlay --attachable ps2gg_internal
-docker network create --driver overlay --attachable ps2gg_external
+docker network create --driver overlay --attachable ps2gg-internal
+docker network create --driver overlay --attachable ps2gg-external
 
 # Cleanup
 echo "Cleaning up unused containers..."

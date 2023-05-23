@@ -1,97 +1,88 @@
 version: '3.4'
-  
+
 services:
   census:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh census"
     networks:
-      - ps2gg_internal
-    
+      - ps2gg-internal
 
   peepo:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh peepo"
     networks:
-      - ps2gg_internal
-    
+      - ps2gg-internal
 
   population:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh population"
     networks:
-      - ps2gg_internal
-      - ps2gg_external
+      - ps2gg-internal
+      - ps2gg-external
     healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
       interval: 10s
       start_period: 60s
       retries: 5
-    
-    
-    secrets:
-      - population_db_pass
-      - rabbitmq_pass
-    
 
-  population_db:
+    secrets:
+      - population-db-pass
+      - rabbitmq-pass
+
+  population-db:
     image: postgres:15.2-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
-      - population_db_prod:/var/lib/postgresql/data
+      - population-db-prod:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: population
-      POSTGRES_PASSWORD_FILE: /run/secrets/population_db_pass
-    
-    secrets:
-      - population_db_pass
-      - rabbitmq_pass
+      POSTGRES_PASSWORD_FILE: /run/secrets/population-db-pass
 
+    secrets:
+      - population-db-pass
+      - rabbitmq-pass
 
   users:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh users"
     networks:
-      - ps2gg_internal
-      - ps2gg_external
+      - ps2gg-internal
+      - ps2gg-external
     healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
       interval: 10s
       start_period: 60s
       retries: 5
-    
-    
-    secrets:
-      - users_db_pass
-      - rabbitmq_pass
-    
 
-  users_db:
+    secrets:
+      - users-db-pass
+      - rabbitmq-pass
+
+  users-db:
     image: postgres:15.2-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
-      - users_db_prod:/var/lib/postgresql/data
+      - users-db-prod:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: users
-      POSTGRES_PASSWORD_FILE: /run/secrets/users_db_pass
-    
-    secrets:
-      - users_db_pass
-      - rabbitmq_pass
+      POSTGRES_PASSWORD_FILE: /run/secrets/users-db-pass
 
+    secrets:
+      - users-db-pass
+      - rabbitmq-pass
 
 secrets:
-    
-    population_db_pass:
-      external: true
-    users_db_pass:
-      external: true
+
+  population-db-pass:
+    external: true
+  users-db-pass:
+    external: true
 volumes:
-  census_db_prod:
-  peepo_db_prod:
-  population_db_prod:
-  users_db_prod:
-  
+  census-db-prod:
+  peepo-db-prod:
+  population-db-prod:
+  users-db-prod:

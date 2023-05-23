@@ -1,11 +1,11 @@
 version: '3.4'
-  
+
 services:
   census:
     image: 127.0.0.1:5000/ps2gg:dev
     entrypoint: "sh /app/docker/entrypoint.dev.sh census"
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
       - ../../../:/app
 
@@ -13,7 +13,7 @@ services:
     image: 127.0.0.1:5000/ps2gg:dev
     entrypoint: "sh /app/docker/entrypoint.dev.sh peepo"
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
       - ../../../:/app
 
@@ -21,8 +21,8 @@ services:
     image: 127.0.0.1:5000/ps2gg:dev
     entrypoint: "sh /app/docker/entrypoint.dev.sh population"
     networks:
-      - ps2gg_internal
-      - ps2gg_external
+      - ps2gg-internal
+      - ps2gg-external
     healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
@@ -30,30 +30,28 @@ services:
       start_period: 60s
       retries: 5
     environment:
-      POSTGRES_DSN: "postgresql://postgres:postgres@population_db/postgres"
+      POSTGRES_DSN: "postgresql://postgres:postgres@population-db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
-    
+
     volumes:
       - ../../../:/app
 
-  population_db:
+  population-db:
     image: postgres:15.2-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
-      - population_db_dev:/var/lib/postgresql/data
+      - population-db-dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    
-
 
   users:
     image: 127.0.0.1:5000/ps2gg:dev
     entrypoint: "sh /app/docker/entrypoint.dev.sh users"
     networks:
-      - ps2gg_internal
-      - ps2gg_external
+      - ps2gg-internal
+      - ps2gg-external
     healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
@@ -61,27 +59,24 @@ services:
       start_period: 60s
       retries: 5
     environment:
-      POSTGRES_DSN: "postgresql://postgres:postgres@users_db/postgres"
+      POSTGRES_DSN: "postgresql://postgres:postgres@users-db/postgres"
       EVENT_STREAM_DSN: "amqp://rabbitmq:rabbitmq@rabbitmq:5672"
-    
+
     volumes:
       - ../../../:/app
 
-  users_db:
+  users-db:
     image: postgres:15.2-alpine
     networks:
-      - ps2gg_internal
+      - ps2gg-internal
     volumes:
-      - users_db_dev:/var/lib/postgresql/data
+      - users-db-dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    
-
 
 volumes:
-  census_db_dev:
-  peepo_db_dev:
-  population_db_dev:
-  users_db_dev:
-  
+  census-db-dev:
+  peepo-db-dev:
+  population-db-dev:
+  users-db-dev:

@@ -10,12 +10,12 @@ import { InfrastructureModule } from './infrastructure/InfrastructureModule'
  * misnaming of entities through minimization.
  * So instead, we check for the production state by the presence of the database secrets.
  */
-const prod = existsSync('/run/secrets/population_db_pass')
+const prod = existsSync('/run/secrets/population-db-pass')
 
 async function bootstrap() {
   const app = await setupMicroserviceApp(
     InfrastructureModule.forWorker(),
-    prod ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq_pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
+    prod ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq-pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
     `${environment.env}_app_population`,
     [],
     environment.env
