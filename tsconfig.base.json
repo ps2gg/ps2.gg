@@ -36,6 +36,8 @@
       "@ps2gg/events/subscriptions": ["libs/events/subscriptions/src/index.ts"],
       "@ps2gg/events/types": ["libs/events/types/src/index.ts"],
       "@ps2gg/events/ws": ["libs/events/ws/src/index.ts"],
+      "@ps2gg/friends/client": ["libs/friends/client/src/index.ts"],
+      "@ps2gg/friends/types": ["libs/friends/types/src/index.ts"],
       "@ps2gg/nx/jest": ["libs/nx/jest/src/index.ts"],
       "@ps2gg/nx/nest": ["libs/nx/nest/src/index.ts"],
       "@ps2gg/nx/nest-app": ["libs/nx/nest-app/src/index.ts"],
