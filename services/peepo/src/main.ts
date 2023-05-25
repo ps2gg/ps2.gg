@@ -7,6 +7,7 @@ import { AltCommand } from './commands/alt/command'
 import { redirectLegacyAltSpy } from './commands/alt/redirect'
 import { removeNoneThreadedMessage } from './commands/alt/threads'
 import { NotifyCommand } from './commands/notify/command'
+import { SetupCommand } from './commands/setup/command'
 import { UnsubscribeCommand } from './commands/unsubscribe/command'
 import { PopulationEvent } from './events/population/event'
 
@@ -17,7 +18,7 @@ const discord = setupDiscordClient({
   id: '715535257939607602',
   token: readFileSync('/run/secrets/discord_token_peepo', 'utf-8'),
   activity: 'Sees all',
-  commands: [new AltCommand(), new NotifyCommand(), new UnsubscribeCommand()],
+  commands: [new AltCommand(), new NotifyCommand(), new UnsubscribeCommand(), new SetupCommand()],
   events: [new PopulationEvent()],
 })
 

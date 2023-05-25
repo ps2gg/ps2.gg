@@ -22,7 +22,7 @@ export function getNotifyEmbed(server: string, event: string, population: Popula
       },
       {
         name: 'Min. Population',
-        value: code('12 TR · 12 NC · 12 VS'),
+        value: code('12TR · 12NC · 12VS'),
         inline: true,
       },
       {
