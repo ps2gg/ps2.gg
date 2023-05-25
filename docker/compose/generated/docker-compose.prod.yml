@@ -1,17 +1,19 @@
 version: '3.4'
-
+  
 services:
   census:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh census"
     networks:
       - ps2gg-internal
+    
 
   peepo:
     image: 127.0.0.1:5000/ps2gg:prod
     entrypoint: "sh /app/docker/entrypoint.prod.sh peepo"
     networks:
       - ps2gg-internal
+    
 
   population:
     image: 127.0.0.1:5000/ps2gg:prod
@@ -25,10 +27,12 @@ services:
       interval: 10s
       start_period: 60s
       retries: 5
-
+    
+    
     secrets:
       - population-db-pass
       - rabbitmq-pass
+    
 
   population-db:
     image: postgres:15.2-alpine
@@ -39,10 +43,11 @@ services:
     environment:
       POSTGRES_USER: population
       POSTGRES_PASSWORD_FILE: /run/secrets/population-db-pass
-
+    
     secrets:
       - population-db-pass
       - rabbitmq-pass
+
 
   users:
     image: 127.0.0.1:5000/ps2gg:prod
@@ -56,10 +61,12 @@ services:
       interval: 10s
       start_period: 60s
       retries: 5
-
+    
+    
     secrets:
       - users-db-pass
       - rabbitmq-pass
+    
 
   users-db:
     image: postgres:15.2-alpine
@@ -70,19 +77,21 @@ services:
     environment:
       POSTGRES_USER: users
       POSTGRES_PASSWORD_FILE: /run/secrets/users-db-pass
-
+    
     secrets:
       - users-db-pass
       - rabbitmq-pass
 
-secrets:
 
-  population-db-pass:
-    external: true
-  users-db-pass:
-    external: true
+secrets:
+    
+    population-db-pass:
+      external: true
+    users-db-pass:
+      external: true
 volumes:
   census-db-prod:
   peepo-db-prod:
   population-db-prod:
   users-db-prod:
+  

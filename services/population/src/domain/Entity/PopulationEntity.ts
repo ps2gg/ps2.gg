@@ -30,7 +30,5 @@ export class PopulationEntity extends AggregateRoot implements Population, Subsc
     this.tr = tr
     this.nc = nc
     this.vs = vs
-    // @ts-ignore
-    console.log(this.__isSubscribable)
   }
 }
