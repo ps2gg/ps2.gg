@@ -1,11 +1,11 @@
 import { Global, Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { ExampleController } from './ExampleController'
+import { FriendsController } from './FriendsController'
 import { HealthcheckController } from './HealthcheckController'
 
 @Global()
 @Module({
-  controllers: [HealthcheckController, ExampleController],
+  controllers: [HealthcheckController, FriendsController],
   imports: [CqrsModule],
 })
 export class HttpControllerModule {}

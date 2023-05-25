@@ -1,45 +1,99 @@
-networks:
-  ps2gg-external:
-    external: true
-  ps2gg-internal:
-    external: true
-secrets:
-  discord_token_peepo:
-    external: true
+name: base
 services:
   census:
-    entrypoint: sh /app/docker/entrypoint.dev.sh census
+    entrypoint:
+    - sh
+    - /app/docker/entrypoint.dev.sh
+    - census
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
-  peepo:
-    entrypoint: sh /app/docker/entrypoint.dev.sh peepo
-    image: 127.0.0.1:5000/ps2gg:dev
-    networks:
-      ps2gg-internal: null
-    secrets:
-      - source: discord_token_peepo
-    volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
-  population:
-    entrypoint: sh /app/docker/entrypoint.dev.sh population
+    - type: bind
+      source: /home/tobi/repos/ps2.gg
+      target: /app
+      bind:
+        create_host_path: true
+  friends:
+    entrypoint:
+    - sh
+    - /app/docker/entrypoint.dev.sh
+    - friends
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
-      POSTGRES_DSN: postgresql://postgres:postgres@population-db/postgres
+      POSTGRES_DSN: postgresql://postgres:postgres@friends-db/postgres
     healthcheck:
+      test:
+      - CMD-SHELL
+      - curl -f localhost:3000/healthz
+      timeout: 5s
       interval: 10s
       retries: 5
-      start_period: 1m
-      test: curl -f localhost:3000/healthz
-      timeout: 5s
+      start_period: 1m0s
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg-external: null
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - type: bind
+      source: /home/tobi/repos/ps2.gg
+      target: /app
+      bind:
+        create_host_path: true
+  friends-db:
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg-internal: null
+    volumes:
+    - type: volume
+      source: friends-db-dev
+      target: /var/lib/postgresql/data
+      volume: {}
+  peepo:
+    entrypoint:
+    - sh
+    - /app/docker/entrypoint.dev.sh
+    - peepo
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg-internal: null
+    secrets:
+    - source: discord_token_peepo
+    volumes:
+    - type: bind
+      source: /home/tobi/repos/ps2.gg
+      target: /app
+      bind:
+        create_host_path: true
+  population:
+    entrypoint:
+    - sh
+    - /app/docker/entrypoint.dev.sh
+    - population
+    environment:
+      EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
+      POSTGRES_DSN: postgresql://postgres:postgres@population-db/postgres
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl -f localhost:3000/healthz
+      timeout: 5s
+      interval: 10s
+      retries: 5
+      start_period: 1m0s
+    image: 127.0.0.1:5000/ps2gg:dev
+    networks:
+      ps2gg-external: null
+      ps2gg-internal: null
+    volumes:
+    - type: bind
+      source: /home/tobi/repos/ps2.gg
+      target: /app
+      bind:
+        create_host_path: true
   population-db:
     environment:
       POSTGRES_PASSWORD: postgres
@@ -48,7 +102,10 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - population-db-dev:/var/lib/postgresql/data:rw
+    - type: volume
+      source: population-db-dev
+      target: /var/lib/postgresql/data
+      volume: {}
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_PASS: rabbitmq
@@ -57,30 +114,45 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - rabbitmq:/var/lib/rabbitmq:rw
+    - type: volume
+      source: rabbitmq
+      target: /var/lib/rabbitmq
+      volume: {}
   redis:
     image: redis:4.0-alpine
     networks:
       ps2gg-internal: null
     volumes:
-      - redis:/data:rw
+    - type: volume
+      source: redis
+      target: /data
+      volume: {}
   users:
-    entrypoint: sh /app/docker/entrypoint.dev.sh users
+    entrypoint:
+    - sh
+    - /app/docker/entrypoint.dev.sh
+    - users
     environment:
       EVENT_STREAM_DSN: amqp://rabbitmq:rabbitmq@rabbitmq:5672
       POSTGRES_DSN: postgresql://postgres:postgres@users-db/postgres
     healthcheck:
+      test:
+      - CMD-SHELL
+      - curl -f localhost:3000/healthz
+      timeout: 5s
       interval: 10s
       retries: 5
-      start_period: 1m
-      test: curl -f localhost:3000/healthz
-      timeout: 5s
+      start_period: 1m0s
     image: 127.0.0.1:5000/ps2gg:dev
     networks:
       ps2gg-external: null
       ps2gg-internal: null
     volumes:
-      - /opt/ps2gg/ps2.gg:/app:rw
+    - type: bind
+      source: /home/tobi/repos/ps2.gg
+      target: /app
+      bind:
+        create_host_path: true
   users-db:
     environment:
       POSTGRES_PASSWORD: postgres
@@ -89,12 +161,29 @@ services:
     networks:
       ps2gg-internal: null
     volumes:
-      - users-db-dev:/var/lib/postgresql/data:rw
-version: '3.4'
+    - type: volume
+      source: users-db-dev
+      target: /var/lib/postgresql/data
+      volume: {}
+networks:
+  ps2gg-external:
+    name: ps2gg-external
+    external: true
+  ps2gg-internal:
+    name: ps2gg-internal
+    external: true
 volumes:
-  census-db-dev: {}
-  peepo-db-dev: {}
-  population-db-dev: {}
-  rabbitmq: {}
-  redis: {}
-  users-db-dev: {}
+  friends-db-dev:
+    name: base_friends-db-dev
+  population-db-dev:
+    name: base_population-db-dev
+  rabbitmq:
+    name: base_rabbitmq
+  redis:
+    name: base_redis
+  users-db-dev:
+    name: base_users-db-dev
+secrets:
+  discord_token_peepo:
+    name: discord_token_peepo
+    external: true

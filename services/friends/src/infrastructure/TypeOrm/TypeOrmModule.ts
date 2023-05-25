@@ -1,12 +1,12 @@
 import { Global, Module } from '@nestjs/common'
 import { TypeOrmModule as RootTypeOrmModule } from '@nestjs/typeorm'
-import { ExampleEntity } from '../../domain/Entity/ExampleEntity'
+import { FriendsEntity } from '../../domain/Entity/FriendsEntity'
 import { options } from './DataSource'
-import { ExampleRepository } from './Repository/ExampleRepository'
+import { FriendsRepository } from './Repository/FriendsRepository'
 
-export const Entities = [ExampleEntity]
+export const Entities = [FriendsEntity]
 
-const Repositories = [ExampleRepository]
+const Repositories = [FriendsRepository]
 
 @Global()
 @Module({

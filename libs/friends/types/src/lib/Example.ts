@@ -1,4 +1,4 @@
-export interface Example {
-  id: string
-  createdAt: Date
+export interface Friends {
+  character_id: string
+  friendIds: string[]
 }
