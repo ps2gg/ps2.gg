@@ -40,17 +40,17 @@ The following scripts will get you started with a running stack:
 
 | Name                | Description                                     | Port       | Secrets             |
 | ------------------- | ----------------------------------------------- | ---------- | ------------------- |
-| census 🔹           | Internally relays Census data                   | -/-        | -/-                 |
-| peepo 🔹            | Big Peepo Discord bot                           | -/-        | discord_token_peepo |
-| population 🔹       | Real-time population data                       | :3000      | -/-                 |
-| population-db 🔹    | Postgres                                        | :5672      | -/-                 |
-| users               | Verifies and links users on different platforms | :3000      | -/-                 |
-| users-db 🔹         | Postgres                                        | :5672      | -/-                 |
+| [census](/services/census/) 🔹           | Internally relays Census data                   | -/-        | -/-                 |
+| [peepo](/services/peepo/) 🔹            | Big Peepo Discord bot                           | -/-        | discord_token_peepo |
+| [population](/services/population/) 🔹       | Real-time population data                       | :3000      | -/-                 |
+| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-                 |
+| [users](/services/users/)               | Verifies and links users on different platforms | :3000      | -/-                 |
+| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-                 |
 | alts                | Matches alt characters                          | :3000/3030 | -/-                 |
-| alts_db 🔹          | Mongodb                                         | :27017     | -/-                 |
-| redis 🔹            | Caches expensive operations                     | :6379      | -/-                 |
-| rabbitmq 🔹         | Inter-service communication                     | :5672      | -/-                 |
-| registry 🔹         | Hosts Docker images                             | :5000      | -/-                 |
+| [alts_db](https://github.com/mongodb/mongo) 🔹          | Mongodb                                         | :27017     | -/-                 |
+| [redis](https://github.com/redis/redis) 🔹            | Caches expensive operations                     | :6379      | -/-                 |
+| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹         | Inter-service communication                     | :5672      | -/-                 |
+| [registry](https://github.com/distribution/distribution) 🔹         | Hosts Docker images                             | :5000      | -/-                 |
 
 Services with a 🔹 denote that they're open source.<br>
 More secrets may be required for production deployments. See [docker-compose.prod.yml](/docker/compose/out/docker-compose.prod.yml).
