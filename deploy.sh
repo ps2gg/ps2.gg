@@ -1,7 +1,5 @@
-clear
-
 if [ -z ${1+x} ]; then
-  echo "Please pass the environment name to this script (dev/prod)"
+  echo "Please pass the environment name to this script (dev/prod/staging)"
   exit 1
 fi
 
@@ -30,13 +28,13 @@ docker-compose \
 docker stack deploy \
   --prune \
   --compose-file "docker/compose/out/docker-compose.$1.yml" \
-  "ps2gg"
+  "ps2gg_${1}"
 
 echo "🙏 dev garanty no ban you too the circle of paffdaddy 🙏"
 
 # $2 is optional service to log
 if [ -z ${2+x} ]; then
-  docker service logs ps2gg_census -f --tail 50 | sed 's/^[^ ]*  *| //'
+  docker service logs ps2gg_${1}_census -f --tail 50 | sed 's/^[^ ]*  *| //'
 else
-  docker service logs ps2gg_$2 -f --tail 50 | sed 's/^[^ ]*  *| //'
+  docker service logs ps2gg_${1}_$2 -f --tail 50 | sed 's/^[^ ]*  *| //'
 fi

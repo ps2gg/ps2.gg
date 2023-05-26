@@ -13,9 +13,6 @@ services:
       - ps2gg-internal
     volumes:
       - redis:/data
-  #
-  # Other services are generated through generate.ts
-  #
 
 networks:
   ps2gg-internal:

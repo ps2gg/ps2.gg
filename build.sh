@@ -1,5 +1,3 @@
-clear
-
 if [ -z ${1+x} ]; then
   echo "Please pass the environment name to this script [dev|prod]"
   exit 1
@@ -20,8 +18,6 @@ else
     bun nx build $(basename "$dir") --prod
   done
 fi
-
-clear
 
 # Create private image registry on our swarm
 echo "Setting up private docker registry..."

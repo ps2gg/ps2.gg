@@ -6,6 +6,7 @@ import { entrypoint, environment, getAllSecrets, healthcheck, image, networks, s
 function main() {
   generate('dev')
   generate('prod')
+  generate('staging')
 }
 main()
 
@@ -47,7 +48,7 @@ services:`
     compose += generateService(service, env)
   }
 
-  if (env === 'prod') {
+  if (env === 'prod' || env === 'staging') {
     compose += `
 secrets:
     ${getAllSecrets()}`

@@ -19,29 +19,17 @@ export function getNotifyEmbed(server: string, event: string, population: Popula
       {
         name: 'Event',
         value: code(event),
+      },
+      {
+        name: 'Min. Population',
+        value: code('12TR · 12NC · 12VS'),
         inline: true,
       },
       {
         name: 'Between',
-        value: code(`16PM - 2AM ${getServerTimezone(server)}`),
+        value: code(`16PM-2AM ${getServerTimezone(server)}`),
         inline: true,
       },
-      {
-        name: 'Min. TR',
-        value: code('12 Players'),
-        inline: true,
-      },
-      {
-        name: 'Min. NC',
-        value: code('12 Players'),
-        inline: true,
-      },
-      {
-        name: 'Min. VS',
-        value: code('12 Players'),
-        inline: true,
-      },
-
       {
         name: 'Current Population',
         value: code(`${tr}TR · ${nc}NC · ${vs}VS`),

@@ -8,6 +8,7 @@ export function getUTCOffsetMs(timezone: string): number {
   } else if (timezone === 'JST') {
     return 1000 * 60 * 60 * 9
   }
+  throw new Error(`Unknown timezone: ${timezone}`)
 }
 
 export function getServerTimezone(server: string): string {
@@ -20,6 +21,7 @@ export function getServerTimezone(server: string): string {
   } else if (server === 'SolTech') {
     return 'JST'
   }
+  throw new Error(`Unknown server: ${server}`)
 }
 
 export function getOffsetAdjustedTimeOfDay(time: number, timezone: string): number {

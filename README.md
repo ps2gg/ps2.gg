@@ -20,9 +20,9 @@ The [/docs](/docs) folder also contains step-by-step guides to get you started i
 
 The following scripts will get you started with a running stack:
 <br>
-`bash build.sh [dev/prod]` will build the necessary files
+`bash build.sh [dev/prod/staging]` will build the necessary files
 <br>
-`bash deploy.sh [dev/prod]` will deploy the stack to Docker Swarm
+`bash deploy.sh [dev/prod/staging]` will deploy the stack to Docker Swarm
 <br>
 
 ### Requirements
@@ -32,7 +32,7 @@ The following scripts will get you started with a running stack:
 - The required docker secrets (see table below)
   <br>
 
-**Please note**: Not all services are open source, so you may need to adjust the [docker-compose.yml](/docker/compose/out/docker-compose.dev.yml) to match your level of access. (accesibilities are described in the table below)
+**Please note**: Not all services are open source, so you may need to adjust the docker-compose.yml to match your level of access. (accessibilities are described in the table below)
 
 <br>
 
@@ -41,7 +41,7 @@ The following scripts will get you started with a running stack:
 | Name                | Description                                     | Port       | Secrets             |
 | ------------------- | ----------------------------------------------- | ---------- | ------------------- |
 | [census](/services/census/) 🔹           | Internally relays Census data                   | -/-        | -/-                 |
-| [peepo](/services/peepo/) 🔹            | Big Peepo Discord bot                           | -/-        | discord_token_peepo |
+| [peepo](/services/peepo/) 🔹            | Big Peepo Discord bot                           | -/-        | discord-token-peepo |
 | [population](/services/population/) 🔹       | Real-time population data                       | :3000      | -/-                 |
 | [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-                 |
 | [users](/services/users/)               | Verifies and links users on different platforms | :3000      | -/-                 |
@@ -53,7 +53,7 @@ The following scripts will get you started with a running stack:
 | [registry](https://github.com/distribution/distribution) 🔹         | Hosts Docker images                             | :5000      | -/-                 |
 
 Services with a 🔹 denote that they're open source.<br>
-More secrets may be required for production deployments. See [docker-compose.prod.yml](/docker/compose/out/docker-compose.prod.yml).
+Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
 
 <br>
 

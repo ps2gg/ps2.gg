@@ -13,6 +13,7 @@ export class UnsubscribeCommand {
     await unsubscribe(user, scope, server)
 
     return {
+      interactionContext: [],
       embeds: [getUnsubscribeEmbed(scope === 'All' ? 'anything' : sanitizeScope(scope), server)],
       ephemeral: true,
     }

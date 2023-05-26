@@ -3,6 +3,8 @@ services:
   peepo:
     secrets:
       - peepo-token
+    environment:
+      - 'PS2GG_STAGING=true'
 
 secrets:
   peepo-token:
