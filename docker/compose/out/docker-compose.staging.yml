@@ -1,0 +1,109 @@
+networks:
+  ps2gg-external:
+    external: true
+  ps2gg-internal:
+    external: true
+secrets:
+  peepo-token:
+    external: true
+  population-db-pass:
+    external: true
+  rabbitmq-pass:
+    external: true
+  users-db-pass:
+    external: true
+services:
+  census:
+    entrypoint: sh /app/docker/entrypoint.staging.sh census
+    image: 127.0.0.1:5000/ps2gg:staging
+    networks:
+      ps2gg-internal: null
+  peepo:
+    entrypoint: sh /app/docker/entrypoint.staging.sh peepo
+    environment:
+      PS2GG_STAGING: "true"
+    image: 127.0.0.1:5000/ps2gg:staging
+    networks:
+      ps2gg-internal: null
+    secrets:
+    - source: peepo-token
+  population:
+    entrypoint: sh /app/docker/entrypoint.staging.sh population
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 1m
+      test: curl -f localhost:3000/healthz
+      timeout: 5s
+    image: 127.0.0.1:5000/ps2gg:staging
+    networks:
+      ps2gg-external: null
+      ps2gg-internal: null
+    secrets:
+    - source: population-db-pass
+    - source: rabbitmq-pass
+  population-db:
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/population-db-pass
+      POSTGRES_USER: population
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg-internal: null
+    secrets:
+    - source: population-db-pass
+    - source: rabbitmq-pass
+    volumes:
+    - population-db-staging:/var/lib/postgresql/data:rw
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq-pass
+      RABBITMQ_DEFAULT_USER: rabbitmq
+    image: rabbitmq:3.8-alpine
+    networks:
+      ps2gg-internal: null
+    secrets:
+    - source: rabbitmq-pass
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq:rw
+  redis:
+    image: redis:4.0-alpine
+    networks:
+      ps2gg-internal: null
+    volumes:
+    - redis:/data:rw
+  users:
+    entrypoint: sh /app/docker/entrypoint.staging.sh users
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 1m
+      test: curl -f localhost:3000/healthz
+      timeout: 5s
+    image: 127.0.0.1:5000/ps2gg:staging
+    networks:
+      ps2gg-external: null
+      ps2gg-internal: null
+    secrets:
+    - source: rabbitmq-pass
+    - source: users-db-pass
+  users-db:
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/users-db-pass
+      POSTGRES_USER: users
+    image: postgres:15.2-alpine
+    networks:
+      ps2gg-internal: null
+    secrets:
+    - source: rabbitmq-pass
+    - source: users-db-pass
+    volumes:
+    - users-db-staging:/var/lib/postgresql/data:rw
+version: '3.4'
+volumes:
+  census-db-staging: {}
+  peepo-db-staging: {}
+  population-db-staging: {}
+  rabbitmq: {}
+  redis: {}
+  users-db-staging: {}
+

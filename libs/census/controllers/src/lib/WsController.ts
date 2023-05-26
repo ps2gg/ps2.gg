@@ -16,6 +16,18 @@ export class WsController {
     this._registerEventListeners(eventTypes)
   }
 
+  /**
+   * These functions are to be overriden by child classes.
+   */
+  onHeartbeat(heartbeat: Heartbeat): void {}
+  onItemAdded(character_id: string, item_id: string, context: string): void {}
+  onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
+  onVehicleDestroy(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
+  onGainExperience(experience_id: string, timestamp: Date, character_id: string, other_id: string): void {}
+  onContinentLock(server: string, continent: string): void {}
+  onLogin(character_id: string, timestamp: Date): void {}
+  onLogout(character_id: string, timestamp: Date): void {}
+
   private _registerEventListeners(eventTypes: string | string[]): void {
     if (eventTypes.includes('Heartbeat')) censusWs.use((data) => this._onHeartbeat(data))
     if (eventTypes.includes('PlayerLogin')) censusWs.use((data) => this._onLogin(data))
@@ -27,7 +39,6 @@ export class WsController {
     if (eventTypes.includes('ContinentLock')) censusWs.use((data) => this._onContinentLock(data))
   }
 
-  onHeartbeat(heartbeat: Heartbeat): void {}
   private _onHeartbeat(data: CensusWsEvent): void {
     if (data.type === 'heartbeat') {
       // @ts-ignore
@@ -35,7 +46,6 @@ export class WsController {
     }
   }
 
-  onItemAdded(character_id: string, item_id: string, context: string): void {}
   private _onItemAdded(data: CensusWsEvent): void {
     const { payload } = data
 
@@ -48,7 +58,6 @@ export class WsController {
     }
   }
 
-  onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
   private _onDeath(data: CensusWsEvent): void {
     const { payload } = data
 
@@ -57,20 +66,15 @@ export class WsController {
     if (payload.event_name === 'Death') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
-      // @ts-ignore
       const server = servers[payload.world_id]
-      // @ts-ignore
       const continent = continents[payload.zone_id]
-      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
-      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onDeath(timestamp, server, continent, winner, loser, loadout, vehicle)
     }
   }
 
-  onVehicleDestroy(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
   private _onVehicleDestroy(data: CensusWsEvent) {
     const { payload } = data
 
@@ -79,20 +83,15 @@ export class WsController {
     if (payload.event_name === 'VehicleDestroy') {
       const { winner, loser } = this._getWinnerLoser(payload)
       const timestamp = new Date(parseInt(payload.timestamp) * 1000)
-      // @ts-ignore
       const server = servers[payload.world_id]
-      // @ts-ignore
       const continent = continents[payload.zone_id]
-      // @ts-ignore
       const loadout = infantry[winner.loadout_id]
-      // @ts-ignore
       const vehicle = vehicles[winner.vehicle_id]
 
       this.onVehicleDestroy(timestamp, server, continent, winner, loser, loadout, vehicle)
     }
   }
 
-  onGainExperience(experience_id: string, timestamp: Date, character_id: string, other_id: string): void {}
   private _onGainExperience(data: CensusWsEvent) {
     const { payload } = data
 
@@ -106,23 +105,19 @@ export class WsController {
     }
   }
 
-  onContinentLock(server: string, continent: string): void {}
   private _onContinentLock(data: CensusWsEvent) {
     const { payload } = data
 
     if (!payload) return
 
     if (payload.event_name === 'ContinentLock') {
-      // @ts-ignore
       const server = servers[payload.world_id]
-      // @ts-ignore
       const continent = continents[payload.zone_id]
 
       this.onContinentLock(server, continent)
     }
   }
 
-  onLogin(character_id: string, timestamp: Date): void {}
   private _onLogin(data: CensusWsEvent) {
     const { payload } = data
 
@@ -137,7 +132,6 @@ export class WsController {
     }
   }
 
-  onLogout(character_id: string, timestamp: Date): void {}
   private _onLogout(data: CensusWsEvent) {
     const { payload } = data
 

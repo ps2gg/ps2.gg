@@ -10,15 +10,14 @@ export const Unsubscribe: ComponentConfig = {
       disabled: false,
     },
     processing: {
-      label: 'Processing...',
+      label: 'Unsubscribe',
       style: ButtonStyle.Secondary,
-      disabled: true,
+      disabled: false,
     },
     processed: {
-      label: 'Unsubscribed',
+      label: 'Unsubscribe',
       style: ButtonStyle.Secondary,
-      emoji: '✅',
-      disabled: true,
+      disabled: false,
     },
   },
 }

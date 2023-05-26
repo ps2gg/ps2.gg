@@ -16,7 +16,7 @@ import { PopulationEvent } from './events/population/event'
  */
 const discord = setupDiscordClient({
   id: '715535257939607602',
-  token: readFileSync('/run/secrets/discord_token_peepo', 'utf-8'),
+  token: readFileSync('/run/secrets/peepo-token', 'utf-8'),
   activity: 'Sees all',
   commands: [new AltCommand(), new NotifyCommand(), new UnsubscribeCommand(), new SetupCommand()],
   events: [new PopulationEvent()],

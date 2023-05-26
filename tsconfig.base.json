@@ -14,6 +14,9 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@ps2gg/alts/types": ["libs/alts/types/src/index.ts"],

@@ -1,10 +1,8 @@
-import { getAssistXpEvents, getBases } from '@ps2gg/census/collections'
-
 export const ps2gg = {
   altsUrl: 'http://alts:3003',
 }
 
-export const servers = {
+export const servers: { [key: string]: string } = {
   '1': 'Connery',
   '10': 'Miller',
   '13': 'Cobalt',
@@ -13,7 +11,7 @@ export const servers = {
   '40': 'SolTech',
 }
 
-export const continents = {
+export const continents: { [key: string]: string } = {
   '2': 'Indar',
   '4': 'Hossin',
   '6': 'Amerish',
@@ -21,7 +19,7 @@ export const continents = {
   '344': 'Oshur',
 }
 
-export const vehicles = {
+export const vehicles: { [key: string]: string } = {
   '1': 'Flash',
   '2': 'Sunderer',
   '3': 'Lightning',
@@ -39,7 +37,7 @@ export const vehicles = {
   '2019': 'Bastion',
 }
 
-export const infantry = {
+export const infantry: { [key: string]: string } = {
   '1': 'Infiltrator',
   '3': 'Light Assault',
   '4': 'Medic',
@@ -66,19 +64,19 @@ export const infantry = {
   '45': 'MAX',
 }
 
-export const esf = {
+export const esf: { [key: string]: string } = {
   '7': 'Scythe',
   '8': 'Reaver',
   '9': 'Mosquito',
 }
 
-export const mbt = {
+export const mbt: { [key: string]: string } = {
   '4': 'Magrider',
   '5': 'Vanguard',
   '6': 'Prowler',
 }
 
-export const a2aWeapons = {
+export const a2aWeapons: { [key: string]: string } = {
   '4900': 'M18 Needler',
   '4302': 'Saron Laser Cannon',
   '4600': 'M20 Mustang',
@@ -100,7 +98,7 @@ export const a2aWeapons = {
   '4747': 'Coyote Missiles',
 }
 
-export const a2gWeapons = {
+export const a2gWeapons: { [key: string]: string } = {
   '4903': 'Hellfire Rocket Pods',
   '4301': 'Dual Photon Pods',
   '4601': 'Breaker Rocket Pods',
@@ -114,7 +112,7 @@ export const a2gWeapons = {
   '4746': 'Hornet Missiles',
 }
 
-export const factions = {
+export const factions: { [key: string]: string } = {
   '1': 'VS',
   '2': 'NC',
   '3': 'TR',

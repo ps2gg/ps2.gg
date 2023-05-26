@@ -1,6 +1,7 @@
-import { Component, Command, linkedUser, ComponentResponse, Autocomplete, AutocompleteResponse, CommandResponse, Main } from '@ps2gg/discord/command'
+import { Component, Command, linkedUser, Autocomplete, AutocompleteResponse, CommandResponse, Main } from '@ps2gg/discord/command'
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
+import { ButtonInteraction } from 'discord.js'
 import { getCompositeScope, getScopeSuggestions, sanitizeScope } from '../../util/scopes'
 import { Unsubscribe } from './components/unsubscribe'
 import { NotifyOptions, Notify } from './config'
@@ -23,6 +24,7 @@ export class NotifyCommand {
 
     if (!population) {
       return {
+        interactionContext: [scope, server],
         embeds: [getFailureEmbed(server, scope)],
         ephemeral: true,
       }
@@ -33,7 +35,7 @@ export class NotifyCommand {
     return {
       interactionContext: [scope, server],
       embeds: [getNotifyEmbed(server, event, population, type)],
-      ephemeral: true,
+      ephemeral: false,
     }
   }
 
@@ -43,14 +45,10 @@ export class NotifyCommand {
   }
 
   @Component(Unsubscribe)
-  async unsubscribe(interactionContext: string[], @linkedUser user: User): Promise<ComponentResponse> {
+  async unsubscribe(interactionContext: string[], @linkedUser user: User, interaction: ButtonInteraction): Promise<void> {
     const event = interactionContext[0]
     const server = interactionContext[1]
     await this._population.removeSubscription(user.id, getCompositeScope(event, server))
-
-    return {
-      embeds: [getUnsubscribeEmbed(event, server)],
-      ephemeral: true,
-    }
+    interaction.followUp({ embeds: [getUnsubscribeEmbed(event, server)], ephemeral: true })
   }
 }

@@ -2,7 +2,7 @@ import { ComponentConfig } from '@ps2gg/discord/command'
 import { ButtonStyle } from 'discord.js'
 
 export const EarlyAccessJoin: ComponentConfig = {
-  id: 'setup-earlyAccessJoin',
+  id: 'setup.early-access-join',
   state: {
     default: {
       label: 'Join',

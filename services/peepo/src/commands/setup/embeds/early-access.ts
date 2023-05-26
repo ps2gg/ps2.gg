@@ -1,10 +1,14 @@
 import { EmbedColors } from '@ps2gg/discord/constants'
-import { APIEmbed } from 'discord.js'
 
-export function getEarlyAccessEmbed(): APIEmbed {
-  return {
-    color: EmbedColors.System,
-    description:
-      '## Here you can try new features that are still in development.\n\n **Please note:** We will release features in their most minimal shape possible. What you see here is not reflective of the final product. Bugs and other issues may be present as well.\n\n**Join with the button below.**',
-  }
+export const EarlyAccessGatewayEmbed = {
+  color: EmbedColors.System,
+  thumbnail: {
+    url: 'https://i.imgur.com/kq2w63i.png',
+  },
+  title: 'Early Access',
+  description:
+    '## Get a glimpse of new features!\n\nThis is where we release development builds of work-in-progress features. Initial releases will be as minimal as possible - and we gradually improve them based on your feedback.',
+  footer: {
+    text: 'Currently testing: Good Fight Notifications',
+  },
 }

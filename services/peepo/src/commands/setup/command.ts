@@ -1,25 +1,25 @@
 import { Command, CommandResponse, Component, ComponentResponse, SubCommand } from '@ps2gg/discord/command'
+import { addRoleFromInteraction } from '@ps2gg/discord/util'
 import { ButtonInteraction } from 'discord.js'
 import { EarlyAccessJoin } from './components/early-access-join'
 import { Setup } from './config'
-import { getEarlyAccessEmbed } from './embeds/early-access'
+import { EarlyAccessGatewayEmbed } from './embeds/early-access'
+import { EarlyAccessJoinEmbed } from './embeds/early-access-join'
 import { EarlyAccess } from './subcommands/early-access'
 
 @Command(Setup)
 export class SetupCommand {
   @SubCommand(EarlyAccess)
   async earlyAccessGateway(): Promise<CommandResponse> {
-    const gatewayEmbed = getEarlyAccessEmbed()
     return {
-      embeds: [gatewayEmbed],
-      ephemeral: true,
+      interactionContext: [],
+      embeds: [EarlyAccessGatewayEmbed],
     }
   }
 
   @Component(EarlyAccessJoin)
-  async earlyAccessJoin(interaction: ButtonInteraction): Promise<ComponentResponse> {
-    console.log(interaction.user.id)
-    // Assign early access role to user
-    // TODO: make discord user object available to components
+  async earlyAccessJoin(interactionContext: string[], interaction: ButtonInteraction): Promise<void> {
+    addRoleFromInteraction('Early Access', interaction)
+    interaction.followUp(EarlyAccessJoinEmbed)
   }
 }
