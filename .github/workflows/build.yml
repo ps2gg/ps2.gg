@@ -20,4 +20,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         host: ${{ secrets.SSH_HOST }}
-        script: sh /opt/ps2gg/ps2.gg/build.sh ${{ github.event.inputs.environment}}
+        script: |
+          cd /opt/ps2gg/ps2.gg
+          bash build.sh ${{ github.event.inputs.environment}}
