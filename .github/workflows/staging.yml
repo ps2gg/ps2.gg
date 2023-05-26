@@ -1,0 +1,25 @@
+name: Auto-Staging
+
+on:
+  push:
+    branches:
+      - master
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        host: ${{ secrets.SSH_HOST }}
+        script: sh /opt/ps2gg/ps2.gg/build.sh staging
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        host: ${{ secrets.SSH_HOST }}
+        script: sh /opt/ps2gg/ps2.gg/deploy.sh staging
