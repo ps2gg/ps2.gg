@@ -3,7 +3,8 @@ if [ -z ${1+x} ]; then
   exit 1
 fi
 
-# Init submodules
+# Update git
+git pull
 git submodule update --recursive --remote --init
 
 # Remove previous builds
