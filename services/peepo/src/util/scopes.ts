@@ -1,27 +1,42 @@
 import { getBases } from '@ps2gg/census/collections'
 import { continents } from '@ps2gg/common/constants'
+import { getServerId } from '@ps2gg/common/util'
 import { AutocompleteResponse } from '@ps2gg/discord/command'
 
-export const scopes: string[] = []
+export const scopes: { name: string; id: string }[] = []
 
 async function populateScopes() {
-  const bases = Object.values(await getBases()).map((base) => `${base.replace("'", '')} Fight`)
-  const conts = Object.values(continents).map((cont) => `${cont} Unlock`)
-  scopes.push(...[...conts, ...bases])
+  const bases = await getBases()
+  const baseScopes = Object.keys(await getBases()).map((id) => {
+    return { name: `${bases[id].replace("'", '')} Fight`, id }
+  })
+  const contScopes = Object.keys(continents).map((id) => {
+    return { name: `${continents[id]} Unlock`, id }
+  })
+  const vehicleScopes = ['ESF'].map((vehicle) => {
+    return { name: `${vehicle} Fight`, id: vehicle }
+  })
+  scopes.push(...vehicleScopes)
 }
 populateScopes()
 
-export function sanitizeScope(scope: string): string {
-  return scope.split(' ').slice(0, -1).join(' ')
-}
-
 export function getScopeSuggestions(query: string, all?: boolean): AutocompleteResponse[] {
-  return [...(all ? ['All'] : []), ...scopes]
-    .filter((scope) => scope.toLowerCase().includes(query.toLowerCase()))
+  return [...(all ? [{ name: 'All', id: 'All' }] : []), ...scopes]
+    .filter((scope) => scope.name.toLowerCase().includes(query.toLowerCase()))
     .slice(0, 8)
-    .map((scope) => ({ name: scope, value: scope }))
+    .map((scope) => ({ name: scope.name, value: scope.id }))
 }
 
-export function getCompositeScope(scope: string, server: string): string {
-  return `${scope}.${server}`
+export function getCompositeScopes(scope: string, server: string): string[] {
+  if (scope === 'ESF') {
+    const scopes = []
+
+    for (const continentId in continents) {
+      scopes.push(`ESF.${continentId}.${getServerId(server)}`)
+    }
+
+    return scopes
+  } else {
+    return [`${scope}.${getServerId(server)}`]
+  }
 }

@@ -11,7 +11,7 @@ export type EventAction = {
 
 export type EventResponse = {
   event: string
-  data: any & { subscription: DynamicSubscription }
+  data: any & { scope: string; subscription: DynamicSubscription }
 }
 
 export type EventRequest = {

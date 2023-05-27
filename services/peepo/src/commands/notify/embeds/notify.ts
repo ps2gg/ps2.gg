@@ -4,9 +4,9 @@ import { code } from '@ps2gg/discord/util'
 import { Population } from '@ps2gg/population/types'
 import { APIEmbed } from 'discord.js'
 
-export function getNotifyEmbed(server: string, event: string, population: Population, type: string): APIEmbed {
+export function getNotifyEmbed(server: string, event: string, population: Population): APIEmbed {
   const { tr, vs, nc } = population
-  const source = type === 'Fight' ? 'Falcon (census.lithafalcon.cc)' : 'Pomf (saerro.ps2.live)'
+  const source = 'Pomf (saerro.ps2.live)'
   return {
     title: `Notifications are underway!`,
     color: EmbedColors.Success,
@@ -22,12 +22,12 @@ export function getNotifyEmbed(server: string, event: string, population: Popula
       },
       {
         name: 'Min. Population',
-        value: code('12TR · 12NC · 12VS'),
+        value: code('6TR · 6NC · 6VS'),
         inline: true,
       },
       {
         name: 'Between',
-        value: code(`16PM-2AM ${getServerTimezone(server)}`),
+        value: code(`12PM-2AM ${getServerTimezone(server)}`),
         inline: true,
       },
       {

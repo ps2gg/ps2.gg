@@ -13,6 +13,14 @@ export async function getContinentPopulation(): Promise<SaerroContinentPopulatio
   return data.data?.allWorlds
 }
 
+export async function getESFPopulation(): Promise<SaerroESFPopulation[]> {
+  const req = await axios.get(
+    'https://saerro.ps2.live/graphql?query={%20allWorlds%20{%20id%20zones%20{%20all%20{%20id%20vehicles%20{%20mosquito%20{%20nc%20tr%20vs%20}%20reaver%20{%20nc%20tr%20vs%20}%20scythe%20{%20nc%20tr%20vs%20}}}}}}'
+  )
+  const { data } = req
+  return data.data?.allWorlds
+}
+
 export type CensusBasePopulation = {
   world_id: string
   map_region_id: string
@@ -28,11 +36,27 @@ export type SaerroContinentPopulation = {
   zones: {
     all: {
       id: number
-      population: {
-        nc: number
-        tr: number
-        vs: number
+      population: SaerroPopulation
+    }[]
+  }
+}
+
+export type SaerroESFPopulation = {
+  id: number
+  zones: {
+    all: {
+      id: number
+      vehicles: {
+        mosquito: SaerroPopulation
+        reaver: SaerroPopulation
+        scythe: SaerroPopulation
       }
     }[]
   }
+}
+
+export type SaerroPopulation = {
+  nc: number
+  tr: number
+  vs: number
 }
