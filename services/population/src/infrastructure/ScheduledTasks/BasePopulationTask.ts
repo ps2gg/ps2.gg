@@ -26,7 +26,7 @@ export class BasePopulationTask {
 
         if (!base) continue
         const population = base.faction_population_upper_bound
-        const scope = `${bases[baseId].replace("'", '')}.${servers[serverId]}`
+        const scope = `${baseId}.${serverId}`
         const tr = parseInt(population.TR)
         const nc = parseInt(population.NC)
         const vs = parseInt(population.VS)

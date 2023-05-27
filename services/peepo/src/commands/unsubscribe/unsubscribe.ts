@@ -2,7 +2,7 @@ import { ServerId } from '@ps2gg/census/types'
 import { servers } from '@ps2gg/common/constants'
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
-import { sanitizeScope, scopes } from '../../util/scopes'
+import { getCompositeScopes, scopes } from '../../util/scopes'
 
 const population = new PopulationClient()
 
@@ -24,7 +24,7 @@ async function unsubscribeFromAllServers(user: User, scope: string) {
     if (scope === 'All') {
       unsubscribeFromAllScopes(user, server)
     } else {
-      await population.removeSubscription(user.id, getCompositeScope(scope, server))
+      await removeSubscription(user, scope, server)
     }
   }
 }
@@ -33,19 +33,20 @@ async function unsubscribeFromSingleServer(user: User, scope: string, server: st
   if (scope === 'All') {
     await unsubscribeFromAllScopes(user, server)
   } else {
-    await population.removeSubscription(user.id, getCompositeScope(scope, server))
+    await removeSubscription(user, scope, server)
   }
 }
 
 async function unsubscribeFromAllScopes(user: User, server: string) {
   for (const s of scopes) {
-    const scope = sanitizeScope(s)
-    await population.removeSubscription(user.id, getCompositeScope(scope, server))
+    await removeSubscription(user, s.id, server)
   }
 }
 
-function getCompositeScope(scope: string, server: string): string {
-  scope = sanitizeScope(scope)
+async function removeSubscription(user: User, scope: string, server: string) {
+  const compositeScopes = getCompositeScopes(scope, server)
 
-  return `${scope}.${server}`
+  for (const compositeScope of compositeScopes) {
+    await population.removeSubscription(user.id, compositeScope)
+  }
 }

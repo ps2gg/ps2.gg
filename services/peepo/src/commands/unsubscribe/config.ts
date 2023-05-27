@@ -14,8 +14,8 @@ export const Unsubscribe: CommandConfig = {
     },
     {
       type: 'string',
-      name: 'scope',
-      description: 'Categories ▸ f: facility, c: continent',
+      name: 'event',
+      description: 'Which event to unsubscribe from',
       required: true,
       autocomplete: true,
     },
@@ -24,5 +24,5 @@ export const Unsubscribe: CommandConfig = {
 
 export type UnsubscribeOptions = {
   server: string
-  scope: string
+  event: string
 }

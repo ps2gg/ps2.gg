@@ -1,4 +1,3 @@
-import { servers } from '@ps2gg/common/constants'
 import { CommandResponse, Component, ComponentResponse, linkedUser } from '@ps2gg/discord/command'
 import { Event, Notification } from '@ps2gg/discord/command'
 import { EventResponse } from '@ps2gg/events/ws'
@@ -13,21 +12,20 @@ export class PopulationEvent {
   private _population = new PopulationClient()
 
   @Notification()
-  notifyUser(event: EventResponse): CommandResponse {
-    const { scope } = event.data
-    const [scopePrefix, server]: string[] = scope.split('.')
+  async notifyUser(event: EventResponse): Promise<CommandResponse> {
+    const scope: string = event.data.scope
+    const population = await this._population.getPopulation(scope)
     return {
-      interactionContext: [scopePrefix, server],
-      embeds: [getNotificationEmbed(scopePrefix, server)],
+      interactionContext: [scope],
+      embeds: [await getNotificationEmbed(scope, population)],
     }
   }
 
   @Component(Unsubscribe)
   async unsubscribe(interactionContext: string[], @linkedUser user: User): Promise<ComponentResponse> {
     const scope = interactionContext[0]
-    const server = interactionContext[1]
-    const compositeScope = `${server}.${scope}`
-    await this._population.removeSubscription(user.id, compositeScope)
+    const server = scope.split('.').pop()
+    await this._population.removeSubscription(user.id, scope)
 
     return {
       embeds: [getUnsubscribeEmbed(scope, server)],
