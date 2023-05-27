@@ -14,7 +14,7 @@ async function populateScopes() {
     return { name: `${continents[id]} Unlock`, id }
   })
   const vehicleScopes = ['ESF'].map((vehicle) => {
-    return { name: `${vehicle} Fight`, id: vehicle }
+    return { name: `${vehicle} Fights`, id: vehicle }
   })
   scopes.push(...vehicleScopes)
 }
