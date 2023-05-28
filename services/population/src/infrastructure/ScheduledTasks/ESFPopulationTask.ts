@@ -24,11 +24,19 @@ export class ESFPopulationTask {
       for (const continentId of Object.keys(continents)) {
         const { vehicles } = server.zones.all.find((p) => p.id === parseInt(continentId))
         const scope = `ESF.${continentId}.${serverId}`
-        const { tr, nc, vs } = { tr: vehicles['mosquito'].tr, nc: vehicles['reaver'].nc, vs: vehicles['scythe'].vs }
+        const { tr, nc, vs } = {
+          tr: deflate(vehicles['mosquito'].tr),
+          nc: deflate(vehicles['reaver'].nc),
+          vs: deflate(vehicles['scythe'].vs),
+        }
         const populationSum = tr + nc + vs
         const resetReceivedState = populationSum === 0
         await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
       }
     }
   }
+}
+
+function deflate(population: number): number {
+  return Math.floor(population / 3)
 }
