@@ -38,5 +38,5 @@ export class ESFPopulationTask {
 }
 
 function deflate(population: number): number {
-  return Math.floor(population / 3)
+  return Math.floor(population / 2)
 }
