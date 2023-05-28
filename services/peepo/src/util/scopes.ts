@@ -6,8 +6,9 @@ import { AutocompleteResponse } from '@ps2gg/discord/command'
 export const scopes: { name: string; id: string }[] = []
 
 async function populateScopes() {
-  const bases = await getBases()
-  const baseScopes = Object.keys(await getBases()).map((id) => {
+  // const bases = await getBases()
+  const bases = { '4139': "Nason's Defiance" }
+  const baseScopes = Object.keys(bases).map((id) => {
     return { name: `${bases[id].replace("'", '')} Fight`, id }
   })
   const contScopes = Object.keys(continents).map((id) => {
@@ -16,7 +17,7 @@ async function populateScopes() {
   const vehicleScopes = ['ESF'].map((vehicle) => {
     return { name: `${vehicle} Fights`, id: vehicle }
   })
-  scopes.push(...vehicleScopes)
+  scopes.push(...[...vehicleScopes, ...baseScopes])
 }
 populateScopes()
 
