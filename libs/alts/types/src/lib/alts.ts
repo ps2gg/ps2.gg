@@ -1,4 +1,3 @@
 export type Alt = {
   name: string
-  // incomplete
-}
+} & any // TODO: add more properties

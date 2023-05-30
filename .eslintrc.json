@@ -54,11 +54,6 @@
             "next": ["for", "if", "switch", "while", "do"]
           },
           {
-            "blankLine": "always",
-            "prev": "*",
-            "next": ["return"]
-          },
-          {
             "blankLine": "never",
             "prev": ["singleline-var", "singleline-let", "singleline-const"],
             "next": ["return"]

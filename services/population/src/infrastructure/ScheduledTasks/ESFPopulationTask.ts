@@ -3,7 +3,6 @@ import { CommandBus } from '@nestjs/cqrs'
 import { Cron } from '@nestjs/schedule'
 import { getESFPopulation } from '@ps2gg/census/collections'
 import { continents, servers } from '@ps2gg/common/constants'
-import { capitalize } from '@ps2gg/common/util'
 import { SetPopulation } from '../../application/Command/SetPopulation'
 
 @Injectable()
