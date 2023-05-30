@@ -1,5 +1,10 @@
 # ps2.gg
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/49991ab701ef4eb0a0a29f947ac4a1fc)](https://app.codacy.com/gh/ps2gg/ps2.gg/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Discord](https://img.shields.io/discord/1090392395427885198.svg?logo=discord)](https://discord.gg/8MvTaUQM2E)
+
+<br>
+
 This is the home of ps2.gg, where UI mods are made that turn Planetside into a better game.<br>
 This monorepo includes all microservices used to serve the website and overlay.
 
