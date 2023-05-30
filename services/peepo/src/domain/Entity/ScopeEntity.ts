@@ -23,7 +23,7 @@ export class ScopeEntity {
     // const bases = await getBases()
     const bases = { '4139': "Nason's Defiance" }
     const baseScopes = Object.keys(bases).map((id) => {
-      return { name: `${bases[id].replace("'", '')} Fight`, id }
+      return { name: `${bases[id].replace(/'/g, '')} Fight`, id }
     })
     const contScopes = Object.keys(continents).map((id) => {
       return { name: `${continents[id]} Unlock`, id }
