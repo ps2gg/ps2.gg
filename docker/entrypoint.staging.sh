@@ -4,7 +4,7 @@ if [ -z ${1+x} ]; then
   exit 1
 fi
 
-~/.bun/bin/bun nx run $1:typeorm-migration --name $1
-~/.bun/bin/bun nx run $1:typeorm schema:sync
+~/.bun/bin/bun nx run "$1:typeorm-migration" --name "$1"
+~/.bun/bin/bun nx run "$1:typeorm schema:sync"
 
-node /app/dist/services/$1/main.js --production
+node "/app/dist/services/$1/main.js" --production

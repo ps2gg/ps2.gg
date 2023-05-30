@@ -9,7 +9,7 @@ echo ''
 for dir in ../services/*/; do
   pass=$(pwgen -s 64 1)
   service=$(basename "$dir")
-  printf "${pass}" | docker secret create ${service}-db-pass -
+  printf "${pass}" | docker secret create "${service}-db-pass" -
   printf "${service}-db: ${pass} \n" >> secrets.txt
 done
 
