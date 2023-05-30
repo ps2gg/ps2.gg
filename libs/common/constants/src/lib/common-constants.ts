@@ -19,6 +19,8 @@ export const continents: { [key: string]: string } = {
   '344': 'Oshur',
 }
 
+export const bases: { [key: string]: string } = {}
+
 export const vehicles: { [key: string]: string } = {
   '1': 'Flash',
   '2': 'Sunderer',
