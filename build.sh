@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -z ${1+x} ]; then
   echo "Please pass the environment name to this script [dev|prod|staging]"
   exit 1
