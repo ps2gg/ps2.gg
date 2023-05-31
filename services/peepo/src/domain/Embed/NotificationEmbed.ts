@@ -4,7 +4,7 @@ import { Population } from '@ps2gg/population/types'
 import { APIEmbed } from 'discord.js'
 
 export class NotificationEmbed implements APIEmbed {
-  color: EmbedColors.Success
+  color = EmbedColors.Success
   description?: string
   footer?: { text: string }
 
