@@ -5,7 +5,7 @@ import { APIEmbed } from 'discord.js'
 import { ScopeEntity } from '../Entity/ScopeEntity'
 
 export class NotifyEmbed implements APIEmbed {
-  title = 'Notifications are underway!'
+  description = '## Notifications are underway!\n\n'
   color = EmbedColors.Success
   fields: any[]
   footer: any
@@ -19,12 +19,12 @@ export class NotifyEmbed implements APIEmbed {
     this.fields = [
       {
         name: 'Server',
-        value: code(server),
+        value: code(server, 'less'),
         inline: true,
       },
       {
         name: 'Event',
-        value: code(eventName),
+        value: code(eventName, 'less'),
       },
       {
         name: 'Min. Population',
