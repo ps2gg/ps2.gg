@@ -10,6 +10,6 @@ export class UnsubscribeEmbed implements APIEmbed {
   constructor(event: string, server: string) {
     const eventType = ScopeEntity.getEventType(event)
     const eventName = ScopeEntity.getEventName(event, eventType)
-    this.description = `You will no longer receive notifications for ${eventName} ${server === 'All' ? '' : ` on ${server}`}`
+    this.description = `You will no longer receive notifications for **${eventName} ${server === 'All' ? '' : ` on ${server}**`}`
   }
 }
