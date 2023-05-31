@@ -20,9 +20,9 @@ export class PopulationEvent {
 
   @Component(Unsubscribe)
   async unsubscribe(interactionContext: string[], @linkedUser user: User): Promise<ComponentResponse> {
-    const scope = interactionContext[0]
-    const server = scope.split('.').pop()
-    const embed = await new RemoveSubscription(scope, server, user).execute()
+    const event = interactionContext[0]
+    const server = event.split('.').pop()
+    const embed = await new RemoveSubscription(server, event, user).execute()
     return {
       embeds: [embed],
     }

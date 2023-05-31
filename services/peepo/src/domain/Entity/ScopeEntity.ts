@@ -1,4 +1,4 @@
-import { continents } from '@ps2gg/common/constants'
+import { bases, continents } from '@ps2gg/common/constants'
 import { getServerId } from '@ps2gg/common/util'
 import { AutocompleteResponse } from '@ps2gg/discord/command'
 
@@ -19,9 +19,19 @@ export class ScopeEntity {
     }
   }
 
+  static getEventType(scope: string): string {
+    if (bases[scope]) return 'Base'
+    if (continents[scope]) return 'Continent'
+    if (scope.split('.')[0] === 'ESF') return 'ESF'
+  }
+
+  static getEventName(scope: string, type: string): string {
+    if (type === 'Base') return bases[scope] + ' Fights'
+    if (type === 'Continent') return continents[scope] + ' Unlock'
+    if (type === 'ESF') return 'ESF Fights'
+  }
+
   static getEvents(): { name: string; id: string }[] {
-    // const bases = await getBases()
-    const bases = { '4139': "Nason's Defiance" }
     const baseScopes = Object.keys(bases).map((id) => {
       return { name: `${bases[id].replace(/'/g, '')} Fight`, id }
     })

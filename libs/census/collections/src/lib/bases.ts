@@ -16,7 +16,6 @@ export async function getBases(): Promise<Bases> {
     parsed[map_region_id] = facility_name
   }
   logger.info(parsed, 'Retrieved bases')
-
   return parsed
 }
 
