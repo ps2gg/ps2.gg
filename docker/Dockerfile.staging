@@ -1,0 +1,13 @@
+# Base image for all production images in this monorepo
+FROM node:18-bullseye
+
+RUN apt install -y curl
+RUN curl -fsSL https://bun.sh/install | bash
+
+COPY . /app
+WORKDIR /app
+RUN ~/.bun/bin/bun install
+
+ENV NODE_ENV=production
+
+# Entrypoint is defined in docker-compose.yml

@@ -1,11 +1,11 @@
-clear
-
+#!/bin/bash
 if [ -z ${1+x} ]; then
-  echo "Please pass the environment name to this script [dev|prod]"
+  echo "Please pass the environment name to this script [dev|prod|staging]"
   exit 1
 fi
 
-# Init submodules
+# Update git
+git pull
 git submodule update --recursive --remote --init
 
 # Remove previous builds
@@ -20,8 +20,6 @@ else
     bun nx build $(basename "$dir") --prod
   done
 fi
-
-clear
 
 # Create private image registry on our swarm
 echo "Setting up private docker registry..."

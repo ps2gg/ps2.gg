@@ -8,4 +8,4 @@ export interface SubscribableEntity {
   __isSubscribable?: true
 }
 
-export const minimumEventDelay = 1000 * 60 * 30
+export const minimumEventDelay = 1000 * 60 * 10

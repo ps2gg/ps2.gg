@@ -20,7 +20,7 @@ export function networks(networks: string[]) {
 }
 
 export function environment(type: string, env: string, name: string) {
-  if (type === 'nest' && env === 'prod') return '' // none needed for now
+  if (type === 'nest' && (env === 'prod' || env === 'staging')) return '' // none needed for now
   let config = `environment:`
 
   if (type === 'nest' && env === 'dev') {
@@ -31,7 +31,7 @@ export function environment(type: string, env: string, name: string) {
     config += `
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres`
-  } else if (type === 'postgres' && env === 'prod') {
+  } else if (type === 'postgres' && (env === 'prod' || env === 'staging')) {
     config += `
       POSTGRES_USER: ${name}
       POSTGRES_PASSWORD_FILE: /run/secrets/${name}-db-pass`

@@ -22,7 +22,7 @@ export class ContinentPopulationTask {
 
       for (const continentId of Object.keys(continents)) {
         const { population } = server.zones.all.find((p) => p.id === parseInt(continentId))
-        const scope = `${continents[continentId]}.${servers[serverId]}`
+        const scope = `${continentId}.${serverId}`
         const { tr, nc, vs } = population
         const populationSum = tr + nc + vs
         const resetReceivedState = populationSum === 0
