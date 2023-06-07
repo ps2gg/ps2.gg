@@ -2,8 +2,6 @@ import { Alt } from '@ps2gg/alts/types'
 import { getAltMatches } from '@ps2gg/alts/ws'
 import { APIEmbed } from 'discord.js'
 import { AltMatchEmbed } from '../../domain/Embed/AltMatch'
-import { AltMatchErrorEmbed } from '../../domain/Embed/AltMatchError'
-import { AltMatchWarningEmbed } from '../../domain/Embed/AltMatchWarning'
 
 export class GetAlts {
   constructor(readonly name: string) {}
@@ -12,9 +10,9 @@ export class GetAlts {
     const { result } = await getAltMatches(this.name)
 
     if (result.error) {
-      return new AltMatchErrorEmbed(this.name, result)
+      throw new Error(`Found no alts for ${this.name}`)
     } else if (result.alts.length > 16) {
-      return new AltMatchWarningEmbed(this.name, result)
+      throw new Error(`Found too many alts for ${this.name}`)
     } else {
       return new AltMatchEmbed(result.alts as Alt[])
     }

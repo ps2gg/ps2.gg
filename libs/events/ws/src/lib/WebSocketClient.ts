@@ -1,4 +1,4 @@
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { client } from 'websocket'
 import { EventRequest } from './EventTypes'
 
@@ -8,7 +8,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
  * Websocket client for internal services
  */
 export class WebSocketClient {
-  protected _logger = createLogger('WebSocketClient')
+  protected _logger = getLogger('WebSocketClient')
   protected _state = 'closed'
   protected _socket: any
   private _fns: { (...args: any): void }[] = []
@@ -118,9 +118,9 @@ export class WebSocketClient {
 
   private _heartbeat() {
     setInterval(() => {
-      if (this._lastHeartbeat && this._lastHeartbeat.getTime() < Date.now() - 2000) this._failHeartbeat()
+      if (this._lastHeartbeat && this._lastHeartbeat.getTime() <= Date.now() - 1000 * 60) this._failHeartbeat()
       if (this._state === 'open') this.send({ event: 'heartbeat' })
-    }, 1000)
+    }, 1000 * 60)
   }
 
   private _failHeartbeat() {

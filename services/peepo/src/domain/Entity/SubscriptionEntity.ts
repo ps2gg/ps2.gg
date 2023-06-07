@@ -9,7 +9,7 @@ export class SubscriptionEntity implements DynamicSubscription {
     server: string,
     readonly scope: string,
     readonly userId: string,
-    readonly configuration = { tr: { $min: 6 }, vs: { $min: 6 }, nc: { $min: 6 } },
+    readonly configuration = { tr: { $min: 5 }, vs: { $min: 5 }, nc: { $min: 5 } },
     sendBefore?: number,
     sendAfter?: number
   ) {

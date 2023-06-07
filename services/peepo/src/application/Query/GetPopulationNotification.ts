@@ -1,5 +1,5 @@
 import { PopulationClient } from '@ps2gg/population/client'
-import { NotificationEmbed } from '../../domain/Embed/NotificationEmbed'
+import { NotificationEmbed } from '../../domain/Embed/Notification'
 
 export class GetPopulationNotification {
   private _population = new PopulationClient()

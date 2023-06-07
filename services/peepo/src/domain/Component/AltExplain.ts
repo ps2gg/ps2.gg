@@ -7,7 +7,6 @@ export const AltExplain: ComponentConfig = {
     default: {
       label: 'Explain',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
     processing: {
       label: 'Generating Graphs...',
