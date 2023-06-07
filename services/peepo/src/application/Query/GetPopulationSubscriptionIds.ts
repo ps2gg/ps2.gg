@@ -13,7 +13,7 @@ export class GetPopulationSubscriptionIds {
 
     for (const scope of scopes) {
       const subscriptions = await this._population.getSubscriptions(this.user.id, scope)
-      const subscriptionIdMap = subscriptions.map((subscription) => subscription.subscriptionId)
+      const subscriptionIdMap: string[] = subscriptions.map((subscription) => subscription.subscriptionId)
       subscriptionIds.push(...subscriptionIdMap)
     }
 

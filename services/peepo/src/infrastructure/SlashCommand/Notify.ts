@@ -47,7 +47,7 @@ export class NotifyCommand {
 
   @ProgressiveComponent(NotifyConfigurePopulation, 'Configure')
   async configurePopulationTr(interactionContext: string[], @linkedUser user: User, interaction: AnySelectMenuInteraction): Promise<ComponentResponse> {
-    const value = parseInt(interaction.values[0])
+    const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
     const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
@@ -60,7 +60,7 @@ export class NotifyCommand {
 
   @ProgressiveComponent(NotifyConfigureSendAfter, 'Configure')
   async configureSendAfter(interactionContext: string[], @linkedUser user: User, interaction: AnySelectMenuInteraction): Promise<ComponentResponse> {
-    const value = parseInt(interaction.values[0])
+    const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
     const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
@@ -73,7 +73,7 @@ export class NotifyCommand {
 
   @ProgressiveComponent(NotifyConfigureSendBefore, 'Configure')
   async configureSendBefore(interactionContext: string[], @linkedUser user: User, interaction: AnySelectMenuInteraction): Promise<ComponentResponse> {
-    const value = parseInt(interaction.values[0])
+    const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
     const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
