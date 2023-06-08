@@ -26,9 +26,9 @@ export class BasePopulationTask {
         if (!base) continue
         const population = base.faction_population_upper_bound
         const scope = `${baseId}.${serverId}`
-        const tr = parseInt(population.TR)
-        const nc = parseInt(population.NC)
-        const vs = parseInt(population.VS)
+        const tr = parseInt(population.TR) || 0
+        const nc = parseInt(population.NC) || 0
+        const vs = parseInt(population.VS) || 0
         const populationSum = tr + nc + vs
         const resetReceivedState = populationSum === 0
         await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
