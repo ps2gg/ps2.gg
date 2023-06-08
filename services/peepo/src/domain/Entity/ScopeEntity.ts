@@ -32,24 +32,29 @@ export class ScopeEntity {
   }
 
   static getEvents(): { name: string; id: string }[] {
-    const baseScopes = Object.keys(bases).map((id) => {
-      return { name: `${bases[id].replace(/'/g, '')} Fight`, id }
+    const baseScopes = Object.keys({
+      '4139': "Nason's Defiance",
+      '6342': 'Kwahtee Mountain Complex',
+      '2303': 'Indar Excavation Site',
+      '2419': 'Ti Alloys, Inc.',
+    }).map((id) => {
+      return { name: `Fight: ${bases[id].replace(/'/g, '')}`, id }
     })
     const contScopes = Object.keys(continents).map((id) => {
-      return { name: `${continents[id]} Unlock`, id }
+      return { name: `Unlock: ${continents[id]}`, id }
     })
     const vehicleScopes = ['ESF'].map((vehicle) => {
-      return { name: `${vehicle} Fights`, id: vehicle }
+      return { name: `Vehicles: ${vehicle}`, id: vehicle }
     })
 
-    return [...[...vehicleScopes, ...baseScopes]]
+    return [...[...vehicleScopes, ...contScopes, ...baseScopes]]
   }
 
   static getAutocomplete(query: string, events: { name: string; id: string }[]): AutocompleteResponse[] {
     const all = query === 'All'
     return [...(all ? [{ name: 'All', id: 'All' }] : []), ...events]
       .filter((event) => event.name.toLowerCase().includes(query.toLowerCase()))
-      .slice(0, 8)
+      .slice(0, 10)
       .map((event) => ({ name: event.name, value: event.id }))
   }
 }

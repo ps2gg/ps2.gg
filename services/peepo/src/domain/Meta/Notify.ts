@@ -15,7 +15,7 @@ export const Notify: CommandConfig = {
     {
       type: 'string',
       name: 'event',
-      description: 'Which event should trigger a notification',
+      description: 'What you get notified for. (Fight, Unlock, Vehicles)',
       required: true,
       autocomplete: true,
     },
