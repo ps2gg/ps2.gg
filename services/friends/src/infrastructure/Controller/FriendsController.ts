@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Friends } from '@ps2gg/friends/types'
+import { PopulateFriends } from '../../application/Command/PopulateFriends'
 import { SetFriends } from '../../application/Command/SetFriends'
 import { GetFriends } from '../../application/Query/GetFriends'
 
@@ -13,8 +14,8 @@ export class FriendsController {
     return this._queryBus.execute(new GetFriends(character_id))
   }
 
-  @Post('/')
-  async post(@Body() friends: Friends): Promise<Friends> {
-    return this._commandBus.execute(new SetFriends(friends))
+  @Post('/populate')
+  async populate(@Body('character_id') character_id: string): Promise<Friends> {
+    return this._commandBus.execute(new PopulateFriends(character_id))
   }
 }

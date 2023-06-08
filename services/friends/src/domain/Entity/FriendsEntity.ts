@@ -11,10 +11,10 @@ export class FriendsEntity extends AggregateRoot implements Friends {
   @Column('text', { array: true, nullable: false })
   readonly friendIds: string[]
 
-  constructor(example: Friends) {
+  constructor(friends: Friends) {
     super()
-    if (!example) return
-    this.character_id = example.character_id
-    this.friendIds = example.friendIds
+    if (!friends) return
+    this.character_id = friends.character_id
+    this.friendIds = friends.friendIds
   }
 }
