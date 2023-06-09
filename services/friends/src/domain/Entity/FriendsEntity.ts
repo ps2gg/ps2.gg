@@ -9,7 +9,7 @@ export class FriendsEntity extends AggregateRoot implements Friends {
   readonly character_id: string
 
   @Column('text', { array: true, nullable: false })
-  readonly friendIds: string[]
+  friendIds: string[]
 
   constructor(friends: Friends) {
     super()
