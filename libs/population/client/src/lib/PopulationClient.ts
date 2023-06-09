@@ -1,5 +1,6 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { SubscriptionClient } from '@ps2gg/events/subscriptions'
+import { DynamicSubscription } from '@ps2gg/events/types'
 import { Population } from '@ps2gg/population/types'
 
 export class PopulationClient extends SubscriptionClient {

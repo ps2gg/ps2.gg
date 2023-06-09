@@ -1,7 +1,7 @@
 import { CensusQuery } from '@ps2gg/census/api'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 
-const logger = createLogger('Bases')
+const logger = getLogger('Bases')
 
 export async function getBases(): Promise<Bases> {
   logger.info('Fetching base names and ids')

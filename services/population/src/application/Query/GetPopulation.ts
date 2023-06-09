@@ -1,10 +1,10 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
 import { ServerId } from '@ps2gg/census/types'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 import { PopulationRepository } from '../../infrastructure/TypeOrm/Repository/PopulationRepository'
 
-const logger = createLogger()
+const logger = getLogger()
 
 export class GetPopulation {
   constructor(readonly scope: string) {}

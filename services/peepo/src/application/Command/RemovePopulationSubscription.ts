@@ -3,7 +3,7 @@ import { User } from '@ps2gg/users/types'
 import { UnsubscribeEmbed } from '../../domain/Embed/UnsubscribeEmbed'
 import { ScopeEntity } from '../../domain/Entity/ScopeEntity'
 
-export class RemoveSubscription {
+export class RemovePopulationSubscription {
   private _population = new PopulationClient()
 
   constructor(readonly server: string, readonly event: string, readonly user: User) {

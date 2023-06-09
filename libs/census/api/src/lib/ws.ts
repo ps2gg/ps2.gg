@@ -1,8 +1,8 @@
 import { Subscription } from '@ps2gg/census/types'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { client } from 'websocket'
 
-const logger = createLogger('CensusWs')
+const logger = getLogger('CensusWs')
 
 export class CensusWs {
   private _fns: { (...args: any): void }[] = []

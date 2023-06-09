@@ -7,7 +7,6 @@ export const AltReset: ComponentConfig = {
     default: {
       label: 'Reset View',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
     processing: {
       label: 'Resetting...',
