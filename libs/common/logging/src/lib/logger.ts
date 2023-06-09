@@ -2,7 +2,7 @@ import pino, { Logger } from 'pino'
 
 const production = process.env['NODE_ENV'] === 'production'
 
-export function createLogger(context?: string): Logger {
+export function getLogger(context?: string): Logger {
   return pino(getLoggerOptions(context))
 }
 

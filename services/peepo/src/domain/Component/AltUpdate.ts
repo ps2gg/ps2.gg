@@ -7,7 +7,6 @@ export const AltUpdate: ComponentConfig = {
     default: {
       label: 'Update',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
     processing: {
       label: 'Updating...',

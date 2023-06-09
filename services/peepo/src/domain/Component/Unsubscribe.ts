@@ -7,17 +7,14 @@ export const Unsubscribe: ComponentConfig = {
     default: {
       label: 'Unsubscribe',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
     processing: {
       label: 'Unsubscribe',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
     processed: {
       label: 'Unsubscribe',
       style: ButtonStyle.Secondary,
-      disabled: false,
     },
   },
 }

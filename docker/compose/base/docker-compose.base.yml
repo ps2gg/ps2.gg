@@ -1,4 +1,5 @@
 version: '3.4'
+
 services:
   rabbitmq:
     image: rabbitmq:3.8-alpine

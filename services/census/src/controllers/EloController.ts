@@ -1,8 +1,8 @@
 import { WsController } from '@ps2gg/census/controllers'
 import { PlayerLoadout } from '@ps2gg/census/types'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 
-const logger = createLogger('Ratings')
+const logger = getLogger('Ratings')
 
 export class EloController extends WsController {
   private _assistXpEvents: Promise<{ name: string; id: string }[]>

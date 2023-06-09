@@ -1,10 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { Population } from '@ps2gg/population/types'
 import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 import { PopulationRepository } from '../../infrastructure/TypeOrm/Repository/PopulationRepository'
 
-const logger = createLogger()
+const logger = getLogger()
 
 export class SetPopulation {
   constructor(readonly population: Population) {}
