@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Friends } from '@ps2gg/friends/types'
 import { PopulateFriends } from '../../application/Command/PopulateFriends'
-import { SetFriends } from '../../application/Command/SetFriends'
 import { GetFriends } from '../../application/Query/GetFriends'
 
 @Controller('/v1/friends')

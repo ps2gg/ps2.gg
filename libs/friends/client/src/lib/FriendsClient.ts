@@ -5,7 +5,7 @@ import { Logger } from 'pino'
 
 export class FriendsClient extends HttpClient {
   private readonly _logger: Logger = createLogger('FriendsClient')
-  private readonly _url = '/v1/example'
+  private readonly _url = '/v1/friends'
 
   constructor(host = 'http://friends:3000') {
     super(host)
@@ -25,7 +25,7 @@ export class FriendsClient extends HttpClient {
   async populate(character_id: string): Promise<Friends> {
     try {
       const body = { character_id }
-      const req = await this.http.post(this._url, body)
+      const req = await this.http.post(`${this._url}/populate`, body)
       return req.data
     } catch (error) {
       this._logger.error(error)

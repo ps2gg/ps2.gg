@@ -1,5 +1,5 @@
+import { CensusWs } from '@ps2gg/census/api'
 import { WsController } from '@ps2gg/census/controllers'
-import { PlayerLoadout } from '@ps2gg/census/types'
 import { createLogger } from '@ps2gg/common/logging'
 import { FriendsClient } from '@ps2gg/friends/client'
 
@@ -8,14 +8,12 @@ const logger = createLogger('Friends')
 export class FriendsController extends WsController {
   private _friends = new FriendsClient()
 
-  constructor() {
-    super(['PlayerLogin'])
+  constructor(ws: CensusWs) {
+    super(ws, ['PlayerLogin'])
   }
 
-  override onLogout(character_id: string, timestamp: Date): void {}
-
   override onLogin(character_id: string, timestamp: Date): void {
-    logger.info(`player logged on ${character_id}`)
+    logger.info({ character_id }, 'Populate friends')
     this._friends.populate(character_id)
   }
 }
