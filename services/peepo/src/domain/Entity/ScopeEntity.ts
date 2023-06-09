@@ -36,6 +36,7 @@ export class ScopeEntity {
       '4139': "Nason's Defiance",
       '6342': 'Kwahtee Mountain Complex',
       '2303': 'Indar Excavation Site',
+      '6329': 'The Ascent',
       '2419': 'Ti Alloys, Inc.',
     }).map((id) => {
       return { name: `Fight: ${bases[id].replace(/'/g, '')}`, id }
