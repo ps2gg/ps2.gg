@@ -1,6 +1,6 @@
 export const image = (env: string) => `image: 127.0.0.1:5000/ps2gg:${env}`
 export const entrypoint = (env: string, name: string) => `entrypoint: "sh /app/docker/entrypoint.${env}.sh ${name}"`
-export const volumes = (env: string) => (env === 'dev' ? `volumes:\n      - ../../../:/app` : '')
+export const volumes = (env: string) => (env === 'dev' ? `volumes:\n      - ../../..:/app` : '')
 export const healthcheck = () => `healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
