@@ -1,29 +1,13 @@
-**I'm submitting a...**
-<!-- Check with [x] -->
+### I'm submitting a... <!-- Check with [x] -->
 - [ ] Bug report
 - [ ] Feature request
 - [ ] Documentation issue or request
 
+### Current behavior <!-- Describe how the issue manifests. -->
 
-<br>
+### Expected behavior <!-- Describe the desired behavior. -->
 
-
-**Current behavior**
-<!-- Describe how the issue manifests. -->
-
-
-<br>
-
-
-**Expected behavior**
-<!-- Describe the desired behavior. -->
-
-
-<br>
-
-
-**Minimal reproduction of the problem**
-<!--
+### Minimal reproduction of the problem <!--
 For bug reports, please provide the steps to reproduce and, if sensible, a
 minimal demo repository.
 
@@ -33,5 +17,4 @@ would use this feature.
 
 ##
 
-**Additional Description**
-<!-- Optional -->
+**Additional Description**<!-- Optional -->
