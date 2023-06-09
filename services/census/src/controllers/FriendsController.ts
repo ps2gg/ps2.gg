@@ -1,9 +1,9 @@
 import { CensusWs } from '@ps2gg/census/api'
 import { WsController } from '@ps2gg/census/controllers'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { FriendsClient } from '@ps2gg/friends/client'
 
-const logger = createLogger('Friends')
+const logger = getLogger('Friends')
 
 export class FriendsController extends WsController {
   private _friends = new FriendsClient()

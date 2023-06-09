@@ -1,7 +1,7 @@
 import { CensusQuery } from '@ps2gg/census/api'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 
-const logger = createLogger()
+const logger = getLogger()
 
 export async function getFriendIds(character_id: string): Promise<string[]> {
   logger.info({ character_id }, 'Fetching friend ids')

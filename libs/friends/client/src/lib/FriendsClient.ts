@@ -1,10 +1,10 @@
 import { HttpClient } from '@ps2gg/common/http'
-import { createLogger } from '@ps2gg/common/logging'
+import { getLogger } from '@ps2gg/common/logging'
 import { Friends } from '@ps2gg/friends/types'
 import { Logger } from 'pino'
 
 export class FriendsClient extends HttpClient {
-  private readonly _logger: Logger = createLogger('FriendsClient')
+  private readonly _logger: Logger = getLogger('FriendsClient')
   private readonly _url = '/v1/friends'
 
   constructor(host = 'http://friends:3000') {
