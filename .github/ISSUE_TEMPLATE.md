@@ -7,7 +7,8 @@
 
 ### Expected behavior <!-- Describe the desired behavior. -->
 
-### Minimal reproduction of the problem <!--
+### Minimal reproduction of the problem 
+<!--
 For bug reports, please provide the steps to reproduce and, if sensible, a
 minimal demo repository.
 
