@@ -14,6 +14,10 @@ export class FriendsController extends WsController {
 
   override onLogin(character_id: string, timestamp: Date): void {
     logger.info({ character_id }, 'Populate friends')
-    this._friends.populate(character_id)
+    try {
+      this._friends.populate(character_id)
+    } catch (error) {
+      logger.error(error)
+    }
   }
 }
