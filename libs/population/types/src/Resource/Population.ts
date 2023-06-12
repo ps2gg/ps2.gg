@@ -1,8 +1,7 @@
-import { SubscribableEntity } from '@ps2gg/events/types'
-
-export interface Population extends SubscribableEntity {
-  scope: string
+export interface Population {
+  id: string
   tr: number
   nc: number
   vs: number
+  resetReceivedState: boolean
 }

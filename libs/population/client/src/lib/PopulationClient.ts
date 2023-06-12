@@ -1,6 +1,5 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { SubscriptionClient } from '@ps2gg/events/subscriptions'
-import { DynamicSubscription } from '@ps2gg/events/types'
 import { Population } from '@ps2gg/population/types'
 
 export class PopulationClient extends SubscriptionClient {
@@ -10,8 +9,8 @@ export class PopulationClient extends SubscriptionClient {
     super(host)
   }
 
-  async getPopulation(scope: string): Promise<Population | undefined> {
-    const params = { scope }
+  async getPopulation(id: string): Promise<Population | undefined> {
+    const params = { id }
     const req = await this.http.get<Population>(this._url, { params })
     return req.data
   }

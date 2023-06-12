@@ -1,6 +1,6 @@
 import { EmbedColors } from '@ps2gg/discord/constants'
 import { APIEmbed } from 'discord.js'
-import { ScopeEntity } from '../Entity/ScopeEntity'
+import { PopulationEntity } from '../Entity/PopulationEntity'
 
 export class UnsubscribeEmbed implements APIEmbed {
   title = 'Unsubscribed!'
@@ -8,8 +8,8 @@ export class UnsubscribeEmbed implements APIEmbed {
   description: string
 
   constructor(event: string, server: string) {
-    const eventType = ScopeEntity.getEventType(event)
-    const eventName = ScopeEntity.getEventName(event, eventType)
-    this.description = `You will no longer receive notifications for **${eventName} ${server === 'All' ? '' : ` on ${server}**`}`
+    const eventType = PopulationEntity.getEventType(event)
+    const eventName = PopulationEntity.getEventName(event, eventType)
+    this.description = `You will no longer receive notifications for **${eventName} ${server === 'All' ? '**' : ` on ${server}**`}`
   }
 }

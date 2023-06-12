@@ -3,7 +3,7 @@ import { EmbedColors } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { DynamicSubscription } from '@ps2gg/events/types'
 import { APIEmbed } from 'discord.js'
-import { ScopeEntity } from '../Entity/ScopeEntity'
+import { PopulationEntity } from '../Entity/PopulationEntity'
 
 export class NotifyEmbed implements APIEmbed {
   description = '## Notifications are underway!\n\n'
@@ -13,8 +13,8 @@ export class NotifyEmbed implements APIEmbed {
 
   constructor(server: string, event: string, subscription: DynamicSubscription, population: { tr: number; vs: number; nc: number }) {
     const { tr, vs, nc } = population
-    const eventType = ScopeEntity.getEventType(event)
-    const eventName = ScopeEntity.getEventName(event, eventType)
+    const eventType = PopulationEntity.getEventType(event)
+    const eventName = PopulationEntity.getEventName(event, eventType)
     const source = eventType === 'Base' ? 'Falcon (census.lithafalcon.cc)' : 'Pomf (saerro.ps2.live)'
 
     this.fields = [

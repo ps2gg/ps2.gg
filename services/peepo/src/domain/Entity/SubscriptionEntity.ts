@@ -7,7 +7,7 @@ export class SubscriptionEntity implements DynamicSubscription {
 
   constructor(
     server: string,
-    readonly scope: string,
+    readonly id: string,
     readonly userId: string,
     readonly configuration = { tr: { $min: 4 }, vs: { $min: 4 }, nc: { $min: 4 } },
     sendBefore?: number,

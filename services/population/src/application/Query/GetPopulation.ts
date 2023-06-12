@@ -7,7 +7,7 @@ import { PopulationRepository } from '../../infrastructure/TypeOrm/Repository/Po
 const logger = getLogger()
 
 export class GetPopulation {
-  constructor(readonly scope: string) {}
+  constructor(readonly id: string) {}
 }
 
 @QueryHandler(GetPopulation)
@@ -17,6 +17,6 @@ export class GetPopulationHandler implements IQueryHandler<GetPopulation, Popula
   async execute(query: GetPopulation): Promise<PopulationEntity | undefined> {
     logger.info(query, `Retrieving population data`)
 
-    return this._repository.findOne(query.scope)
+    return this._repository.findOne(query.id)
   }
 }

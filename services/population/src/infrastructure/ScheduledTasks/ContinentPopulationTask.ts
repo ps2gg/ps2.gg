@@ -13,8 +13,6 @@ export class ContinentPopulationTask {
 
   @Cron('*/10 * * * * *')
   async handleCron(): Promise<void> {
-    this._logger.log('Fetching Continent population from saerro.ps2.live')
-
     const all = await getContinentPopulation()
 
     for (const serverId of Object.keys(servers)) {
@@ -22,11 +20,11 @@ export class ContinentPopulationTask {
 
       for (const continentId of Object.keys(continents)) {
         const { population } = server.zones.all.find((p) => p.id === parseInt(continentId))
-        const scope = `${continentId}.${serverId}`
+        const id = `${continentId}.${serverId}`
         const { tr, nc, vs } = population
         const populationSum = tr + nc + vs
         const resetReceivedState = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
+        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, resetReceivedState }))
       }
     }
   }

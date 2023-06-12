@@ -1,6 +1,6 @@
 export type Subscription = {
   subscriptionId?: string
-  scope: string
+  id: string
   userId: string
   eventIsReceived?: boolean
   eventLastReceivedAt?: Date

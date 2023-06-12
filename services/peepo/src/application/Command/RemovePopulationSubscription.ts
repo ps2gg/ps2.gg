@@ -1,7 +1,7 @@
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
 import { UnsubscribeEmbed } from '../../domain/Embed/UnsubscribeEmbed'
-import { ScopeEntity } from '../../domain/Entity/ScopeEntity'
+import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 
 export class RemovePopulationSubscription {
   private _population = new PopulationClient()
@@ -11,11 +11,11 @@ export class RemovePopulationSubscription {
   }
 
   async execute(): Promise<UnsubscribeEmbed> {
-    const scope = new ScopeEntity(this.server, this.event)
-    const compositeScopes = scope.getCompositions()
+    const id = new PopulationEntity(this.server, this.event)
+    const ids = id.getIds()
 
-    for (const scope of compositeScopes) {
-      await this._population.removeSubscription(this.user.id, scope)
+    for (const id of ids) {
+      await this._population.removeSubscription(this.user.id, id)
     }
 
     return new UnsubscribeEmbed(this.event, this.server)

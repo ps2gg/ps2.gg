@@ -18,7 +18,7 @@ export class UnsubscribeCommand {
   }
 
   @Autocomplete(Unsubscribe, 'event')
-  async scope(query: string): Promise<AutocompleteResponse[]> {
+  async id(query: string): Promise<AutocompleteResponse[]> {
     return new GetEventSuggestions(query).execute()
   }
 }

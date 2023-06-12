@@ -37,7 +37,7 @@ describe('PopulationController', () => {
   describe('save', () => {
     it('should return the saved population', async () => {
       const population: Population = {
-        scope: 'zone.Emerald',
+        id: 'zone.Emerald',
         tr: 100,
         nc: 200,
         vs: 300,
@@ -55,10 +55,10 @@ describe('PopulationController', () => {
   });
 
   describe('get', () => {
-    it('should return the population for the given server and scope', async () => {
-      const scope = 'zone.Emerald';
+    it('should return the population for the given server and id', async () => {
+      const id = 'zone.Emerald';
       const expectedOutput: Population = {
-        scope,
+        id,
         tr: 100,
         nc: 200,
         vs: 300,
@@ -67,10 +67,10 @@ describe('PopulationController', () => {
 
       jest.spyOn(queryBus, 'execute').mockResolvedValueOnce(expectedOutput);
 
-      const result = await controller.get(scope);
+      const result = await controller.get(id);
 
       expect(result).toEqual(expectedOutput);
-      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(scope));
+      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(id));
     });
   });
 });

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { Cron } from '@nestjs/schedule'
-import { getBasePopulation, getBases } from '@ps2gg/census/collections'
+import { getBasePopulation } from '@ps2gg/census/collections'
 import { bases, servers } from '@ps2gg/common/constants'
 import { SetPopulation } from '../../application/Command/SetPopulation'
 
@@ -13,8 +13,7 @@ export class BasePopulationTask {
 
   @Cron('*/30 * * * * *')
   async handleCron(): Promise<void> {
-    this._logger.log('Fetching Base population from census.lithafalcon.cc')
-
+    return
     const basePopulations = await getBasePopulation()
 
     for (const serverId of Object.keys(servers)) {
@@ -25,13 +24,13 @@ export class BasePopulationTask {
 
         if (!base) continue
         const population = base.faction_population_upper_bound
-        const scope = `${baseId}.${serverId}`
+        const id = `${baseId}.${serverId}`
         const tr = parseInt(population.TR) || 0
         const nc = parseInt(population.NC) || 0
         const vs = parseInt(population.VS) || 0
         const populationSum = tr + nc + vs
         const resetReceivedState = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ scope, tr, nc, vs, resetReceivedState }))
+        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, resetReceivedState }))
       }
     }
   }

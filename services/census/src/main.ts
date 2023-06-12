@@ -1,8 +1,7 @@
 import { censusWs } from '@ps2gg/census/api'
 import { getAssistXpEvents } from '@ps2gg/census/collections'
 import { servers } from '@ps2gg/common/constants'
-import { EloController } from './controllers/EloController'
-import { SpeedrunController } from './controllers/SpeedrunController'
+import { PlayerController } from './infrastructure/Census/PlayerController'
 
 async function subscribe() {
   const assistXpEvents = await getAssistXpEvents()
@@ -17,7 +16,6 @@ async function subscribe() {
   })
 }
 
-new EloController()
-new SpeedrunController()
+new PlayerController()
 
 subscribe()

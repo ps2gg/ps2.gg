@@ -1,7 +1,7 @@
 import { DynamicSubscription } from '@ps2gg/events/types'
 import { PopulationClient } from '@ps2gg/population/client'
 import { NotifyEmbed } from '../../domain/Embed/Notify'
-import { ScopeEntity } from '../../domain/Entity/ScopeEntity'
+import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 import { GetPopulation } from './GetPopulation'
 
 export class GetSubscription {
@@ -10,9 +10,9 @@ export class GetSubscription {
   constructor(readonly server: string, readonly event: string, readonly userId: string) {}
 
   async execute(): Promise<NotifyEmbed> {
-    const scopes = new ScopeEntity(this.server, this.event).getCompositions()
-    const population = await new GetPopulation(scopes, this.event, this.server).execute()
-    const subscriptions = await this._population.getSubscriptions(this.userId, scopes[0])
+    const ids = new PopulationEntity(this.server, this.event).getIds()
+    const population = await new GetPopulation(ids, this.event, this.server).execute()
+    const subscriptions = await this._population.getSubscriptions(this.userId, ids[0])
     const demoSubscription: DynamicSubscription = subscriptions[0]
 
     if (!subscriptions.length) throw new Error(`You aren't subscribed to ${this.event} on ${this.server}.`)
