@@ -1,0 +1,22 @@
+{
+  "name": "friends-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/friends/types/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/friends/types"],
+      "options": {
+        "jestConfig": "libs/friends/types/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

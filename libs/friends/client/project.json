@@ -1,0 +1,22 @@
+{
+  "name": "friends-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/friends/client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/friends/client"],
+      "options": {
+        "jestConfig": "libs/friends/client/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

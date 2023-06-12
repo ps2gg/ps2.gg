@@ -1,0 +1,97 @@
+{
+  "sourceRoot": "services/friends/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/services/friends",
+        "main": "services/friends/src/main.ts",
+        "tsConfig": "services/friends/tsconfig.app.json",
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "dtoFileNameSuffix": "RestResource.ts",
+              "controllerFileNameSuffix": "Controller.ts",
+              "classValidatorShim": false,
+              "introspectComments": true
+            }
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "build-worker": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/services/friends",
+        "main": "services/friends/src/worker.ts",
+        "tsConfig": "services/friends/tsconfig.app.json"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "build-migration": {
+      "executor": "libs/nx-tools:migration",
+      "options": {
+        "tsConfig": "services/friends/tsconfig.migration.json"
+      },
+      "configurations": {
+        "production": {
+          "outDir": "dist/migrations"
+        }
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn ts-node -r tsconfig-paths/register -P services/friends/tsconfig.app.json ./node_modules/typeorm/cli.js -d services/friends/src/infrastructure/TypeOrm/DataSource.ts"
+      }
+    },
+    "typeorm-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn nx run friends:typeorm migration:generate services/friends/src/infrastructure/TypeOrm/Migrations/{args.name} --pretty"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "friends:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "friends:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["services/friends/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/services/friends"],
+      "options": {
+        "jestConfig": "services/friends/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
