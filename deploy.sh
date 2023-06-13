@@ -34,20 +34,6 @@ tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
 sed -i -e 's/bind://g' "$out"
 sed -i -e 's/create_host_path: true//g' "$out"
 
-# Bandaid fix for docker-compose v2 incorrectly adding
-# redundant property at start of generated output
-# out="docker/compose/out/docker-compose.$1.yml"
-# tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
-
-# Bandaid fix for docker-compose v2 incorrectly adding
-# redundant property at start of generated output
-out="docker/compose/out/docker-compose.$1.yml"
-tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
-
-# Bandaid fix for incorrect compose v2 bind mount settings
-sed -i -e 's/bind://g' "$out"
-sed -i -e 's/create_host_path: true//g' "$out"
-
 # Deploy
 docker stack deploy \
   --prune \

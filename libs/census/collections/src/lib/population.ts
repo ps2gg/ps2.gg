@@ -2,7 +2,7 @@ import { CensusQuery } from '@ps2gg/census/api'
 import { getLogger } from '@ps2gg/common/logging'
 import axios from 'axios'
 
-const logger = getLogger('Population')
+const logger = getLogger()
 
 export async function getBasePopulation(): Promise<CensusBasePopulation[]> {
   logger.info('Fetching base population from Sanctuary Census')

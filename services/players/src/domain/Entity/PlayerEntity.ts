@@ -1,10 +1,11 @@
 import { Subscribable } from '@ps2gg/events/subscriptions'
 import { SubscribableEntity } from '@ps2gg/events/types'
 import { Player } from '@ps2gg/players/types'
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, Index, PrimaryColumn } from 'typeorm'
 
 @Entity()
 @Subscribable()
+@Index('name')
 export class PlayerEntity extends SubscribableEntity implements Player {
   @PrimaryColumn('text')
   readonly id: string

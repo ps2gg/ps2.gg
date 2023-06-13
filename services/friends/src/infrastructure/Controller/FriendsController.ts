@@ -9,12 +9,12 @@ export class FriendsController {
   constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) {}
 
   @Get('/')
-  async get(@Query() character_id: string): Promise<Friends> {
-    return this._queryBus.execute(new GetFriends(character_id))
+  async get(@Query('id') id: string): Promise<Friends> {
+    return this._queryBus.execute(new GetFriends(id))
   }
 
   @Post('/populate')
-  async populate(@Body('character_id') character_id: string): Promise<Friends> {
-    return this._commandBus.execute(new PopulateFriends(character_id))
+  async populate(@Body('id') id: string): Promise<Friends> {
+    return this._commandBus.execute(new PopulateFriends(id))
   }
 }

@@ -1,7 +1,7 @@
 import { CensusQuery } from '@ps2gg/census/api'
 import { getLogger } from '@ps2gg/common/logging'
 
-const logger = getLogger('Player')
+const logger = getLogger()
 
 export async function getPlayer(id: string): Promise<CensusPlayer> {
   logger.info({ id }, 'Fetching player from Census')

@@ -1,7 +1,7 @@
 import { CensusQuery } from '@ps2gg/census/api'
 import { getLogger } from '@ps2gg/common/logging'
 
-const logger = getLogger('Ratings')
+const logger = getLogger()
 
 export async function getAssistXpEvents(): Promise<CensusAssistXpEvents> {
   logger.info('Fetching valid assist event ids from Census')

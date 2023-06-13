@@ -11,25 +11,25 @@ export class FriendsClient extends HttpClient {
     super(host)
   }
 
-  async get(character_id: string): Promise<Friends> {
+  async get(id: string): Promise<Friends | undefined> {
     try {
-      const params = { character_id }
+      const params = { id }
       const req = await this.http.get(this._url, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
-      throw error
+      return
     }
   }
 
-  async populate(character_id: string): Promise<Friends> {
+  async populate(id: string): Promise<Friends | undefined> {
     try {
-      const body = { character_id }
+      const body = { id }
       const req = await this.http.post(`${this._url}/populate`, body)
       return req.data
     } catch (error) {
       this._logger.error(error)
-      throw error
+      return
     }
   }
 }

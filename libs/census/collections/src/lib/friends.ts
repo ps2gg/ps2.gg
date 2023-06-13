@@ -7,8 +7,8 @@ export async function getFriendIds(character_id: string): Promise<string[]> {
   logger.info({ character_id }, 'Fetching friend ids')
 
   const census = new CensusQuery()
-  const res = await census.collection('character').where('character_id').equals(character_id).resolve('friends').get()
-  const character = res.character_list[0]
+  const res = await census.collection('characters_friend').where('character_id').equals(character_id).get()
+  const character = res.characters_friend_list?.[0]
 
   if (!character) throw new CharacterNotFoundException(character_id)
   if (!character.friend_list) character.friend_list = []

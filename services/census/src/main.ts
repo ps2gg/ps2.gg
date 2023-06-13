@@ -18,7 +18,7 @@ async function subscribe() {
   })
 }
 
-new PlayerController()
+new PlayerController(ws)
 new FriendsController(ws)
 
 subscribe()

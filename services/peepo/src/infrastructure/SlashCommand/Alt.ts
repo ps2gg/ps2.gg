@@ -19,6 +19,11 @@ export class AltCommand {
     return { interactionContext: [name], embeds: [embed] }
   }
 
+  @Autocomplete(AltMatch, 'name')
+  async search(query: string): Promise<AutocompleteResponse[]> {
+    return new GetPlayerNameSuggestions(query).execute()
+  }
+
   @Component(AltUpdate)
   async update(interactionContext: string[]): Promise<ComponentResponse> {
     const name = interactionContext[0]
@@ -38,10 +43,5 @@ export class AltCommand {
     const name = interactionContext[0]
     const embed = await new GetAlts(name).execute()
     return { embeds: [embed] }
-  }
-
-  @Autocomplete(AltMatch, 'name')
-  async search(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerNameSuggestions(query).execute()
   }
 }

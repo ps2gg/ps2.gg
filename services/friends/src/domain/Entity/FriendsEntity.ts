@@ -6,7 +6,7 @@ import { ulid } from 'ulid'
 @Entity()
 export class FriendsEntity extends AggregateRoot implements Friends {
   @PrimaryColumn('text')
-  readonly character_id: string
+  readonly id: string
 
   @Column('text', { array: true, nullable: false })
   readonly friendIds: string[]
@@ -14,7 +14,7 @@ export class FriendsEntity extends AggregateRoot implements Friends {
   constructor(friends: Friends) {
     super()
     if (!friends) return
-    this.character_id = friends.character_id
+    this.id = friends.id
     this.friendIds = friends.friendIds
   }
 }

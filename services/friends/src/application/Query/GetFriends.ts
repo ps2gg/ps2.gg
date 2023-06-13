@@ -4,7 +4,7 @@ import { FriendsRepository } from '../../infrastructure/TypeOrm/Repository/Frien
 import { PopulateFriends } from '../Command/PopulateFriends'
 
 export class GetFriends {
-  constructor(readonly character_id: string) {}
+  constructor(readonly id: string) {}
 }
 
 @QueryHandler(GetFriends)
@@ -12,13 +12,10 @@ export class GetFriendsHandler implements IQueryHandler<GetFriends, FriendsEntit
   constructor(private readonly _repository: FriendsRepository, private readonly _commandBus: CommandBus) {}
 
   async execute(query: GetFriends): Promise<FriendsEntity> {
-    const { character_id } = query
-    const friends = await this._repository.findOne(query.character_id)
+    const { id } = query
+    const friends = await this._repository.findOne(id)
 
-    if (friends) {
-      return
-    }
-
-    return this._commandBus.execute(new PopulateFriends(character_id))
+    if (friends) return friends
+    return this._commandBus.execute(new PopulateFriends(id))
   }
 }
