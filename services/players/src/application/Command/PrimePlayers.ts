@@ -22,7 +22,7 @@ export class PrimePlayersHandler implements ICommandHandler<PrimePlayers, void> 
 
     for (const id of unpopulated) {
       try {
-        this._commandBus.execute(new PopulatePlayer(id, false, new Date(0)))
+        await this._commandBus.execute(new PopulatePlayer(id, false, new Date(0)))
       } catch (err) {
         logger.error(err, `Failed to prime player ${id}`)
       }

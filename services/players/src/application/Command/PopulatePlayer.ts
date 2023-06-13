@@ -14,11 +14,16 @@ export class PopulatePlayer {
 export class PopulatePlayerHandler implements ICommandHandler<PopulatePlayer, PlayerEntity> {
   constructor(private _repository: ExampleRepository) {}
 
-  async execute(command: PopulatePlayer): Promise<PlayerEntity> {
+  async execute(command: PopulatePlayer): Promise<PlayerEntity | undefined> {
     const { id, isOnline, lastLogout } = command
-    const { name } = await getPlayer(id)
-    const player = { id, name, isOnline, lastLogout }
-    logger.info(player, 'Updating player')
-    return this._repository.save(player)
+    try {
+      const { name } = await getPlayer(id)
+      const player = { id, name, isOnline, lastLogout }
+      logger.info(player, 'Updating player')
+      return this._repository.save(player)
+    } catch (err) {
+      logger.error(err)
+      return undefined
+    }
   }
 }
