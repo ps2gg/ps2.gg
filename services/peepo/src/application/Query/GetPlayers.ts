@@ -7,6 +7,6 @@ export class GetPlayers {
   constructor(readonly ids: string[]) {}
 
   async execute(): Promise<Player[]> {
-    return await this._players.getByIds(this.ids)
+    return this._players.getMany(this.ids)
   }
 }

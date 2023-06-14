@@ -1,4 +1,6 @@
-import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse } from '@ps2gg/discord/command'
+import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, linkedUser } from '@ps2gg/discord/command'
+import { User } from '@ps2gg/users/types'
+import { VerifyCharacter } from '../../application/Command/VerifyCharacter'
 import { GetFriends } from '../../application/Query/GetFriends'
 import { GetOnlinePlayers } from '../../application/Query/GetOnlinePlayer'
 import { GetPlayer } from '../../application/Query/GetPlayer'
@@ -8,8 +10,13 @@ import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 @Command(Sesh)
 export class SeshCommand {
   @Main(Sesh)
-  async sesh(options: SeshOptions): Promise<CommandResponse> {
-    const player = await new GetPlayer(options.name).execute()
+  async sesh(options: SeshOptions, @linkedUser user: User): Promise<CommandResponse> {
+    const { name } = options
+    const isVerified = await new VerifyCharacter(user.id, name).execute()
+
+    if (!isVerified) throw new Error("Character couldn't be verified.")
+
+    const player = await new GetPlayer(name).execute()
     const { friendIds } = await new GetFriends(player.id).execute()
     const friends = await new GetOnlinePlayers(friendIds).execute()
     return {

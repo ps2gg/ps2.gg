@@ -7,7 +7,7 @@ import { ExampleRepository } from '../../infrastructure/TypeOrm/Repository/Examp
 const logger = getLogger()
 
 export class PopulatePlayer {
-  constructor(readonly id: string, readonly isOnline: boolean, readonly lastLogout?: Date) {}
+  constructor(readonly id: string, readonly isOnline = false, readonly lastLogout = new Date(0)) {}
 }
 
 @CommandHandler(PopulatePlayer)
@@ -23,7 +23,6 @@ export class PopulatePlayerHandler implements ICommandHandler<PopulatePlayer, Pl
       return this._repository.save(player)
     } catch (err) {
       logger.error(err)
-      return undefined
     }
   }
 }

@@ -1,6 +1,6 @@
 import { setupDiscordClient } from '@ps2gg/discord/client'
 import { readFileSync } from 'fs'
-import { DiscordController } from './infrastructure/Controller/DiscordController'
+import { DiscordListener } from './infrastructure/Discord/DiscordListener'
 import { PopulationEvent } from './infrastructure/EventStream/PopulationUpdate'
 import { AltCommand } from './infrastructure/SlashCommand/Alt'
 import { NotifyCommand } from './infrastructure/SlashCommand/Notify'
@@ -16,4 +16,4 @@ const discord = setupDiscordClient({
   events: [new PopulationEvent()],
 })
 
-new DiscordController(discord)
+new DiscordListener(discord)

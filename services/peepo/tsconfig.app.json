@@ -6,5 +6,5 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "../../libs/discord/controllers/src/lib/discord.ts", "../notifications/src/main.ts"]
+  "include": ["**/*.ts", "../../libs/discord/controllers/src/lib/DiscordController.ts", "../notifications/src/main.ts"]
 }

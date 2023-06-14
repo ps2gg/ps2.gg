@@ -7,7 +7,7 @@ export class GetOnlinePlayers {
   constructor(readonly ids: string[]) {}
 
   async execute(): Promise<SeshFriendsEmbed> {
-    const friends = await this._players.getOnlineByIds(this.ids)
+    const friends = await this._players.getOnline(this.ids)
     return new SeshFriendsEmbed(friends)
   }
 }

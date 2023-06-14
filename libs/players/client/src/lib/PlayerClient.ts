@@ -1,9 +1,9 @@
-import { HttpClient } from '@ps2gg/common/http'
 import { getLogger } from '@ps2gg/common/logging'
+import { SubscriptionClient } from '@ps2gg/events/subscriptions'
 import { Player } from '@ps2gg/players/types'
 import { Logger } from 'pino'
 
-export class PlayerClient extends HttpClient {
+export class PlayerClient extends SubscriptionClient {
   private readonly _logger: Logger = getLogger('ExampleClient')
   private readonly _url = '/v1/player'
 

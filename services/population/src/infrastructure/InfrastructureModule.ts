@@ -42,7 +42,7 @@ export class InfrastructureModule {
   static forApi(): DynamicModule {
     return {
       module: InfrastructureModule,
-      imports: [HttpControllerModule, InfrastructureModule, EventModule.forApi()],
+      imports: [HttpControllerModule, EventModule.forApi()],
     }
   }
 

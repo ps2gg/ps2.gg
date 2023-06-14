@@ -9,8 +9,7 @@ export class GetPlayer {
   async execute(): Promise<Player> {
     const player = await this._players.getByName(this.name)
 
-    // TODO: populate player if not already done
-    if (!player) throw new Error(`${this.name} not yet recorded`)
+    if (!player) throw new Error(`${this.name} doesn't exist.`)
 
     return player
   }

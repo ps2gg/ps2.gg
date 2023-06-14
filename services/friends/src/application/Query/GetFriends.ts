@@ -14,8 +14,6 @@ export class GetFriendsHandler implements IQueryHandler<GetFriends, FriendsEntit
   async execute(query: GetFriends): Promise<FriendsEntity> {
     const { id } = query
     const friends = await this._repository.findOne(id)
-
-    if (friends) return friends
-    return this._commandBus.execute(new PopulateFriends(id))
+    return friends || this._commandBus.execute(new PopulateFriends(id))
   }
 }

@@ -3,7 +3,7 @@ import { getLogger } from '@ps2gg/common/logging'
 import { User } from '@ps2gg/users/types'
 import { Logger } from 'pino'
 
-export class UsersClient extends HttpClient {
+export class UserClient extends HttpClient {
   private readonly _logger: Logger = getLogger('UsersClient')
   private readonly _url = '/v1/user'
 
@@ -18,8 +18,16 @@ export class UsersClient extends HttpClient {
       return req.data
     } catch (error) {
       this._logger.error(error)
+    }
+  }
 
-      return
+  async getCharacter(characterId: string): Promise<User | undefined> {
+    try {
+      const params = { characterId }
+      const req = await this.http.get<User>(this._url, { params })
+      return req.data
+    } catch (error) {
+      this._logger.error(error)
     }
   }
 
@@ -30,8 +38,6 @@ export class UsersClient extends HttpClient {
       return req.data
     } catch (error) {
       this._logger.error(error)
-
-      return
     }
   }
 
@@ -42,8 +48,16 @@ export class UsersClient extends HttpClient {
       return req.data
     } catch (error) {
       this._logger.error(error)
+    }
+  }
 
-      return
+  async verifyCharacter(userId: string, characterId: string): Promise<User | undefined> {
+    try {
+      const params = { userId, characterId }
+      const req = await this.http.get<User>(`${this._url}/verify`, { params })
+      return req.data
+    } catch (error) {
+      this._logger.error(error)
     }
   }
 

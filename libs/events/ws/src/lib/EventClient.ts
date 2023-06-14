@@ -34,7 +34,8 @@ export class EventClient extends WebSocketClient {
     })
   }
 
-  unsubscribe(subscription: EventSubscription): void {
+  unsubscribe(events: string[]): void {
+    const subscription = { events, userId: this._userId }
     const payload = { event: 'unsubscribe', data: subscription }
     this._subscriptions = this._subscriptions.filter((s) => JSON.stringify(s) !== JSON.stringify(payload))
 
