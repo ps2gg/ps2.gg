@@ -3,7 +3,11 @@ services:
   peepo:
     secrets:
       - peepo-token
-
+  friends:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.friends.rule=(Host(`friends.localhost`) && PathPrefix(`/v1/friends`))"
+      - "traefik.http.services.friends.loadbalancer.server.port=3000"
 secrets:
   peepo-token:
     external: true
