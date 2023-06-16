@@ -13,9 +13,10 @@ export class FriendsController {
 
   @Get('/:character_id')
   async getSingle(@Param('character_id') character_id, @Query('refresh') refresh: boolean): Promise<Friends> {
-    logger.info({ refresh })
-    if (refresh)
+    if (refresh) {
+      logger.debug('Refresh set, getting friends from Census')
       return this._commandBus.execute(new PopulateFriends(character_id))
+    }
     return this._queryBus.execute(new GetFriends(character_id))
   }
 
