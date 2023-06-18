@@ -14,7 +14,7 @@ export class FriendsController extends WsController {
   override async onLogin(character_id: string, timestamp: Date): Promise<void> {
     this._logger.info({ character_id }, 'Populate friends')
     try {
-      // await this._friends.populate(character_id)
+      await this._friends.populate(character_id)
     } catch (error) {
       // TODO: consider retry mechanism
     }
