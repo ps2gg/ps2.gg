@@ -13,7 +13,6 @@ export class BasePopulationTask {
 
   @Cron('*/30 * * * * *')
   async handleCron(): Promise<void> {
-    return
     const basePopulations = await getBasePopulation()
 
     for (const serverId of Object.keys(servers)) {
@@ -29,8 +28,8 @@ export class BasePopulationTask {
         const nc = parseInt(population.NC) || 0
         const vs = parseInt(population.VS) || 0
         const populationSum = tr + nc + vs
-        const resetReceivedState = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, resetReceivedState }))
+        const __resetSubscriptions = populationSum === 0
+        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, __resetSubscriptions }))
       }
     }
   }

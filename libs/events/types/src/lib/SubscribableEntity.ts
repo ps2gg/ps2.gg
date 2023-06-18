@@ -6,8 +6,8 @@ export class SubscribableEntity extends AggregateRoot {
   @Index({ unique: true })
   id: string
 
-  @Column('boolean', { default: true })
-  resetReceivedState: boolean
+  @Column('boolean', { nullable: true })
+  __resetSubscriptions: boolean
 
   // For typeorm subscriber to distinguish between entities that are subscribable and those that are not
   __isSubscribable = true
@@ -16,8 +16,8 @@ export class SubscribableEntity extends AggregateRoot {
   constructor(entity?: any) {
     super()
     if (!entity) return
-    const { id, resetReceivedState } = entity
+    const { id, __resetSubscriptions } = entity
     this.id = id
-    this.resetReceivedState = resetReceivedState
+    this.__resetSubscriptions = __resetSubscriptions
   }
 }

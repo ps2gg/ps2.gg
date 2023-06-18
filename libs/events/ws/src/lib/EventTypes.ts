@@ -11,10 +11,14 @@ export type EventAction = {
 
 export type EventResponse = {
   event: string
-  data: any & { id: string; subscription: DynamicSubscription }
+  data: any & { id: string; __resetSubscriptions?: boolean }
+  subscription?: DynamicSubscription
+  changes?: EntityChanges
 }
 
 export type EventRequest = {
   event: string
   data?: any & { userId: string }
 }
+
+export type EntityChanges = { key: string; before: any; after: any }[]

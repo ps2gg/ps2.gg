@@ -4,8 +4,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx run-many --parallel=12 --target=test --all",
-    "lint": "nx run-many --parallel=12 --target=lint --all --fix"
+    "test": "nx run-many --parallel=4 --target=test --all",
+    "lint": "nx run-many --parallel=4 --target=lint --all --fix"
   },
   "private": true,
   "dependencies": {

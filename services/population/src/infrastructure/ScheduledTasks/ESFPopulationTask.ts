@@ -13,7 +13,6 @@ export class ESFPopulationTask {
 
   @Cron('*/10 * * * * *')
   async handleCron(): Promise<void> {
-    return
     const all = await getESFPopulation()
 
     for (const serverId of Object.keys(servers)) {
@@ -28,8 +27,8 @@ export class ESFPopulationTask {
           vs: deflate(vehicles['scythe'].vs),
         }
         const populationSum = tr + nc + vs
-        const resetReceivedState = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, resetReceivedState }))
+        const __resetSubscriptions = populationSum === 0
+        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, __resetSubscriptions }))
       }
     }
   }

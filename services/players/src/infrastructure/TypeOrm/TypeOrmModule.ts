@@ -3,11 +3,11 @@ import { TypeOrmModule as RootTypeOrmModule } from '@nestjs/typeorm'
 import { SubscriptionEntity, SubscriptionRepository } from '@ps2gg/events/subscriptions'
 import { PlayerEntity } from '../../domain/Entity/PlayerEntity'
 import { options } from './DataSource'
-import { ExampleRepository } from './Repository/ExampleRepository'
+import { PlayerRepository } from './Repository/PlayerRepository'
 
 export const Entities = [PlayerEntity, SubscriptionEntity]
 
-const Repositories = [ExampleRepository, SubscriptionRepository]
+const Repositories = [PlayerRepository, SubscriptionRepository]
 
 @Global()
 @Module({

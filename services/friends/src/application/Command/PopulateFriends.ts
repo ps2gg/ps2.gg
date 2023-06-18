@@ -17,7 +17,7 @@ export class PopulateFriendsHandler implements ICommandHandler<PopulateFriends, 
   async execute(command: PopulateFriends): Promise<FriendsEntity> {
     const { id } = command
     const friendIds = await getFriendIds(id)
-    await this._players.primeMany(friendIds)
+    await this._players.populateMany(friendIds)
     const friends = new SetFriends({ id, friendIds })
     return this._commandBus.execute(friends)
   }

@@ -11,53 +11,58 @@ export class UserClient extends HttpClient {
     super(host)
   }
 
-  async getDiscordUser(discordId: string): Promise<User | undefined> {
+  async getDiscordUser(discordId: string): Promise<User | null> {
     try {
       const params = { discordId }
       const req = await this.http.get<User>(this._url, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
+      throw error
     }
   }
 
-  async getCharacter(characterId: string): Promise<User | undefined> {
+  async getCharacter(characterId: string): Promise<User | null> {
     try {
       const params = { characterId }
       const req = await this.http.get<User>(this._url, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
+      throw error
     }
   }
 
-  async getUser(userId: string): Promise<User | undefined> {
+  async getUser(userId: string): Promise<User | null> {
     try {
       const params = { userId }
       const req = await this.http.get<User>(this._url, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
+      throw error
     }
   }
 
-  async addDiscordUser(discordId?: string, characterId?: string): Promise<User | undefined> {
+  async addDiscordUser(discordId?: string, characterId?: string): Promise<User | null> {
     try {
       const payload = { discordId, characterId }
       const req = await this.http.post<User>(this._url, payload)
       return req.data
     } catch (error) {
       this._logger.error(error)
+      throw error
     }
   }
 
-  async verifyCharacter(userId: string, characterId: string): Promise<User | undefined> {
+  async verifyCharacter(characterId: string, userId?: string, discordId?: string): Promise<User | null> {
     try {
-      const params = { userId, characterId }
+      const params = { userId, characterId, discordId }
       const req = await this.http.get<User>(`${this._url}/verify`, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
+      throw error
     }
   }
 

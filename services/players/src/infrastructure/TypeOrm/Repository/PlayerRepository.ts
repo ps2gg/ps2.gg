@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Player } from '@ps2gg/players/types'
-import { In, Repository } from 'typeorm'
+import { ILike, In, Repository } from 'typeorm'
 import { PlayerEntity } from '../../../domain/Entity/PlayerEntity'
 
 @Injectable()
-export class ExampleRepository {
+export class PlayerRepository {
   constructor(@InjectRepository(PlayerEntity) private readonly _repository: Repository<PlayerEntity>) {}
 
-  async findOne(id: string): Promise<PlayerEntity | undefined> {
+  async findOne(id: string): Promise<PlayerEntity | null> {
     return this._repository.findOne({
       where: { id },
     })
   }
 
-  async findOneByName(name: string): Promise<PlayerEntity | undefined> {
+  async findOneByName(name: string): Promise<PlayerEntity | null> {
     return this._repository.findOne({
-      where: { name },
+      where: { name: ILike(name) },
     })
   }
 

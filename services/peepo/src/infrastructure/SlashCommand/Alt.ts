@@ -1,9 +1,9 @@
+import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { Autocomplete, AutocompleteResponse, Command, Component, ComponentResponse, SubCommand, CommandResponse } from '@ps2gg/discord/command'
 import { CommandInteraction, MessageComponentInteraction } from 'discord.js'
 import { UpdateAllAlts } from '../../application/Command/UpdateAllAlts'
 import { GetAlts } from '../../application/Query/GetAlts'
 import { GetAltsTree } from '../../application/Query/GetAltsTree'
-import { GetPlayerNameSuggestions } from '../../application/Query/GetPlayerNameSuggestions'
 import { AltExplain } from '../../domain/Component/AltExplain'
 import { AltReset } from '../../domain/Component/AltReset'
 import { AltUpdate } from '../../domain/Component/AltUpdate'
@@ -13,7 +13,7 @@ import { AltMatch, MatchOptions } from '../../domain/Meta/AltMatch'
 @Command(Alt)
 export class AltCommand {
   @SubCommand(AltMatch)
-  async match(options: MatchOptions, interaction: CommandInteraction): Promise<CommandResponse | undefined> {
+  async match(options: MatchOptions, interaction: CommandInteraction): Promise<CommandResponse | null> {
     const { name } = options
     const embed = await new GetAlts(name).execute()
     return { interactionContext: [name], embeds: [embed] }
@@ -21,7 +21,7 @@ export class AltCommand {
 
   @Autocomplete(AltMatch, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerNameSuggestions(query).execute()
+    return new GetPlayerAutocomplete(query).execute()
   }
 
   @Component(AltUpdate)

@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { PrimePlayers, PrimePlayersHandler } from './PrimePlayers'
+import { Test, TestingModule } from '@nestjs/testing'
 import { GetPlayers } from '../Query/GetPlayers'
 import { PopulatePlayer } from './PopulatePlayer'
+import { PopulatePlayers, PopulatePlayersHandler } from './PopulatePlayers'
 
-describe('PrimePlayersHandler', () => {
+describe('PopulatePlayersHandler', () => {
   let commandBus: CommandBus
   let queryBus: QueryBus
-  let handler: PrimePlayersHandler
+  let handler: PopulatePlayersHandler
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        PrimePlayersHandler,
+        PopulatePlayersHandler,
         {
           provide: QueryBus,
           useValue: {
@@ -28,7 +28,7 @@ describe('PrimePlayersHandler', () => {
       ],
     }).compile()
 
-    handler = module.get<PrimePlayersHandler>(PrimePlayersHandler)
+    handler = module.get<PopulatePlayersHandler>(PopulatePlayersHandler)
     queryBus = module.get<QueryBus>(QueryBus)
     commandBus = module.get<CommandBus>(CommandBus)
   })
@@ -40,9 +40,9 @@ describe('PrimePlayersHandler', () => {
       { id: '2', name: 'Player 2' },
     ]
     const getPlayersSpy = jest.spyOn(queryBus, 'execute').mockResolvedValue(players)
-    const populatePlayerSpy = jest.spyOn(commandBus, 'execute').mockResolvedValue(undefined)
+    const populatePlayerSpy = jest.spyOn(commandBus, 'execute').mockResolvedValue(null)
 
-    await handler.execute(new PrimePlayers(ids))
+    await handler.execute(new PopulatePlayers(ids))
     console.log('e')
     expect(getPlayersSpy).toHaveBeenCalledWith(new GetPlayers(ids))
     expect(populatePlayerSpy).toHaveBeenCalledTimes(1)

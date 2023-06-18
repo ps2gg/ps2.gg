@@ -8,7 +8,7 @@ import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
 export class PopulationRepository {
   constructor(@InjectRepository(PopulationEntity) private readonly _repository: Repository<PopulationEntity>) {}
 
-  async findOne(id: string): Promise<PopulationEntity | undefined> {
+  async findOne(id: string): Promise<PopulationEntity | null> {
     return this._repository.findOne({
       where: { id },
     })

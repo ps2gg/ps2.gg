@@ -3,5 +3,5 @@ export interface Population {
   tr: number
   nc: number
   vs: number
-  resetReceivedState: boolean
+  __resetSubscriptions: boolean
 }

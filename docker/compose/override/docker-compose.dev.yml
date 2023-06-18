@@ -3,7 +3,12 @@ services:
   peepo:
     secrets:
       - peepo-token
+  jaeger:
+    secrets:
+      - jaeger-token
 
 secrets:
   peepo-token:
+    external: true
+  jaeger-token:
     external: true

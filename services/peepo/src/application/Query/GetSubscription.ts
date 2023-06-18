@@ -12,7 +12,7 @@ export class GetSubscription {
   async execute(): Promise<NotifyEmbed> {
     const ids = new PopulationEntity(this.server, this.event).getIds()
     const population = await new GetPopulation(ids, this.event, this.server).execute()
-    const subscriptions = await this._population.getSubscriptions(this.userId, ids[0])
+    const subscriptions = await this._population.getSubscriptions({ userId: this.userId, id: ids[0] })
     const demoSubscription: DynamicSubscription = subscriptions[0]
 
     if (!subscriptions.length) throw new Error(`You aren't subscribed to ${this.event} on ${this.server}.`)

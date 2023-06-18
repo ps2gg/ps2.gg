@@ -11,13 +11,21 @@ export class PlayerController extends WsController {
     super(ws, ['PlayerLogin', 'PlayerLogout'])
   }
 
-  override onLogin(character_id: string): void {
+  override async onLogin(character_id: string): Promise<void> {
     this._logger.info({ character_id, isOnline: true }, 'Populate player')
-    this._players.post(character_id, true)
+    try {
+      await this._players.populateOne(character_id, true)
+    } catch (error) {
+      // TODO: consider retry mechanism
+    }
   }
 
-  override onLogout(character_id: string, timestamp: Date): void {
+  override async onLogout(character_id: string, timestamp: Date): Promise<void> {
     this._logger.info({ character_id, isOnline: false, timestamp }, 'Populate player')
-    this._players.post(character_id, false, timestamp)
+    try {
+      await this._players.populateOne(character_id, false, timestamp)
+    } catch (error) {
+      // TODO: consider retry mechanism
+    }
   }
 }

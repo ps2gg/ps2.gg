@@ -26,6 +26,7 @@
     "friends": "services/friends",
     "friends-client": "libs/friends/client",
     "friends-types": "libs/friends/types",
+    "jaeger": "services/jaeger",
     "nx-jest": "libs/nx/jest",
     "nx-nest": "libs/nx/nest",
     "nx-nest-app": "libs/nx/nest-app",

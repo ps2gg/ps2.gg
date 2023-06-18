@@ -1,6 +1,8 @@
 export interface Player {
   id: string
   name: string
-  isOnline: boolean
-  lastLogout: Date
+  factionId: string
+  outfitTag: string
+  isOnline?: boolean
+  lastLogout?: Date
 }

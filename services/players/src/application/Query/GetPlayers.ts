@@ -1,6 +1,9 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
+import { getLogger } from '@ps2gg/common/logging'
 import { PlayerEntity } from '../../domain/Entity/PlayerEntity'
-import { ExampleRepository } from '../../infrastructure/TypeOrm/Repository/ExampleRepository'
+import { PlayerRepository } from '../../infrastructure/TypeOrm/Repository/PlayerRepository'
+
+const logger = getLogger()
 
 export class GetPlayers {
   constructor(readonly ids: string[]) {}
@@ -8,9 +11,11 @@ export class GetPlayers {
 
 @QueryHandler(GetPlayers)
 export class GetPlayersHandler implements IQueryHandler<GetPlayers, PlayerEntity[]> {
-  constructor(private readonly _repository: ExampleRepository) {}
+  constructor(private readonly _repository: PlayerRepository) {}
 
   async execute(query: GetPlayers): Promise<PlayerEntity[]> {
-    return this._repository.findMany(query.ids)
+    const { ids } = query
+    logger.info({ ids }, 'Fetching players')
+    return this._repository.findMany(ids)
   }
 }

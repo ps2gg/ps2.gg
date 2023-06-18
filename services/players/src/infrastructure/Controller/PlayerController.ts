@@ -16,8 +16,8 @@ export class PlayerController {
   }
 
   @Post('/')
-  async post(@Body('id') id: string, @Body('isOnline') isOnline: boolean, @Body('lastLogout') lastLogout?: Date): Promise<Player> {
+  async post(@Body('id') id: string, @Body('isOnline') isOnline?: boolean, @Body('lastLogout') lastLogout?: Date): Promise<Player> {
     const hasLogoutTimestamp = !isNaN(lastLogout.valueOf())
-    return this._commandBus.execute(new PopulatePlayer(id, isOnline, hasLogoutTimestamp ? lastLogout : undefined))
+    return this._commandBus.execute(new PopulatePlayer(id, isOnline, hasLogoutTimestamp ? lastLogout : null))
   }
 }

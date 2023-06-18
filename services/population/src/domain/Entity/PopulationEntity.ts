@@ -16,7 +16,7 @@ export class PopulationEntity extends SubscribableEntity implements Population {
   readonly vs: number
 
   @Column('boolean', { default: false })
-  override resetReceivedState: boolean
+  override __resetSubscriptions: boolean
 
   constructor(population: Population) {
     super()

@@ -44,7 +44,7 @@ export class CensusWs {
     }
   }
 
-  private async _createClient(urlOverride: string | undefined): Promise<any> {
+  private async _createClient(urlOverride: string | null): Promise<any> {
     if (this._state === 'connecting') return
     this._state = 'connecting'
     this._useFallback = !!urlOverride
@@ -145,7 +145,7 @@ export class CensusWs {
   }
 
   private _reinitializeIfNoMessages() {
-    if (this._lastMessageAt === undefined) this._lastMessageAt = new Date()
+    if (this._lastMessageAt === null) this._lastMessageAt = new Date()
     const now = new Date().getTime()
     const lastMessageTime = this._lastMessageAt.getTime()
     const lastMessageTimeoutExceeded = now - lastMessageTime > this.lastMessageTimeout

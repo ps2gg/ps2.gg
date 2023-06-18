@@ -15,6 +15,10 @@ export class EventClient extends WebSocketClient {
     this._events.push({ event, fn })
   }
 
+  removeListeners(event: string): void {
+    this._events = this._events.filter((e) => e.event !== event)
+  }
+
   subscribe(events: string[]): void {
     const subscription = { events, userId: this._userId }
     const payload = { event: 'subscribe', data: subscription }
@@ -29,8 +33,15 @@ export class EventClient extends WebSocketClient {
   override afterInit(): void {
     this._registerStoredSubscriptions()
     this._socket.on('message', (message: { utf8Data: string }) => {
-      const data: EventResponse = JSON.parse(message.utf8Data)
-      this._acknowledgeSubscription(data)
+      const event: EventResponse = JSON.parse(message.utf8Data)
+
+      // This would tell the server to never send the event again
+      // until it's reset. It's useful for long-lasting events, such
+      // as alerts or population info, but for most cases it's not needed.
+      // An entity will have the __resetSubscriptions property set as a
+      // boolean if it is, in fact, a long-lasting event.
+      if (event.data.__resetSubscriptions === null) return
+      this._acknowledgeSubscription(event)
     })
   }
 
@@ -52,11 +63,11 @@ export class EventClient extends WebSocketClient {
   }
 
   private _acknowledgeSubscription(message: EventResponse): void {
-    const subscriptionId = message.data?.subscription?.subscriptionId
+    const subscriptionId = message.subscription?.subscriptionId
 
     if (!subscriptionId) return
     this._logger.debug({ subscriptionId }, 'Event acknowledged')
-    this.send({ event: 'notified', data: { subscriptionId } })
+    this.send({ event: 'acknowledged', data: { subscriptionId } })
   }
 
   private _registerStoredSubscriptions() {

@@ -5,6 +5,8 @@ services:
       - peepo-token
     environment:
       - 'PS2GG_STAGING=true'
+  jaeger:
+    replicas: 0
 
 secrets:
   peepo-token:

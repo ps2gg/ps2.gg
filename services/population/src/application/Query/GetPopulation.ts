@@ -14,7 +14,7 @@ export class GetPopulation {
 export class GetPopulationHandler implements IQueryHandler<GetPopulation, PopulationEntity> {
   constructor(private readonly _repository: PopulationRepository) {}
 
-  async execute(query: GetPopulation): Promise<PopulationEntity | undefined> {
+  async execute(query: GetPopulation): Promise<PopulationEntity | null> {
     logger.info(query, `Retrieving population data`)
 
     return this._repository.findOne(query.id)

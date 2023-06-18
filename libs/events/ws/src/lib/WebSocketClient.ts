@@ -14,7 +14,8 @@ export class WebSocketClient {
   private _fns: { (...args: any): void }[] = []
   private _client: any
   private _connection: Promise<void>
-  private _lastHeartbeat: Date | undefined
+  private _lastHeartbeat: Date | null
+  private _heartbeatInterval: any
 
   constructor(private _url: string) {
     this._connection = this._init()
@@ -29,6 +30,15 @@ export class WebSocketClient {
     // To be implemented by child classes
   }
 
+  destroy(): void {
+    this._closePreviousSocket()
+    delete this._socket
+    delete this._client
+    delete this._connection
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    clearInterval(this._heartbeatInterval)
+  }
+
   async send(data: EventRequest): Promise<void> {
     if (this._state !== 'open') await this._connection
     const message = JSON.stringify(data)
@@ -38,7 +48,7 @@ export class WebSocketClient {
 
   private async _init() {
     try {
-      this._lastHeartbeat = undefined
+      this._lastHeartbeat = null
       const { c, s } = await this._createClient()
       this._closePreviousSocket()
       this._socket = s
@@ -117,7 +127,7 @@ export class WebSocketClient {
   }
 
   private _heartbeat() {
-    setInterval(() => {
+    this._heartbeatInterval = setInterval(() => {
       if (this._lastHeartbeat && this._lastHeartbeat.getTime() <= Date.now() - 1000 * 60) this._failHeartbeat()
       if (this._state === 'open') this.send({ event: 'heartbeat' })
     }, 1000 * 60)

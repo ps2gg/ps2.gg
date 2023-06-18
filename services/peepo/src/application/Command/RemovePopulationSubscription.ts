@@ -15,7 +15,7 @@ export class RemovePopulationSubscription {
     const ids = id.getIds()
 
     for (const id of ids) {
-      await this._population.removeSubscription(this.user.id, id)
+      await this._population.removeSubscription({ userId: this.user.id, id })
     }
 
     return new UnsubscribeEmbed(this.event, this.server)

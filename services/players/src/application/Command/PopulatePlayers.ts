@@ -5,15 +5,15 @@ import { PopulatePlayer } from './PopulatePlayer'
 
 const logger = getLogger()
 
-export class PrimePlayers {
+export class PopulatePlayers {
   constructor(readonly ids: string[]) {}
 }
 
-@CommandHandler(PrimePlayers)
-export class PrimePlayersHandler implements ICommandHandler<PrimePlayers, void> {
+@CommandHandler(PopulatePlayers)
+export class PopulatePlayersHandler implements ICommandHandler<PopulatePlayers, void> {
   constructor(private _queryBus: QueryBus, private _commandBus: CommandBus) {}
 
-  async execute(command: PrimePlayers): Promise<void> {
+  async execute(command: PopulatePlayers): Promise<void> {
     const { ids } = command
 
     const players = await this._queryBus.execute(new GetPlayers(ids))

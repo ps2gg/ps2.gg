@@ -23,8 +23,8 @@ export class ContinentPopulationTask {
         const id = `${continentId}.${serverId}`
         const { tr, nc, vs } = population
         const populationSum = tr + nc + vs
-        const resetReceivedState = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, resetReceivedState }))
+        const __resetSubscriptions = populationSum === 0
+        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, __resetSubscriptions }))
       }
     }
   }

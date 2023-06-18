@@ -1,16 +1,21 @@
+import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
-import { VerifyCharacter } from '../../application/Command/VerifyCharacter'
 import { GetFriends } from '../../application/Query/GetFriends'
 import { GetOnlinePlayers } from '../../application/Query/GetOnlinePlayer'
 import { GetPlayer } from '../../application/Query/GetPlayer'
-import { GetPlayerNameSuggestions } from '../../application/Query/GetPlayerNameSuggestions'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 
 @Command(Sesh)
 export class SeshCommand {
   @Main(Sesh)
   async sesh(options: SeshOptions, @linkedUser user: User): Promise<CommandResponse> {
+    return {
+      interactionContext: [],
+      content: 'Not yet added, try again soon!',
+      ephemeral: true,
+    }
+    /**
     const { name } = options
     const isVerified = await new VerifyCharacter(user.id, name).execute()
 
@@ -23,10 +28,11 @@ export class SeshCommand {
       interactionContext: [],
       embeds: [friends],
     }
+     */
   }
 
   @Autocomplete(Sesh, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerNameSuggestions(query).execute()
+    return new GetPlayerAutocomplete(query).execute()
   }
 }

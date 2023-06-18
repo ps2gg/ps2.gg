@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { getPlayer } from '@ps2gg/census/collections'
 import { getLogger } from '@ps2gg/common/logging'
 import { PlayerEntity } from '../../domain/Entity/PlayerEntity'
-import { ExampleRepository } from '../../infrastructure/TypeOrm/Repository/ExampleRepository'
+import { PlayerRepository } from '../../infrastructure/TypeOrm/Repository/PlayerRepository'
 
 const logger = getLogger()
 
@@ -12,13 +12,13 @@ export class PopulatePlayer {
 
 @CommandHandler(PopulatePlayer)
 export class PopulatePlayerHandler implements ICommandHandler<PopulatePlayer, PlayerEntity> {
-  constructor(private _repository: ExampleRepository) {}
+  constructor(private _repository: PlayerRepository) {}
 
-  async execute(command: PopulatePlayer): Promise<PlayerEntity | undefined> {
+  async execute(command: PopulatePlayer): Promise<PlayerEntity | null> {
     const { id, isOnline, lastLogout } = command
     try {
-      const { name } = await getPlayer(id)
-      const player = { id, name, isOnline, lastLogout }
+      const { name, factionId, outfitTag } = await getPlayer(id)
+      const player = { id, name, factionId, outfitTag, isOnline, lastLogout }
       logger.info(player, 'Updating player')
       return this._repository.save(player)
     } catch (err) {

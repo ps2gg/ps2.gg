@@ -12,7 +12,7 @@ export class GetPopulationSubscriptionIds {
     const subscriptionIds: string[] = []
 
     for (const id of ids) {
-      const subscriptions = await this._population.getSubscriptions(this.user.id, id)
+      const subscriptions = await this._population.getSubscriptions({ userId: this.user.id, id })
       const subscriptionIdMap: string[] = subscriptions.map((subscription) => subscription.subscriptionId)
       subscriptionIds.push(...subscriptionIdMap)
     }
