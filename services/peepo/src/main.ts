@@ -14,6 +14,17 @@ const discord = setupDiscordClient({
   activity: 'Sees all',
   commands: [new AltCommand(), new NotifyCommand(), new UnsubscribeCommand(), new SetupCommand(), new SeshCommand()],
   events: [new PopulationEvent()],
+  restrictions: {
+    development: {
+      channels: ['1107543568807116920'],
+    },
+    staging: {
+      channels: ['1111585621711007804', '1111583463041159228'],
+    },
+    production: {
+      channels: ['944930552753029220', '1107815786728403074'],
+    },
+  },
 })
 
 new DiscordListener(discord)

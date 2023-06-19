@@ -19,6 +19,7 @@
     "discord-constants": "libs/discord/constants",
     "discord-controllers": "libs/discord/controllers",
     "discord-logging": "libs/discord/logging",
+    "discord-types": "libs/discord/types",
     "discord-util": "libs/discord/util",
     "events-subscriptions": "libs/events/subscriptions",
     "events-types": "libs/events/types",

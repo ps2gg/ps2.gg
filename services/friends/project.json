@@ -4,7 +4,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/friends",
         "main": "services/friends/src/main.ts",
@@ -23,14 +25,16 @@
       },
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "inspect": false
         }
       }
     },
     "build-worker": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/friends",
         "main": "services/friends/src/worker.ts",
@@ -79,14 +83,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["services/friends/**/*.ts"]
+        "lintFilePatterns": [
+          "services/friends/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/services/friends"],
+      "outputs": [
+        "coverage/services/friends"
+      ],
       "options": {
         "jestConfig": "services/friends/jest.config.ts",
         "passWithNoTests": true

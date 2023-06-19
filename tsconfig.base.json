@@ -35,6 +35,7 @@
       "@ps2gg/discord/constants": ["libs/discord/constants/src/index.ts"],
       "@ps2gg/discord/controllers": ["libs/discord/controllers/src/index.ts"],
       "@ps2gg/discord/logging": ["libs/discord/logging/src/index.ts"],
+      "@ps2gg/discord/types": ["libs/discord/types/src/index.ts"],
       "@ps2gg/discord/util": ["libs/discord/util/src/index.ts"],
       "@ps2gg/events/subscriptions": ["libs/events/subscriptions/src/index.ts"],
       "@ps2gg/events/types": ["libs/events/types/src/index.ts"],
