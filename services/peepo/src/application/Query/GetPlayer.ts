@@ -7,7 +7,7 @@ export class GetPlayer {
   constructor(readonly name: string) {}
 
   async execute(): Promise<Player> {
-    const player = await this._players.getByName(this.name)
+    const player = await this._players.findOneByName(this.name)
 
     if (!player) throw new Error(`${this.name} doesn't exist.`)
 
