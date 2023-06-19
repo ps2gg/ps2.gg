@@ -1,5 +1,5 @@
-import { getPlayerSearchSuggestions } from '@ps2gg/alts/ws'
 import { AutocompleteResponse } from '@ps2gg/discord/command'
+import { getPlayerSearchSuggestions } from './Client'
 
 export class GetPlayerAutocomplete {
   constructor(readonly query: string) {}
