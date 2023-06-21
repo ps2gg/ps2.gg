@@ -9,3 +9,5 @@
 ### Expected behavior <!-- Describe the desired behavior. -->
 
 ### Definition of Done <!-- What requirements need to be fulfilled before we can release it -->
+
+## <!-- Additional information (optional) -->
