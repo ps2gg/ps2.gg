@@ -27,6 +27,7 @@ export class RatingEntity extends AggregateRoot implements SubscribableEntity {
   readonly resetReceivedState: boolean // <- And this is how we can reset long-term events (more below)
 }
 ```
+
 <br>
 
 Now every time a new Rating is added, or a Rating's `elo` attribute is changed, we receive an event in our WebSocket clients.<br>
