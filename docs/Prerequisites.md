@@ -43,3 +43,11 @@ In our first weeks together, we typically have pair programming sessions to show
 <br>
 
 If that sounds good to you, [hit us up on Discord!](https://discord.gg/8MvTaUQM2E)
+
+<br>
+
+---
+
+<br>
+
+### Next guide for beginners: [The First Time Setup](/docs/First-Time-Setup.md)

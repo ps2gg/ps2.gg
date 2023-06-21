@@ -36,3 +36,9 @@ Everything that gets merged on master will be released to our early access chann
 <br>
 
 We also use this branch to manually trigger production deployments.
+
+---
+
+<br>
+
+### Next guide for beginners: [Getting started guides for a specific technology](/docs/README.md)
