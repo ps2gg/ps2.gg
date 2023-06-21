@@ -45,6 +45,8 @@ In our retrospective, we address how frictionless and rewarding the sprint has f
 
 The next day, we start again from the start and continuously improve our experience with the project, so we'll be just as happy as the hundreds of users that we serve 😊
 
+<br>
+
 ---
 
 <br>

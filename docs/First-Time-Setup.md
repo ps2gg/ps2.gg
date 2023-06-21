@@ -68,6 +68,8 @@ If everything is set up correctly, you should see these services with `docker se
 Services with a 🔹 denote that they're open source. Please ask for access if you need to work with a private service.<br>
 Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
 
+<br>
+
 ---
 
 <br>
