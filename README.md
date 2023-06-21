@@ -26,7 +26,7 @@ This repo includes all microservices that empower our UI mods and third party ap
 | [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | -/-                                                |
 | [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | -/-                                                |
 
-Services with a 🔹 denote that they're open source.
+Services with a 🔹 are open source.
 
 <br>
 

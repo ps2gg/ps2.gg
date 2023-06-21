@@ -65,7 +65,7 @@ If everything is set up correctly, you should see these services with `docker se
 | [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | :5672      | -/-                 |
 | [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-                 |
 
-Services with a 🔹 denote that they're open source. Please ask for access if you need to work with a private service.<br>
+Services with a 🔹 are open source. Please ask for access if you need to work with a private service.<br>
 Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
 
 <br>
