@@ -34,7 +34,7 @@ There is a considerable learning curve to get the hang of things. Don't worry if
 
 <br>
 
-### We're here to help you out
+## We're here to help you out
 
 We appreciate that you want to invest your time into this project, so we want to give some back too!
 <br>

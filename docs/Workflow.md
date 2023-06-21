@@ -31,7 +31,7 @@ In our daily standups, everyone reports their progress and what they'll do next.
 ## 4) Sprint review
 
 When all issues are completed, we take a look back at what everyone has accomplished, where we are now, and what can be done next.<br>
-This is typically the time where we ship features to production too, so we can discuss the feedback we gained from our users too.
+This is typically the time where we ship features to production too, so we can discuss the feedback we gained from our users as well.
 
 <br>
 
