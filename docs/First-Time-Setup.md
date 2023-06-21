@@ -4,6 +4,13 @@ This guide will walk you through the process of getting our stack to run on your
 
 <br>
 
+## Operating System
+
+All our code runs on Linux. If you're already on Linux that's great!<br>
+If you're on Windows, you can run Linux inside of your Windows via [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+<br>
+
 ## Requirements
 
 If you've read the [prerequisites](./Prerequisites.md), you already have these installed and can jump to the next step 😎
