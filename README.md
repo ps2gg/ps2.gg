@@ -36,7 +36,7 @@ Our platform connects developers from every part of the community to make Planet
 
 Ps2.gg provides a vast pool of data, ranging from easy-to-access Census data, to unique metadata like alt characters, user verification and per-fight metrics. It's incredibly easy to build features that would otherwise drag you down for weeks if you had to build them on your own.
 
-All of this is powered by the latest in tech, from Next.js on the frontend, to Nest on the backend, to an automated Docker orchestration system and thorough monitoring tools. Everything is professionally designed within robust software architectures that any serious software engineer would dream of.
+All of this is powered by the latest in tech, from Next.js on the frontend, to Nest on the backend, to an automated Docker orchestration system and thorough monitoring tools. Everything is professionally designed within robust software architectures that any serious software engineer would wish of.
 
 <br>
 
