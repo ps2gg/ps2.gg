@@ -30,6 +30,21 @@ For commits, we use the [Conventional Commit](https://www.conventionalcommits.or
 
 <br>
 
+## Branch names
+
+Branches are named similarly to the conventional commit format. Following the format of `type/service(optional)/description`
+
+Some examples:
+
+```
+feat/service-name/your-feature
+fix/service-name/that-one-endpoint
+docs/service-name/get-started
+refactor/the-latest-framework-we-switch-to
+```
+
+<br>
+
 ## The master branch
 
 Everything that gets merged on master will be released to our early access channels. Hence it's integral that we ensure master is _always stable_, otherwise we cause downtime for our users.
