@@ -3,7 +3,6 @@ import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, lin
 import { DiscordCommand } from '@ps2gg/discord/types'
 import { sendChannel } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
-import { ButtonInteraction } from 'discord.js'
 import { VerifyCharacter } from '../../application/Command/VerifyCharacter'
 import { GetPlayer } from '../../application/Query/GetPlayer'
 import { VerifyReady } from '../../domain/Components/VerifyReady'
