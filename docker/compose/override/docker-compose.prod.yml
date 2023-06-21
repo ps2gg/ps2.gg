@@ -4,11 +4,9 @@ services:
     secrets:
       - peepo-token
   jaeger:
-    secrets:
-      - jaeger-token
+    deploy:
+      replicas: 0
 
 secrets:
   peepo-token:
-    external: true
-  jaeger-token:
     external: true
