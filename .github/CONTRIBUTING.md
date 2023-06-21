@@ -23,4 +23,4 @@ In that case, please [contact us on Discord](https://discord.gg/8MvTaUQM2E), so 
 
 ## How to get things running?
 
-You can find detailed guides for every part of our system in [/docs](/docs/), as well as guides for beginners to get you set up.
+You can find detailed guides for every part of our system in our [Documentation](/docs/README.md), as well as guides for beginners to get you set up.
