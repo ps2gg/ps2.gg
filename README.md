@@ -45,3 +45,9 @@ All of this is powered by the latest in tech, from Next.js on the frontend, to N
 We guide newcomers through the project with pair programming sessions, so we can show you the ropes and answer all of the questions you'll have in the beginning. If that sounds interesting, [hit us up on Discord!](https://discord.gg/8MvTaUQM2E)
 
 If you're just looking around or want to contribute small changes, you may want to read our [Contributor Guide](/.github/CONTRIBUTING.md).
+
+<br>
+
+## Documentation
+
+For guides and details on our technologies, check out our [Documentation](/docs/README.md)!
