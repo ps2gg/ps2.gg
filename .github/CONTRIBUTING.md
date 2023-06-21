@@ -1,6 +1,6 @@
 # Welcome to ps2.gg!
 
-Thank you for considering to contribute to our project! Any contribution helps to make life just a bit better for our hundreds of users. ✨
+Thank you for considering to contribute to our project! Any contribution helps to make life better for the hundreds of players that use our software ♥️
 
 This guide will help you find the best way to deliver your idea.
 
