@@ -8,10 +8,10 @@ export class NotificationEmbed implements APIEmbed {
   description?: string
   footer?: { text: string }
 
-  constructor(readonly scope: string, readonly population: Population) {
+  constructor(readonly id: string, readonly population: Population) {
     const { tr, nc, vs } = population
     const now = Math.floor(new Date().getTime() / 1000)
-    const split = scope.split('.')
+    const split = id.split('.')
     const type = split[0]
 
     if (type === 'ESF') {

@@ -7,6 +7,6 @@ import { ESFPopulationTask } from './ESFPopulationTask'
 
 @Module({
   imports: [CqrsModule, ScheduleModule.forRoot()],
-  providers: [BasePopulationTask, ESFPopulationTask],
+  providers: [BasePopulationTask, ESFPopulationTask, ContinentPopulationTask],
 })
 export class ScheduledTasksModule {}

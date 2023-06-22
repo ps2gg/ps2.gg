@@ -1,0 +1,22 @@
+{
+  "name": "players-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/players/types/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/players/types"],
+      "options": {
+        "jestConfig": "libs/players/types/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

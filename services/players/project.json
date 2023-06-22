@@ -1,0 +1,107 @@
+{
+  "sourceRoot": "services/players/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/services/players",
+        "main": "services/players/src/main.ts",
+        "tsConfig": "services/players/tsconfig.app.json",
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "dtoFileNameSuffix": "RestResource.ts",
+              "controllerFileNameSuffix": "Controller.ts",
+              "classValidatorShim": false,
+              "introspectComments": true
+            }
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": false,
+          "inspect": false
+        }
+      }
+    },
+    "build-worker": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/services/players",
+        "main": "services/players/src/worker.ts",
+        "tsConfig": "services/players/tsconfig.app.json"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "build-migration": {
+      "executor": "libs/nx-tools:migration",
+      "options": {
+        "tsConfig": "services/players/tsconfig.migration.json"
+      },
+      "configurations": {
+        "production": {
+          "outDir": "dist/migrations"
+        }
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn ts-node -r tsconfig-paths/register -P services/players/tsconfig.app.json ./node_modules/typeorm/cli.js -d services/players/src/infrastructure/TypeOrm/DataSource.ts"
+      }
+    },
+    "typeorm-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn nx run players:typeorm migration:generate services/players/src/infrastructure/TypeOrm/Migrations/{args.name} --pretty"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "players:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "players:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "services/players/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/services/players"
+      ],
+      "options": {
+        "jestConfig": "services/players/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

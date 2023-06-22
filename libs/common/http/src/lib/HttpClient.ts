@@ -8,6 +8,7 @@ export class HttpClient {
   constructor(baseURL: string) {
     this.http = axios.create({
       baseURL,
+      timeout: 1000 * 60,
       httpsAgent: this._httpsAgent,
     })
   }

@@ -23,7 +23,7 @@
       },
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "inspect": false
         }
       }
@@ -79,9 +79,13 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["services/friends/**/*.ts"]
+        "lintFilePatterns": [
+          "services/friends/**/*.ts"
+        ]
       }
     },
     "test": {

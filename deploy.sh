@@ -18,6 +18,11 @@ cd docker/compose
 bun generate.ts
 cd ../../
 
+# Generate secrets
+if [ "$1" == "prod" ] || [ "$1" == "staging" ]; then
+  bash docker/create-secrets.sh
+fi
+
 docker-compose \
  -f "docker/compose/base/docker-compose.base.yml" \
  -f "docker/compose/base/docker-compose.$1.yml" \
@@ -25,19 +30,21 @@ docker-compose \
  -f "docker/compose/override/docker-compose.$1.yml" \
  config >"docker/compose/out/docker-compose.$1.yml"
 
+
 # Bandaid fix for docker-compose v2 incorrectly adding
 # redundant property at start of generated output
 out="docker/compose/out/docker-compose.$1.yml"
 tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
 
+
 # Bandaid fix for incorrect compose v2 bind mount settings
 sed -i -e 's/bind://g' "$out"
 sed -i -e 's/create_host_path: true//g' "$out"
 
-# Bandaid fix for docker-compose v2 incorrectly adding
-# redundant property at start of generated output
-# out="docker/compose/out/docker-compose.$1.yml"
-# tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
+# Bandaid fix for incorrect compose v2 bind mount settings
+sed -i -e 's/bind://g' "$out"
+sed -i -e 's/create_host_path: true//g' "$out"
+
 
 # Bandaid fix for "published must be a integer"
 sed -i '/published:/ s/"//g' "$out"

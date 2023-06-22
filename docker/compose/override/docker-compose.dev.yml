@@ -8,6 +8,12 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.friends.rule=(Host(`friends.localhost`) && PathPrefix(`/v1/friends`))"
       - "traefik.http.services.friends.loadbalancer.server.port=3000"
+  jaeger:
+    secrets:
+      - jaeger-token
+
 secrets:
   peepo-token:
+    external: true
+  jaeger-token:
     external: true

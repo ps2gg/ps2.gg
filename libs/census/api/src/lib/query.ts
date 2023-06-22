@@ -220,8 +220,14 @@ export class CensusQuery {
 }
 
 type JoinArgs = {
-  collection: string
-  join: JoinArgs
+  collection?: string
+  type?: string
+  on?: string
+  inject_at?: string
+  list?: number
+  terms?: string[]
+  show?: string[]
+  join?: JoinArgs
 }
 
 export class CensusException extends Error {

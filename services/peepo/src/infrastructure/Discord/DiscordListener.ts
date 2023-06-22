@@ -1,10 +1,10 @@
-import { Discord } from '@ps2gg/discord/controllers'
+import { DiscordController } from '@ps2gg/discord/controllers'
 import { logMessageAndInteraction } from '@ps2gg/discord/logging'
 import { logGuildMemberAdd } from '@ps2gg/discord/util'
 import { Message } from 'discord.js'
 
-export class DiscordController {
-  constructor(discord: Discord) {
+export class DiscordListener {
+  constructor(discord: DiscordController) {
     discord.client.on('guildMemberAdd', (member) => {
       discord.onGuildMemberAdd(member, [(member) => logGuildMemberAdd(discord.client, member)])
     })

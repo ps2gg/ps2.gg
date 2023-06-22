@@ -11,7 +11,7 @@ export class ModifyPopulationSubscriptionTime {
     const timezoneAdjustedSendAfter = getOffsetAdjustedTimeOfDay(sendAfter, timezone)
 
     for (const subscriptionId of subscriptionIds) {
-      await new ModifyPopulationSubscription(subscriptionId, undefined, timezoneAdjustedSendBefore, timezoneAdjustedSendAfter).execute()
+      await new ModifyPopulationSubscription(subscriptionId, null, timezoneAdjustedSendBefore, timezoneAdjustedSendAfter).execute()
     }
   }
 }

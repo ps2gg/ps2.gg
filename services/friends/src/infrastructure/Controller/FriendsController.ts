@@ -9,7 +9,7 @@ const logger = getLogger()
 
 @Controller('/v1/friends')
 export class FriendsController {
-  constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) {}
+  constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) { }
 
   @Get('/:character_id')
   async getSingle(@Param('character_id') character_id: string, @Query('refresh') refresh: boolean): Promise<Friends> {

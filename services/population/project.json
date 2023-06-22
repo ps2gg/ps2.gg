@@ -44,7 +44,7 @@
       },
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "inspect": false
         }
       }

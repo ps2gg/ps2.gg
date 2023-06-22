@@ -2,32 +2,32 @@ import { bases, continents } from '@ps2gg/common/constants'
 import { getServerId } from '@ps2gg/common/util'
 import { AutocompleteResponse } from '@ps2gg/discord/command'
 
-export class ScopeEntity {
+export class PopulationEntity {
   constructor(readonly server: string, readonly event: string) {}
 
-  getCompositions(): string[] {
+  getIds(): string[] {
     if (this.event === 'ESF') {
-      const scopes = []
+      const ids = []
 
       for (const continentId in continents) {
-        scopes.push(`ESF.${continentId}.${getServerId(this.server)}`)
+        ids.push(`ESF.${continentId}.${getServerId(this.server)}`)
       }
 
-      return scopes
+      return ids
     } else {
       return [`${this.event}.${getServerId(this.server)}`]
     }
   }
 
-  static getEventType(scope: string): string {
-    if (bases[scope]) return 'Base'
-    if (continents[scope]) return 'Continent'
-    if (scope.split('.')[0] === 'ESF') return 'ESF'
+  static getEventType(id: string): string {
+    if (bases[id]) return 'Base'
+    if (continents[id]) return 'Continent'
+    if (id.split('.')[0] === 'ESF') return 'ESF'
   }
 
-  static getEventName(scope: string, type: string): string {
-    if (type === 'Base') return bases[scope] + ' Fights'
-    if (type === 'Continent') return continents[scope] + ' Unlock'
+  static getEventName(id: string, type: string): string {
+    if (type === 'Base') return bases[id] + ' Fights'
+    if (type === 'Continent') return continents[id] + ' Unlock'
     if (type === 'ESF') return 'ESF Fights'
   }
 

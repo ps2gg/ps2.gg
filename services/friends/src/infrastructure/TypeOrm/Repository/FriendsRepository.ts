@@ -6,7 +6,7 @@ import { FriendsEntity } from '../../../domain/Entity/FriendsEntity'
 
 @Injectable()
 export class FriendsRepository {
-  constructor(@InjectRepository(FriendsEntity) private readonly _repository: Repository<FriendsEntity>) {}
+  constructor(@InjectRepository(FriendsEntity) private readonly _repository: Repository<FriendsEntity>) { }
 
   async findOne(character_id: string): Promise<FriendsEntity | undefined> {
     return this._repository.findOne({

@@ -13,18 +13,12 @@ import { SubscribableEntity } from '@ps2gg/events/types'
 
 @Entity()
 @Subscribable()
-export class RatingEntity extends AggregateRoot implements SubscribableEntity {
+export class RatingEntity extends AggregateRoot extends SubscribableEntity {
   @PrimaryColumn('text')
   readonly userId: string
 
   @Column('int')
   readonly elo: number
-
-  @Column('text')
-  readonly scope: string // <- Don't forget this, it's how we know what to subscribe to
-
-  @Column('boolean')
-  readonly resetReceivedState: boolean // <- And this is how we can reset long-term events (more below)
 }
 ```
 <br>

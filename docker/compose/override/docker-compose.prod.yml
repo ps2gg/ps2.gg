@@ -3,6 +3,9 @@ services:
   peepo:
     secrets:
       - peepo-token
+  jaeger:
+    deploy:
+      replicas: 0
 
 secrets:
   peepo-token:

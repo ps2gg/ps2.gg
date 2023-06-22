@@ -2,6 +2,7 @@ import { Alt } from '@ps2gg/alts/types'
 import { servers } from '@ps2gg/common/constants'
 import { getRegion } from '@ps2gg/common/util'
 import { emojis } from '@ps2gg/discord/constants'
+import { code } from '@ps2gg/discord/util'
 import { APIEmbed } from 'discord.js'
 import { format } from 'timeago.js'
 
@@ -52,7 +53,7 @@ function addServerCharacters(serverAlts, server: string, alts, maxNameLength) {
 
   serverAlts.push({
     name: `${getRegionEmoji(server)} ${server}`,
-    value: `\`\`\`css\n${strings.join('\n')}\`\`\`\n`,
+    value: code(strings.join('\n'), 'css'),
   })
 }
 
@@ -174,7 +175,7 @@ function getRoleStats(roles, stats, alts) {
 
     roleStats.push({
       name: `${emojis[role]} ${capitalize(role)}`,
-      value: `\`\`\`prolog\n${statsStrings.join('\n')}\`\`\``,
+      value: code(statsStrings.join('\n'), 'prolog'),
       inline: true,
     })
   }

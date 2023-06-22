@@ -14,7 +14,7 @@ export class PopulationController {
   }
 
   @Get('/')
-  async get(@Query('scope') scope: string): Promise<Population> {
-    return this._queryBus.execute(new GetPopulation(scope))
+  async get(@Query('id') id: string): Promise<Population> {
+    return this._queryBus.execute(new GetPopulation(id))
   }
 }

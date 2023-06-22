@@ -1,1 +1,1 @@
-export * from './lib/UsersClient'
+export * from './lib/UserClient'

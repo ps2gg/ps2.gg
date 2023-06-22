@@ -1,6 +1,7 @@
 import { CensusWs } from '@ps2gg/census/api'
 import { getAssistXpEvents } from '@ps2gg/census/collections'
-import { FriendsController } from './controllers/FriendsController'
+import { FriendsController } from './infrastructure/Census/FriendsController'
+import { PlayerController } from './infrastructure/Census/PlayerController'
 
 const ws = new CensusWs()
 
@@ -17,6 +18,7 @@ async function subscribe() {
   })
 }
 
+new PlayerController(ws)
 new FriendsController(ws)
 
 subscribe()
