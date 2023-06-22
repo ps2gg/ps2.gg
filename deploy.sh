@@ -20,7 +20,9 @@ cd ../../
 
 # Generate secrets
 if [ "$1" == "prod" ] || [ "$1" == "staging" ]; then
-  bash docker/create-secrets.sh
+  cd docker
+  bash /create-secrets.sh
+  cd ../
 fi
 
 docker-compose \
