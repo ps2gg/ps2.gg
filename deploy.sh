@@ -18,6 +18,11 @@ cd docker/compose
 bun generate.ts
 cd ../../
 
+# Generate secrets
+if [ "$1" == "prod" ] || [ "$1" == "staging" ]; then
+  bash docker/create-secrets.sh
+fi
+
 docker-compose \
  -f "docker/compose/base/docker-compose.base.yml" \
  -f "docker/compose/base/docker-compose.$1.yml" \
