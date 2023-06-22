@@ -37,7 +37,7 @@ export class VerifyCommand extends DiscordCommand {
       this.logSuccess(name, user.discordId)
       return { embeds: [verified] }
     } catch (error) {
-      if (error.response.status === 408) throw new Error('Verification timed out. Please try again.')
+      if (error?.response?.status === 408) throw new Error('Verification timed out. Please try again.')
       throw error
     }
   }
