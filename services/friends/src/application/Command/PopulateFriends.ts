@@ -5,14 +5,14 @@ import { FriendsEntity } from '../../domain/Entity/FriendsEntity'
 import { SetFriends } from './SetFriends'
 
 export class PopulateFriends {
-  constructor(readonly character_id: string) { }
+  constructor(readonly character_id: string) {}
 }
 
 @CommandHandler(PopulateFriends)
 export class PopulateFriendsHandler implements ICommandHandler<PopulateFriends, FriendsEntity> {
   private _players = new PlayerClient()
 
-  constructor(private _commandBus: CommandBus) { }
+  constructor(private _commandBus: CommandBus) {}
 
   async execute(command: PopulateFriends): Promise<FriendsEntity> {
     const { character_id } = command

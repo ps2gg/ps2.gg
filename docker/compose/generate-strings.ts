@@ -5,7 +5,7 @@ export const healthcheck = () => `healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
       interval: 10s
-      start_period: 60s
+      start_period: 300s
       retries: 5`
 
 export function networks(networks: string[]) {

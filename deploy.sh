@@ -30,7 +30,6 @@ docker-compose \
  -f "docker/compose/override/docker-compose.$1.yml" \
  config >"docker/compose/out/docker-compose.$1.yml"
 
-
 # Bandaid fix for docker-compose v2 incorrectly adding
 # redundant property at start of generated output
 out="docker/compose/out/docker-compose.$1.yml"

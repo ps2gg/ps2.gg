@@ -199,8 +199,7 @@ export class CensusQuery {
       const { data } = await request.get<any>(url)
 
       if (data.error) {
-        if (retries >= 3)
-          return data
+        if (retries >= 3) return data
 
         logger.warn({ data }, `Request failed, retrying (${retries}/3`)
         return this.get(url, ++retries)
@@ -209,7 +208,6 @@ export class CensusQuery {
       return data
     } catch (err) {
       if (retries >= 3) {
-
         throw new CensusException(url)
       }
 

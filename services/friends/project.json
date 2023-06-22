@@ -4,7 +4,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/friends",
         "main": "services/friends/src/main.ts",
@@ -30,7 +32,9 @@
     },
     "build-worker": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/friends",
         "main": "services/friends/src/worker.ts",
@@ -90,7 +94,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/services/friends"],
+      "outputs": [
+        "coverage/services/friends"
+      ],
       "options": {
         "jestConfig": "services/friends/jest.config.ts",
         "passWithNoTests": true
