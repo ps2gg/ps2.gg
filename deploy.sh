@@ -40,10 +40,6 @@ tail -n +2 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
 sed -i -e 's/bind://g' "$out"
 sed -i -e 's/create_host_path: true//g' "$out"
 
-# Bandaid fix for incorrect compose v2 bind mount settings
-sed -i -e 's/bind://g' "$out"
-sed -i -e 's/create_host_path: true//g' "$out"
-
 
 # Bandaid fix for "published must be a integer"
 sed -i '/published:/ s/"//g' "$out"
