@@ -6,6 +6,6 @@ import { existsSync } from 'fs'
  * misnaming of entities through minimization.
  * So instead, we check for the production state by the presence of the database secrets.
  */
-export function isProd(service: name): boolean {
+export function isProd(service: string): boolean {
   return existsSync(`/run/secrets/${service}-db-pass`)
 }
