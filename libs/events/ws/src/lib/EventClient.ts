@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { EventRequest, EventResponse, EventSubscription, WebSocketClient } from '@ps2gg/events/ws'
+import { EventRequest, EventResponse, WebSocketClient } from '@ps2gg/events/ws'
 
 export class EventClient extends WebSocketClient {
   private _subscriptions: EventRequest[] = []
@@ -39,8 +39,8 @@ export class EventClient extends WebSocketClient {
       // until it's reset. It's useful for long-lasting events, such
       // as alerts or population info, but for most cases it's not needed.
       // An entity will have the __resetSubscriptions property set as a
-      // boolean if it is, in fact, a long-lasting event.
-      if (event.data.__resetSubscriptions === null) return
+      // boolean if it is actually a long-lasting event.
+      if (event.data && event.data.__resetSubscriptions === null) return
       this._acknowledgeSubscription(event)
     })
   }

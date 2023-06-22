@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { Cron } from '@nestjs/schedule'
 import { getContinentPopulation } from '@ps2gg/census/collections'
@@ -7,8 +7,6 @@ import { SetPopulation } from '../../application/Command/SetPopulation'
 
 @Injectable()
 export class ContinentPopulationTask {
-  private readonly _logger = new Logger()
-
   constructor(private readonly _commandBus: CommandBus) {}
 
   @Cron('*/10 * * * * *')
