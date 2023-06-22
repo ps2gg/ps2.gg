@@ -15,7 +15,7 @@ import { TypeOrmModule } from './TypeOrm/TypeOrmModule'
  * misnaming of entities through minimization.
  * So instead, we check for the production state by the presence of the database secrets.
  */
-const prod = existsSync('/run/secrets/players_db_pass')
+const prod = existsSync('/run/secrets/players-db-pass')
 
 @Global()
 @Module({
