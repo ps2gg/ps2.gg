@@ -4,7 +4,7 @@ import { APIEmbed } from 'discord.js'
 import { AltMatchEmbed } from '../../domain/Embed/AltMatch'
 
 export class GetAlts {
-  constructor(readonly name: string) {}
+  constructor(readonly name: string, readonly full?: boolean) {}
 
   async execute(): Promise<APIEmbed> {
     const { result } = await getAltMatches(this.name)
@@ -14,7 +14,7 @@ export class GetAlts {
     } else if (result.alts.length > 16) {
       throw new Error(`Found too many alts for ${this.name}`)
     } else {
-      return new AltMatchEmbed(result.alts as Alt[])
+      return new AltMatchEmbed(result.alts as Alt[], this.full)
     }
   }
 }

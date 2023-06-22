@@ -14,7 +14,7 @@ import { AltMatch, MatchOptions } from '../../domain/Meta/AltMatch'
 export class AltCommand {
   @SubCommand(AltMatch)
   async match(options: MatchOptions, interaction: CommandInteraction): Promise<CommandResponse | null> {
-    const { name } = options
+    const { name, full } = options
     const embed = await new GetAlts(name).execute()
     return { interactionContext: [name], embeds: [embed] }
   }

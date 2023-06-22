@@ -12,11 +12,11 @@ export class AltMatchEmbed implements APIEmbed {
   fields: any[]
   footer: any
 
-  constructor(alts: Alt[]) {
+  constructor(alts: Alt[], full?: boolean) {
     const main = alts.find((a) => a.matchType.includes('primary'))
     const characters = getCharacters(alts)
     const stats = getStats(alts)
-    const roles = getRoles(stats)
+    const roles = getRoles(stats, full)
     const roleStats = getRoleStats(roles, stats, alts)
 
     this.title = `${getOutfit(main)}${main.name}`
@@ -156,12 +156,12 @@ function sumStats(globalStats, characterStats, role) {
   globalStats[role].playTime += stats.playTime
 }
 
-function getRoles(stats) {
+function getRoles(stats, full) {
   const roles = []
 
   for (const role in stats) {
     if (role === 'global') continue
-    if (stats[role].playTimePercent > 0.1) roles.push(role)
+    if (full || stats[role].playTimePercent > 0.1) roles.push(role)
   }
 
   return roles.slice(0, 3) // Max 3
