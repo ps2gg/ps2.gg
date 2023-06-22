@@ -11,7 +11,7 @@ for dir in ../services/*/; do
   service=$(basename "$dir")
   existing=$(docker secret ls | grep "${service}-db-pass" | wc -l)
 
-  if [ $existing -gt 0 ]; then
+  if [ "$existing" -gt 0 ]; then
     echo "${service}-db-pass already exists"
     continue
   fi
