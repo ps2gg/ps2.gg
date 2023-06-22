@@ -1,5 +1,5 @@
 export interface User {
   id: string
-  discordId: string
+  discordId?: string
   characterIds?: string[]
 }

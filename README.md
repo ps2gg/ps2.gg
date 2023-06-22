@@ -6,7 +6,7 @@
 <br>
 
 This is the home of ps2.gg, where UI mods are made that turn Planetside into a better game.<br>
-This monorepo includes all microservices used to serve the website and overlay.
+This monorepo includes all microservices used to serve the website, overlay and auxiliary applications.
 
 <br>
 
@@ -32,9 +32,9 @@ The following scripts will get you started with a running stack:
 
 ### Requirements
 
-- [Docker](https://www.docker.com/) in Swarm Mode.
-- [Bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
-- The required docker secrets (see table below)
+* [Docker](https://www.docker.com/) in Swarm Mode.
+* [Bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
+* The required docker secrets (see table below)
   <br>
 
 **Please note**: Not all services are open source, so you may need to adjust the docker-compose.yml to match your level of access. (accessibilities are described in the table below)
@@ -43,19 +43,24 @@ The following scripts will get you started with a running stack:
 
 ## Microservices
 
-| Name                | Description                                     | Port       | Secrets             |
-| ------------------- | ----------------------------------------------- | ---------- | ------------------- |
-| [census](/services/census/) 🔹           | Internally relays Census data                   | -/-        | -/-                 |
-| [peepo](/services/peepo/) 🔹            | Big Peepo Discord bot                           | -/-        | discord-token-peepo |
-| [population](/services/population/) 🔹       | Real-time population data                       | :3000      | -/-                 |
-| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-                 |
-| [users](/services/users/)               | Verifies and links users on different platforms | :3000      | -/-                 |
-| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-                 |
-| alts                | Matches alt characters                          | :3000/3030 | -/-                 |
-| [alts_db](https://github.com/mongodb/mongo) 🔹          | Mongodb                                         | :27017     | -/-                 |
-| [redis](https://github.com/redis/redis) 🔹            | Caches expensive operations                     | :6379      | -/-                 |
-| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹         | Inter-service communication                     | :5672      | -/-                 |
-| [registry](https://github.com/distribution/distribution) 🔹         | Hosts Docker images                             | :5000      | -/-                 |
+| Name                                                        | Description                                     | Port       | Secrets      |
+|-------------------------------------------------------------|-------------------------------------------------|------------|--------------|
+| [census](/services/census/) 🔹                              | Relays Census data internally                   | -/-        | -/-          |
+| [peepo](/services/peepo/) 🔹                                | Metadata analysis bot                           | -/-        | peepo-token  |
+| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | -/-        | jaeger-token |
+| [population](/services/population/) 🔹                      | Real-time population data                       | :3000      | -/-          |
+| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-          |
+| [players](/services/players/) 🔹                            | Planetside character information                | :3000      | -/-          |
+| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-          |
+| [friends](/services/players/) 🔹                            | Global alt-wide friend list                                | :3000      | -/-          |
+| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-          |
+| [users](/services/users/)                                   | Verifies and links users on different platforms | :3000      | -/-          |
+| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-          |
+| alts                                                        | Matches alt characters                          | :3000/3030 | -/-          |
+| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | :27017     | -/-          |
+| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | :6379      | -/-          |
+| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service message queue                     | :5672      | -/-          |
+| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-          |
 
 Services with a 🔹 denote that they're open source.<br>
 Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
