@@ -21,6 +21,7 @@ export class RatingEntity extends AggregateRoot extends SubscribableEntity {
   readonly elo: number
 }
 ```
+
 <br>
 
 Now every time a new Rating is added, or a Rating's `elo` attribute is changed, we receive an event in our WebSocket clients.<br>
