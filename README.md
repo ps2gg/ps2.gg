@@ -12,24 +12,24 @@ This repo includes all microservices that empower our UI mods and third party ap
 
 ## Microservices
 
-| Name                                                        | Description                                     | Documentation                                                     |
-| ----------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
-| [census](/services/census/) 🔹                              | Internally relays Census data                   | -/-                                                               |
-| [peepo](/services/peepo/) 🔹                                | Planetside2 Companion                           | [Try it on Discord](https://discord.gg/vVa7gDK7Ky)                |
-| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | [Accessible on the Jaeger Discord](https://discord.gg/v6reuCe6QW) |
-| [population](/services/population/) 🔹                      | Real-time population data                       | -/-                                                               |
-| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | -/-                                                               |
-| [players](/services/players/) 🔹                            | Planetside character information                | -/-                                                               |
-| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                               |
-| [friends](/services/players/) 🔹                            | Global alt-wide friend list                     | -/-                                                               |
-| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                               |
-| [users](/services/users/)                                   | Verifies and links users on different platforms | soon™                                                             |
-| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | -/-                                                               |
-| alts                                                        | Matches alt characters                          | soon™                                                             |
-| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | -/-                                                               |
-| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | -/-                                                               |
-| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | -/-                                                               |
-| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | -/-                                                               |
+| Name                                                        | Description                                     | Documentation                                                    |
+| ----------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
+| [census](/services/census/) 🔹                              | Internally relays Census data                   | -/-                                                              |
+| [peepo](/services/peepo/) 🔹                                | Planetside2 Companion                           | [Try it on Discord](https://discord.gg/vVa7gDK7Ky)               |
+| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | [Available on the Jaeger Discord](https://discord.gg/v6reuCe6QW) |
+| [population](/services/population/) 🔹                      | Real-time population data                       | -/-                                                              |
+| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | -/-                                                              |
+| [players](/services/players/) 🔹                            | Planetside character information                | -/-                                                              |
+| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                              |
+| [friends](/services/players/) 🔹                            | Global alt-wide friend list                     | -/-                                                              |
+| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                              |
+| [users](/services/users/)                                   | Verifies and links users on different platforms | soon™                                                            |
+| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | -/-                                                              |
+| alts                                                        | Matches alt characters                          | soon™                                                            |
+| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | -/-                                                              |
+| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | -/-                                                              |
+| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | -/-                                                              |
+| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | -/-                                                              |
 
 Services with a 🔹 are open source.
 
