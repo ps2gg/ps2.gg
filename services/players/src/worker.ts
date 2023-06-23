@@ -10,7 +10,7 @@ import { InfrastructureModule } from './infrastructure/InfrastructureModule'
  * misnaming of entities through minimization.
  * So instead, we check for the production state by the presence of the database secrets.
  */
-const prod = existsSync('/run/secrets/players-db-pass')
+const prod = existsSync('/run/secrets/players_db_pass')
 
 async function bootstrap() {
   const app = await setupMicroserviceApp(

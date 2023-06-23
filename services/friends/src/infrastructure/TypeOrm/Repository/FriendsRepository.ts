@@ -8,9 +8,9 @@ import { FriendsEntity } from '../../../domain/Entity/FriendsEntity'
 export class FriendsRepository {
   constructor(@InjectRepository(FriendsEntity) private readonly _repository: Repository<FriendsEntity>) {}
 
-  async findOne(id: string): Promise<FriendsEntity | null> {
+  async findOne(character_id: string): Promise<FriendsEntity | undefined> {
     return this._repository.findOne({
-      where: { id },
+      where: { character_id },
     })
   }
 

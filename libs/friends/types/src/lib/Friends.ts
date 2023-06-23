@@ -1,4 +1,4 @@
 export interface Friends {
-  id: string
+  character_id: string
   friendIds: string[]
 }

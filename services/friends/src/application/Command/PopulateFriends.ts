@@ -5,7 +5,7 @@ import { FriendsEntity } from '../../domain/Entity/FriendsEntity'
 import { SetFriends } from './SetFriends'
 
 export class PopulateFriends {
-  constructor(readonly id: string) {}
+  constructor(readonly character_id: string) {}
 }
 
 @CommandHandler(PopulateFriends)
@@ -15,10 +15,10 @@ export class PopulateFriendsHandler implements ICommandHandler<PopulateFriends, 
   constructor(private _commandBus: CommandBus) {}
 
   async execute(command: PopulateFriends): Promise<FriendsEntity> {
-    const { id } = command
-    const friendIds = await getFriendIds(id)
+    const { character_id } = command
+    const friendIds = await getFriendIds(character_id)
     await this._players.populateMany(friendIds)
-    const friends = new SetFriends({ id, friendIds })
+    const friends = new SetFriends({ character_id, friendIds })
     return this._commandBus.execute(friends)
   }
 }
