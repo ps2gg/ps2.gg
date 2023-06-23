@@ -5,80 +5,54 @@
 
 <br>
 
-This is the home of ps2.gg, where UI mods are made that turn Planetside into a better game.<br>
-This monorepo includes all microservices used to serve the website, overlay and auxiliary applications.
-
-<br>
-
-## Development
-
-Need help to get started?
-
-[Hit us up on Discord!](https://discord.gg/8MvTaUQM2E) We'll guide you through any part of the development process, so you can focus on building features.
-<br>
-
-The [/docs](/docs) folder also contains step-by-step guides to get you started in every type of project.
-
-<br>
-
-## Deployment
-
-The following scripts will get you started with a running stack:
-<br>
-`bash build.sh [dev/prod/staging]` will build the necessary files
-<br>
-`bash deploy.sh [dev/prod/staging]` will deploy the stack to Docker Swarm
-<br>
-
-### Requirements
-
-* [Docker](https://www.docker.com/) in Swarm Mode.
-* [Bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
-* The required docker secrets (see table below)
-  <br>
-
-**Please note**: Not all services are open source, so you may need to adjust the docker-compose.yml to match your level of access. (accessibilities are described in the table below)
+This is the home of ps2.gg, where software is made that turns Planetside into a better game.<br>
+This repo includes all microservices that empower our UI mods and third party applications.
 
 <br>
 
 ## Microservices
 
-| Name                                                        | Description                                     | Port       | Secrets      |
-|-------------------------------------------------------------|-------------------------------------------------|------------|--------------|
-| [census](/services/census/) 🔹                              | Relays Census data internally                   | -/-        | -/-          |
-| [peepo](/services/peepo/) 🔹                                | Metadata analysis bot                           | -/-        | peepo-token  |
-| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | -/-        | jaeger-token |
-| [population](/services/population/) 🔹                      | Real-time population data                       | :3000      | -/-          |
-| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-          |
-| [players](/services/players/) 🔹                            | Planetside character information                | :3000      | -/-          |
-| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-          |
-| [friends](/services/players/) 🔹                            | Global alt-wide friend list                                | :3000      | -/-          |
-| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-          |
-| [users](/services/users/)                                   | Verifies and links users on different platforms | :3000      | -/-          |
-| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-          |
-| alts                                                        | Matches alt characters                          | :3000/3030 | -/-          |
-| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | :27017     | -/-          |
-| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | :6379      | -/-          |
-| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service message queue                     | :5672      | -/-          |
-| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-          |
+| Name                                                        | Description                                     | Documentation                                                    |
+| ----------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
+| [census](/services/census/) 🔹                              | Internally relays Census data                   | -/-                                                              |
+| [peepo](/services/peepo/) 🔹                                | Planetside2 Companion                           | [Try it on Discord](https://discord.gg/vVa7gDK7Ky)               |
+| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | [Available on the Jaeger Discord](https://discord.gg/v6reuCe6QW) |
+| [population](/services/population/) 🔹                      | Real-time population data                       | -/-                                                              |
+| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | -/-                                                              |
+| [players](/services/players/) 🔹                            | Planetside character information                | -/-                                                              |
+| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                              |
+| [friends](/services/players/) 🔹                            | Global alt-wide friend list                     | -/-                                                              |
+| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | -/-                                                              |
+| [users](/services/users/)                                   | Verifies and links users on different platforms | soon™                                                            |
+| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | -/-                                                              |
+| alts                                                        | Matches alt characters                          | soon™                                                            |
+| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | -/-                                                              |
+| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | -/-                                                              |
+| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | -/-                                                              |
+| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | -/-                                                              |
 
-Services with a 🔹 denote that they're open source.<br>
-Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
-
-<br>
-
-## Code Conventions
-
-Our code-style is fully managed by eslint and prettier, so you needn't think too much about it. Just make sure to install their extensions in your IDE and enable auto-formatting, so they fix your code automatically.
-<br>
-For commits, please use the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
+Services with a 🔹 are open source.
 
 <br>
 
-## License
+## Want to contribute?
 
-You are permitted to copy and modify this software for the sole purpose of pull requests and other collaboration in the official ps2.gg repository. When contributing, you keep the ownership of your contributed works, but grant us an irrevocable permission to use, copy, modify, merge, publish, distribute, sublicense and/or sell copies thereof.
+Our platform connects developers from every part of the community to make Planetside just that little bit better. We'd be happy to welcome you into our family and help you ship features that reach thousands of users.
 
-For private, commercial, or any other purposes not specified above, all rights are reserved.
+Ps2.gg provides a vast pool of data, ranging from easy-to-access Census data, to unique metadata like alt characters, user verification and per-fight metrics. It's incredibly easy to build features that would otherwise drag you down for weeks if you had to build them on your own.
 
-Should we ever become unable to maintain the project, we will choose a fitting copyleft license and transfer the ownership to the community.
+All of this is powered by the latest in tech, from Next.js on the frontend, to Nest on the backend, to an automated Docker orchestration system and thorough monitoring tools. Everything is professionally designed within robust software architectures that any serious software engineer would wish of.
+
+<br>
+
+## Where to get started?
+
+We guide newcomers through the project with pair programming sessions, so we can show you the ropes and answer all of the questions you'll have in the beginning. If that sounds interesting, [hit us up on Discord!](https://discord.gg/8MvTaUQM2E)
+
+If you're just looking around or want to contribute small changes, you may want to read our [Contributor Guide](/.github/CONTRIBUTING.md).
+
+<br>
+
+## Documentation
+
+For guides and details on our technologies, check out our [Documentation](/docs/README.md)!
