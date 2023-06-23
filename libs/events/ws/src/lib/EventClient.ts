@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { EventRequest, EventResponse, EventSubscription, WebSocketClient } from '@ps2gg/events/ws'
+import { EventRequest, EventResponse, WebSocketClient } from '@ps2gg/events/ws'
 
 export class EventClient extends WebSocketClient {
   private _subscriptions: EventRequest[] = []
@@ -13,6 +13,10 @@ export class EventClient extends WebSocketClient {
 
   on(event: string, fn: (...params: any[]) => any): void {
     this._events.push({ event, fn })
+  }
+
+  removeListeners(event: string): void {
+    this._events = this._events.filter((e) => e.event !== event)
   }
 
   subscribe(events: string[]): void {
@@ -29,12 +33,20 @@ export class EventClient extends WebSocketClient {
   override afterInit(): void {
     this._registerStoredSubscriptions()
     this._socket.on('message', (message: { utf8Data: string }) => {
-      const data: EventResponse = JSON.parse(message.utf8Data)
-      this._acknowledgeSubscription(data)
+      const event: EventResponse = JSON.parse(message.utf8Data)
+
+      // This would tell the server to never send the event again
+      // until it's reset. It's useful for long-lasting events, such
+      // as alerts or population info, but for most cases it's not needed.
+      // An entity will have the __resetSubscriptions property set as a
+      // boolean if it is actually a long-lasting event.
+      if (event.data && event.data.__resetSubscriptions === null) return
+      this._acknowledgeSubscription(event)
     })
   }
 
-  unsubscribe(subscription: EventSubscription): void {
+  unsubscribe(events: string[]): void {
+    const subscription = { events, userId: this._userId }
     const payload = { event: 'unsubscribe', data: subscription }
     this._subscriptions = this._subscriptions.filter((s) => JSON.stringify(s) !== JSON.stringify(payload))
 
@@ -51,11 +63,11 @@ export class EventClient extends WebSocketClient {
   }
 
   private _acknowledgeSubscription(message: EventResponse): void {
-    const subscriptionId = message.data?.subscription?.subscriptionId
+    const subscriptionId = message.subscription?.subscriptionId
 
     if (!subscriptionId) return
     this._logger.debug({ subscriptionId }, 'Event acknowledged')
-    this.send({ event: 'notified', data: { subscriptionId } })
+    this.send({ event: 'acknowledged', data: { subscriptionId } })
   }
 
   private _registerStoredSubscriptions() {

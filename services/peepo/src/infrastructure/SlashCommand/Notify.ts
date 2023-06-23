@@ -26,7 +26,7 @@ import { NotifyOptions, Notify } from '../../domain/Meta/Notify'
 @Command(Notify)
 export class NotifyCommand {
   @Main(Notify)
-  async notify(options: NotifyOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse | undefined> {
+  async notify(options: NotifyOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse | null> {
     const { server, event } = options
     const embed = await new AddPopulationSubscription(server, event, user).execute()
     return { interactionContext: [server, event], embeds: [embed] }
@@ -64,7 +64,7 @@ export class NotifyCommand {
     const server = interactionContext[0]
     const event = interactionContext[1]
     const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
-    await new ModifyPopulationSubscriptionTime(subscriptionIds, server, undefined, value).execute()
+    await new ModifyPopulationSubscriptionTime(subscriptionIds, server, null, value).execute()
     const embed = await new GetSubscription(server, event, user.id).execute()
     return {
       embeds: [embed],

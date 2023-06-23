@@ -1,12 +1,27 @@
-export const image = (env: string) => `image: 127.0.0.1:5000/ps2gg:${env}`
-export const entrypoint = (env: string, name: string) => `entrypoint: "sh /app/docker/entrypoint.${env}.sh ${name}"`
-export const volumes = (env: string) => (env === 'dev' ? `volumes:\n      - ../../..:/app` : '')
-export const healthcheck = () => `healthcheck:
+export function image(env: string) {
+  return `image: 127.0.0.1:5000/ps2gg:${env}`
+}
+
+export function entrypoint(env: string, name: string) {
+  return `entrypoint: "sh /app/docker/entrypoint.${env}.sh ${name}"`
+}
+
+export function volumes(env: string) {
+  if (env === 'dev') {
+    return `volumes:\n      - ../../..:/app`
+  } else {
+    return ''
+  }
+}
+
+export function healthcheck() {
+  return `healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
       interval: 10s
-      start_period: 60s
+      start_period: 300s
       retries: 5`
+}
 
 export function networks(networks: string[]) {
   let config = 'networks:'
@@ -20,7 +35,10 @@ export function networks(networks: string[]) {
 }
 
 export function environment(type: string, env: string, name: string) {
-  if (type === 'nest' && (env === 'prod' || env === 'staging')) return '' // none needed for now
+  if (type === 'nest' && (env === 'prod' || env === 'staging')) {
+    return ''
+  }
+
   let config = `environment:`
 
   if (type === 'nest' && env === 'dev') {
@@ -41,18 +59,24 @@ export function environment(type: string, env: string, name: string) {
 }
 
 export let allSecrets = ''
+
 export function getAllSecrets() {
   const allSecretsCopy = allSecrets
   allSecrets = ''
 
   return allSecretsCopy
 }
+
 export function secrets(type: string, env: string, name: string, add = true) {
-  if (env === 'dev' || type !== 'nest') return ''
-  if (add)
+  if (env === 'dev' || type !== 'nest') {
+    return ''
+  }
+
+  if (add) {
     allSecrets += `
     ${name}-db-pass:
       external: true`
+  }
 
   return `
     secrets:

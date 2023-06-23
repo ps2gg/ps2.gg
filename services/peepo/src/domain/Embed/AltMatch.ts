@@ -2,6 +2,7 @@ import { Alt } from '@ps2gg/alts/types'
 import { servers } from '@ps2gg/common/constants'
 import { getRegion } from '@ps2gg/common/util'
 import { emojis } from '@ps2gg/discord/constants'
+import { code } from '@ps2gg/discord/util'
 import { APIEmbed } from 'discord.js'
 import { format } from 'timeago.js'
 
@@ -11,11 +12,11 @@ export class AltMatchEmbed implements APIEmbed {
   fields: any[]
   footer: any
 
-  constructor(alts: Alt[]) {
+  constructor(alts: Alt[], full?: boolean) {
     const main = alts.find((a) => a.matchType.includes('primary'))
     const characters = getCharacters(alts)
     const stats = getStats(alts)
-    const roles = getRoles(stats)
+    const roles = getRoles(stats, full)
     const roleStats = getRoleStats(roles, stats, alts)
 
     this.title = `${getOutfit(main)}${main.name}`
@@ -52,7 +53,7 @@ function addServerCharacters(serverAlts, server: string, alts, maxNameLength) {
 
   serverAlts.push({
     name: `${getRegionEmoji(server)} ${server}`,
-    value: `\`\`\`css\n${strings.join('\n')}\`\`\`\n`,
+    value: code(strings.join('\n'), 'css'),
   })
 }
 
@@ -155,12 +156,12 @@ function sumStats(globalStats, characterStats, role) {
   globalStats[role].playTime += stats.playTime
 }
 
-function getRoles(stats) {
+function getRoles(stats, full) {
   const roles = []
 
   for (const role in stats) {
     if (role === 'global') continue
-    if (stats[role].playTimePercent > 0.1) roles.push(role)
+    if (full || stats[role].playTimePercent > 0.1) roles.push(role)
   }
 
   return roles.slice(0, 3) // Max 3
@@ -174,7 +175,7 @@ function getRoleStats(roles, stats, alts) {
 
     roleStats.push({
       name: `${emojis[role]} ${capitalize(role)}`,
-      value: `\`\`\`prolog\n${statsStrings.join('\n')}\`\`\``,
+      value: code(statsStrings.join('\n'), 'prolog'),
       inline: true,
     })
   }

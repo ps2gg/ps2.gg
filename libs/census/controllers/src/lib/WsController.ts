@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { censusWs } from '@ps2gg/census/api'
+import { CensusWs } from '@ps2gg/census/api'
 import { CensusWsEvent, Heartbeat, PlayerLoadout } from '@ps2gg/census/types'
 import { continents, infantry, servers, vehicles } from '@ps2gg/common/constants'
 
@@ -12,12 +12,12 @@ export class WsController {
   private _lastLoginId = ''
   private _lastLogoutId = ''
 
-  constructor(eventTypes: string[]) {
+  constructor(private _ws: CensusWs, eventTypes: string[]) {
     this._registerEventListeners(eventTypes)
   }
 
   /**
-   * These functions are to be overriden by child classes.
+   * These functions are to be overridden by child classes.
    */
   onHeartbeat(heartbeat: Heartbeat): void {}
   onItemAdded(character_id: string, item_id: string, context: string): void {}
@@ -29,14 +29,14 @@ export class WsController {
   onLogout(character_id: string, timestamp: Date): void {}
 
   private _registerEventListeners(eventTypes: string | string[]): void {
-    if (eventTypes.includes('Heartbeat')) censusWs.use((data) => this._onHeartbeat(data))
-    if (eventTypes.includes('PlayerLogin')) censusWs.use((data) => this._onLogin(data))
-    if (eventTypes.includes('PlayerLogout')) censusWs.use((data) => this._onLogout(data))
-    if (eventTypes.includes('Death')) censusWs.use((data) => this._onDeath(data))
-    if (eventTypes.includes('ItemAdded')) censusWs.use((data) => this._onItemAdded(data))
-    if (eventTypes.includes('VehicleDestroy')) censusWs.use((data) => this._onVehicleDestroy(data))
-    if (eventTypes.includes('GainExperience')) censusWs.use((data) => this._onGainExperience(data))
-    if (eventTypes.includes('ContinentLock')) censusWs.use((data) => this._onContinentLock(data))
+    if (eventTypes.includes('Heartbeat')) this._ws.use((data) => this._onHeartbeat(data))
+    if (eventTypes.includes('PlayerLogin')) this._ws.use((data) => this._onLogin(data))
+    if (eventTypes.includes('PlayerLogout')) this._ws.use((data) => this._onLogout(data))
+    if (eventTypes.includes('Death')) this._ws.use((data) => this._onDeath(data))
+    if (eventTypes.includes('ItemAdded')) this._ws.use((data) => this._onItemAdded(data))
+    if (eventTypes.includes('VehicleDestroy')) this._ws.use((data) => this._onVehicleDestroy(data))
+    if (eventTypes.includes('GainExperience')) this._ws.use((data) => this._onGainExperience(data))
+    if (eventTypes.includes('ContinentLock')) this._ws.use((data) => this._onContinentLock(data))
   }
 
   private _onHeartbeat(data: CensusWsEvent): void {

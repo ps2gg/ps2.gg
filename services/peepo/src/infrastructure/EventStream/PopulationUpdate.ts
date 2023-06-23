@@ -12,19 +12,19 @@ import { Unsubscribe } from '../../domain/Component/Unsubscribe'
 export class PopulationEvent {
   @Notification()
   async notifyUser(event: EventResponse): Promise<CommandResponse> {
-    const scope: string = event.data.scope
-    const embed = await new GetPopulationNotification(scope).execute()
+    const id: string = event.data.id
+    const embed = await new GetPopulationNotification(id).execute()
     return {
-      interactionContext: [scope],
+      interactionContext: [id],
       embeds: [embed],
     }
   }
 
   @Component(Unsubscribe)
   async unsubscribe(interactionContext: string[], @linkedUser user: User, interaction: ButtonInteraction): Promise<ComponentResponse | void> {
-    const scope = interactionContext[0]
-    const event = scope.split('.')[0]
-    const server = servers[scope.split('.').pop()]
+    const id = interactionContext[0]
+    const event = id.split('.')[0]
+    const server = servers[id.split('.').pop()]
     const embed = await new RemovePopulationSubscription(server, event, user).execute()
     interaction.followUp({ embeds: [embed] })
   }

@@ -1,4 +1,7 @@
+import { getLogger } from '@ps2gg/common/logging'
 import request from 'axios'
+
+const logger = getLogger()
 
 export class CensusQuery {
   private _collectionName = ''
@@ -195,20 +198,38 @@ export class CensusQuery {
     try {
       const { data } = await request.get<any>(url)
 
-      if (data.error) return { error: data.error }
+      if (data.error) {
+        if (retries >= 3) return data
+
+        logger.warn({ data }, `Request failed, retrying (${retries}/3`)
+        return this.get(url, ++retries)
+      }
 
       return data
     } catch (err) {
       if (retries >= 3) {
-        return null
+        throw new CensusException(url)
       }
 
+      logger.warn({ url, err }, `Request failed, retrying (${retries}/3`)
       return this.get(url, ++retries)
     }
   }
 }
 
 type JoinArgs = {
-  collection: string
-  join: JoinArgs
+  collection?: string
+  type?: string
+  on?: string
+  inject_at?: string
+  list?: number
+  terms?: string[]
+  show?: string[]
+  join?: JoinArgs
+}
+
+export class CensusException extends Error {
+  constructor(url: string) {
+    super(`Failed after 3 retries (url: ${url})`)
+  }
 }

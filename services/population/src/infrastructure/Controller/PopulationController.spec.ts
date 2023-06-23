@@ -1,14 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { PopulationController } from './PopulationController';
-import { SetPopulation } from '../../application/Command/SetPopulation';
-import { GetPopulation } from '../../application/Query/GetPopulation';
-import { Population } from '@ps2gg/population/types';
+import { CommandBus, QueryBus } from '@nestjs/cqrs'
+import { Test, TestingModule } from '@nestjs/testing'
+import { Population } from '@ps2gg/population/types'
+import { SetPopulation } from '../../application/Command/SetPopulation'
+import { GetPopulation } from '../../application/Query/GetPopulation'
+import { PopulationController } from './PopulationController'
 
 describe('PopulationController', () => {
-  let controller: PopulationController;
-  let commandBus: CommandBus;
-  let queryBus: QueryBus;
+  let controller: PopulationController
+  let commandBus: CommandBus
+  let queryBus: QueryBus
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,50 +27,50 @@ describe('PopulationController', () => {
           },
         },
       ],
-    }).compile();
+    }).compile()
 
-    controller = module.get<PopulationController>(PopulationController);
-    commandBus = module.get<CommandBus>(CommandBus);
-    queryBus = module.get<QueryBus>(QueryBus);
-  });
+    controller = module.get<PopulationController>(PopulationController)
+    commandBus = module.get<CommandBus>(CommandBus)
+    queryBus = module.get<QueryBus>(QueryBus)
+  })
 
   describe('save', () => {
     it('should return the saved population', async () => {
       const population: Population = {
-        scope: 'zone.Emerald',
+        id: 'zone.Emerald',
         tr: 100,
         nc: 200,
         vs: 300,
-        resetReceivedState: false,
-      };
-      const expectedOutput = population;
+        __resetSubscriptions: false,
+      }
+      const expectedOutput = population
 
-      jest.spyOn(commandBus, 'execute').mockResolvedValueOnce(expectedOutput);
+      jest.spyOn(commandBus, 'execute').mockResolvedValueOnce(expectedOutput)
 
-      const result = await controller.save(population);
+      const result = await controller.save(population)
 
-      expect(result).toEqual(expectedOutput);
-      expect(commandBus.execute).toHaveBeenCalledWith(new SetPopulation(population));
-    });
-  });
+      expect(result).toEqual(expectedOutput)
+      expect(commandBus.execute).toHaveBeenCalledWith(new SetPopulation(population))
+    })
+  })
 
   describe('get', () => {
-    it('should return the population for the given server and scope', async () => {
-      const scope = 'zone.Emerald';
+    it('should return the population for the given server and id', async () => {
+      const id = 'zone.Emerald'
       const expectedOutput: Population = {
-        scope,
+        id,
         tr: 100,
         nc: 200,
         vs: 300,
-        resetReceivedState: false,
-      };
+        __resetSubscriptions: false,
+      }
 
-      jest.spyOn(queryBus, 'execute').mockResolvedValueOnce(expectedOutput);
+      jest.spyOn(queryBus, 'execute').mockResolvedValueOnce(expectedOutput)
 
-      const result = await controller.get(scope);
+      const result = await controller.get(id)
 
-      expect(result).toEqual(expectedOutput);
-      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(scope));
-    });
-  });
-});
+      expect(result).toEqual(expectedOutput)
+      expect(queryBus.execute).toHaveBeenCalledWith(new GetPopulation(id))
+    })
+  })
+})

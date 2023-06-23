@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ServerId } from '@ps2gg/census/types'
 import { Population } from '@ps2gg/population/types'
 import { Repository } from 'typeorm'
 import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
@@ -9,9 +8,9 @@ import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
 export class PopulationRepository {
   constructor(@InjectRepository(PopulationEntity) private readonly _repository: Repository<PopulationEntity>) {}
 
-  async findOne(scope: string): Promise<PopulationEntity | undefined> {
+  async findOne(id: string): Promise<PopulationEntity | null> {
     return this._repository.findOne({
-      where: { scope },
+      where: { id },
     })
   }
 

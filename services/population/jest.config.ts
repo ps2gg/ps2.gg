@@ -1,13 +1,16 @@
-import { pathsToModuleNameMapper } from 'ts-jest'
-const { compilerOptions } = require('../../tsconfig.base.json')
-
+/* eslint-disable */
 export default {
   displayName: 'population',
   preset: '../../jest.preset.js',
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+  },
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }]
+    '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../../' }),
+  coverageDirectory: '../../coverage/services/population',
 }

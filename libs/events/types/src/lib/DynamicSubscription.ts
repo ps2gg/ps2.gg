@@ -1,7 +1,7 @@
 import { Subscription } from './Subscription'
 
 export type DynamicSubscription = {
-  configuration: SubscriptionConfiguration
+  configuration?: SubscriptionConfiguration
 } & Subscription
 
 export type SubscriptionConfiguration = {

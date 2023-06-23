@@ -1,0 +1,9 @@
+---
+exclude_paths:
+  - '**/*.md'
+  - '**/jest.config.ts'
+  - '**/src/environment.ts'
+  - '**/DataSource.ts'
+  - '**/TypeOrmModule.ts'
+  - '**/ApplicationModule.ts'
+  - '**/InfrastructureModule.ts'
