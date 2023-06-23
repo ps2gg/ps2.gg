@@ -6,7 +6,7 @@ fi
 
 # Update git
 git pull
-git submodule update --recursive --remote --init
+git submodule init
 
 # Remove previous builds
 rm -rf dist
