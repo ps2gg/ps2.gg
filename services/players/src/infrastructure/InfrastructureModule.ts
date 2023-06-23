@@ -19,7 +19,7 @@ import { TypeOrmModule } from './TypeOrm/TypeOrmModule'
       },
     }),
     DomainEventsModule.forRoot({
-      eventStreamDsn: isProd('players') ? readFileSync('/run/secrets/notifications_mq_dsn', 'utf-8') : environment.eventStreamDsn,
+      eventStreamDsn: isProd('players') ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq-pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
     }),
 
     // infra
