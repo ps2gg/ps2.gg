@@ -46,6 +46,6 @@ describe('PopulatePlayersHandler', () => {
     console.log('e')
     expect(getPlayersSpy).toHaveBeenCalledWith(new GetPlayers(ids))
     expect(populatePlayerSpy).toHaveBeenCalledTimes(1)
-    expect(populatePlayerSpy).toHaveBeenCalledWith(new PopulatePlayer('3', false, new Date(0)))
+    expect(populatePlayerSpy).toHaveBeenCalledWith(new PopulatePlayer('3'))
   })
 })
