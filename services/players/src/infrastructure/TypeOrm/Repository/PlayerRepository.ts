@@ -35,4 +35,8 @@ export class PlayerRepository {
   async save(example: Player): Promise<PlayerEntity> {
     return this._repository.save(example)
   }
+
+  updateOnlineStatus(id: string, isOnline: boolean, lastLogout?: Date): Promise<any> {
+    return this._repository.update(id, { isOnline, lastLogout })
+  }
 }
