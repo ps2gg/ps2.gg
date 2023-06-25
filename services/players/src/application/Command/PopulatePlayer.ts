@@ -7,7 +7,7 @@ import { PlayerRepository } from '../../infrastructure/TypeOrm/Repository/Player
 const logger = getLogger()
 
 export class PopulatePlayer {
-  constructor(readonly id: string, readonly isOnline = false, readonly lastLogout?: Date) {}
+  constructor(readonly id: string, readonly isOnline?: boolean, readonly lastLogout?: Date) {}
 }
 
 @CommandHandler(PopulatePlayer)
@@ -23,7 +23,7 @@ export class PopulatePlayerHandler implements ICommandHandler<PopulatePlayer, Pl
     return this._repository.save(player)
   }
 
-  async updateOnlineStatus(id: string, isOnline: boolean, lastLogout?: Date): Promise<void> {
+  async updateOnlineStatus(id: string, isOnline?: boolean, lastLogout?: Date): Promise<void> {
     if (isOnline !== undefined) {
       logger.info({ id, isOnline, lastLogout }, 'Updating online status')
       this._repository.updateOnlineStatus(id, isOnline, lastLogout)
