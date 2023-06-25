@@ -37,6 +37,6 @@ export class PlayerRepository {
   }
 
   updateOnlineStatus(id: string, isOnline: boolean, lastLogout?: Date): Promise<any> {
-    return this._repository.update(id, { isOnline, lastLogout })
+    return this._repository.save({ id, isOnline, lastLogout })
   }
 }
