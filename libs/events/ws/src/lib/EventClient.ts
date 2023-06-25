@@ -40,7 +40,7 @@ export class EventClient extends WebSocketClient {
       // as alerts or population info, but for most cases it's not needed.
       // An entity will have the __resetSubscriptions property set as a
       // boolean if it is actually a long-lasting event.
-      if (event.data && event.data.__resetSubscriptions === null) return
+      if (event.data && event.data.__resetSubscriptions === undefined) return
       this._acknowledgeSubscription(event)
     })
   }
