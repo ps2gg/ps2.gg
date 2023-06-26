@@ -5,9 +5,9 @@ In essence, the process looks like this:
 
 <br>
 
-## 1) Breaking down complex problems
+## 1) We start with a project
 
-To define our projects, we look at **single use cases** that are complex enough to be broken down into minimal pieces.<br>
+To define our projects, we look for **single use cases** that are complex enough that they have to be broken down into minimal pieces.<br>
 Our goal is to have every component tracked as an issue on Github.
 
 <br>
