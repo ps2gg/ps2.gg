@@ -3,18 +3,26 @@ import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, lin
 import { DiscordCommand } from '@ps2gg/discord/types'
 import { sendChannel } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
+import { ButtonInteraction } from 'discord.js'
 import { VerifyCharacter } from '../../application/Command/VerifyCharacter'
 import { GetPlayer } from '../../application/Query/GetPlayer'
 import { VerifyReady } from '../../domain/Components/VerifyReady'
-import { VerifiedLogEmbed } from '../../domain/Embed/VerifiedLogEmbed'
+import { VerifyLogFailureEmbed } from '../../domain/Embed/VerifyLogFailureEmbed'
+import { VerifyLogPromptEmbed } from '../../domain/Embed/VerifyLogPromptEmbed'
+import { VerifyLogStartEmbed } from '../../domain/Embed/VerifyLogStartEmbed'
+import { VerifyLogSuccessEmbed } from '../../domain/Embed/VerifyLogSuccessEmbed'
 import { Verify, VerifyOptions } from '../../domain/Meta/Verify'
+
+const staging = process.env['PS2GG_STAGING']
 
 @Command(Verify)
 export class VerifyCommand extends DiscordCommand {
   @Main(Verify)
-  async verify(options: VerifyOptions): Promise<CommandResponse> {
+  async verify(options: VerifyOptions, interaction: ButtonInteraction): Promise<CommandResponse> {
     const { name } = options
+    const { user } = interaction
     const { embed, id } = await new GetPlayer(name).execute()
+    this.logPrompt(name, user.id)
     return {
       interactionContext: [id, name],
       embeds: [embed],
@@ -28,23 +36,48 @@ export class VerifyCommand extends DiscordCommand {
   }
 
   @Component(VerifyReady)
-  async verifyReady(interactionContext: string[], @linkedUser user: User): Promise<ComponentResponse> {
+  async verifyReady(interactionContext: string[], interaction: ButtonInteraction): Promise<ComponentResponse> {
     const id = interactionContext[0]
     const name = interactionContext[1]
+    const { user } = interaction
+    const discordId = user.id
 
     try {
-      const verified = await new VerifyCharacter(id, name, user.discordId).execute()
-      this.logSuccess(name, user.discordId)
-      return { embeds: [verified] }
+      this.logStart(name, discordId)
+      const embed = await new VerifyCharacter(id, name, discordId).execute()
+      this.logSuccess(name, discordId)
+      return { embeds: [embed] }
     } catch (error) {
-      if (error?.response?.status === 408) throw new Error('Verification timed out. Please try again.')
+      if (error?.response?.status === 408) {
+        this.logFailure(name, discordId)
+        throw new Error('Verification timed out. Please try again.')
+      }
+      this.logFailure(name, discordId, error as Error)
       throw error
     }
   }
 
-  logSuccess(name: string, discordId: string): void {
-    const embed = new VerifiedLogEmbed(discordId, name)
+  logPrompt(name: string, discordId: string): void {
+    const embed = new VerifyLogPromptEmbed(discordId, name)
     sendChannel(this.client, '1090392395427885198', '1121101663848112239', { embeds: [embed] })
-    sendChannel(this.client, '207168033918025729', '1120080493191373040', { embeds: [embed] })
+    if (staging) sendChannel(this.client, '207168033918025729', '1120080493191373040', { embeds: [embed] })
+  }
+
+  logStart(name: string, discordId: string): void {
+    const embed = new VerifyLogStartEmbed(discordId, name)
+    sendChannel(this.client, '1090392395427885198', '1121101663848112239', { embeds: [embed] })
+    if (staging) sendChannel(this.client, '207168033918025729', '1120080493191373040', { embeds: [embed] })
+  }
+
+  logSuccess(name: string, discordId: string): void {
+    const embed = new VerifyLogSuccessEmbed(discordId, name)
+    sendChannel(this.client, '1090392395427885198', '1121101663848112239', { embeds: [embed] })
+    if (staging) sendChannel(this.client, '207168033918025729', '1120080493191373040', { embeds: [embed] })
+  }
+
+  logFailure(name: string, discordId: string, error?: Error): void {
+    const embed = new VerifyLogFailureEmbed(discordId, name, error)
+    sendChannel(this.client, '1090392395427885198', '1121101663848112239', { embeds: [embed] })
+    if (staging) sendChannel(this.client, '207168033918025729', '1120080493191373040', { embeds: [embed] })
   }
 }
