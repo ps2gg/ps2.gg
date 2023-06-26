@@ -7,6 +7,7 @@ fi
 # Update git
 git pull
 git submodule init
+git pull --recurse-submodules
 
 # Remove previous builds
 rm -rf dist
