@@ -11,7 +11,7 @@ on:
         default: 'prod'
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Build to ${{ github.event.inputs.environment}}
