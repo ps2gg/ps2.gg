@@ -8,7 +8,6 @@ Some requirements are enforced automatically (i.e. build tests, linting, etc) an
 ## Universal requirements
 
 - Acceptance tests are passed
-- No must-fix defects in the final product
 - Every user/service-facing endpoint is covered in automated tests
 - Every non-trivial function is unit tested
 - If something takes more than a minute to test manually, it must be automated
