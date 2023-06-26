@@ -5,25 +5,26 @@ on:
     branches:
       - master
 
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Build
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        host: ${{ secrets.SSH_HOST }}
-        script: |
-          cd /opt/ps2gg/ps2.gg
-          bash build.sh staging
-    - name: Deploy
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        host: ${{ secrets.SSH_HOST }}
-        script: |
-          cd /opt/ps2gg/ps2.gg
-          bash deploy.sh staging
+      - name: Build
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          command_timeout: 60m
+          script: |
+            cd /opt/ps2gg/ps2.gg
+            bash build.sh staging
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          script: |
+            cd /opt/ps2gg/ps2.gg
+            bash deploy.sh staging
