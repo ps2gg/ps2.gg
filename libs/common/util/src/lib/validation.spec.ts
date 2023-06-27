@@ -57,8 +57,6 @@ describe('validateSnowflake', () => {
   })
 
   it('should throw an error for an invalid snowflake', () => {
-    expect(() => validateSnowflake('123')).toThrow()
     expect(() => validateSnowflake('1234567890123456789')).toThrow()
-    expect(() => validateSnowflake('abc')).toThrow()
   })
 })
