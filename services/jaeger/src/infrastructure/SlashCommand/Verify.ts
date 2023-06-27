@@ -1,4 +1,5 @@
 import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { sanitizeCharacterName } from '@ps2gg/common/util'
 import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, Component, ComponentResponse } from '@ps2gg/discord/command'
 import { DiscordCommand } from '@ps2gg/discord/types'
 import { sendChannel } from '@ps2gg/discord/util'
@@ -16,7 +17,7 @@ import { Verify, VerifyOptions } from '../../domain/Meta/Verify'
 export class VerifyCommand extends DiscordCommand {
   @Main(Verify)
   async verify(options: VerifyOptions, interaction: ButtonInteraction): Promise<CommandResponse> {
-    const { name } = options
+    const name = sanitizeCharacterName(options.name)
     const { user } = interaction
     const { embed, id } = await new GetPlayer(name).execute()
     this.logPrompt(name, user.id)
