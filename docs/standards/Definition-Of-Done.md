@@ -11,4 +11,6 @@ Some requirements are enforced automatically (i.e. build tests, linting, etc) an
 - Every user/service-facing endpoint is covered in automated tests
 - Every non-trivial function is unit tested
 - If something takes more than a minute to test manually, it must be automated
+- Every use case is logged
+- Every user input is sanitized
 - Approval of the product owner and code owners
