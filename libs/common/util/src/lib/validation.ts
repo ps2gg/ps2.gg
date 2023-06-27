@@ -1,5 +1,5 @@
 export function validateNumericString(value: string, target: string): void {
-  if (!/^\d+$/.test(value)) {
+  if (!/^\d+(\.\d+)*$/.test(value)) {
     throw new Error(`Expected ${target} to be a numeric string`)
   }
 }
@@ -20,5 +20,12 @@ export function validateCharacterName(value: string): void {
 export function validateULID(value: string): void {
   if (!/^[0-9A-Z]{26}$/.test(value)) {
     throw new Error('Expected ulid to be a 26 character alphanumeric string')
+  }
+}
+
+export function validateSnowflake(value: string): void {
+  validateNumericString(value, 'snowflake')
+  if (value.length > 18) {
+    throw new Error('Expected snowflake to be 18 characters long')
   }
 }
