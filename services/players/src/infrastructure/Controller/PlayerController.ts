@@ -5,17 +5,23 @@ import { Player } from '@ps2gg/players/types'
 import { PopulatePlayer } from '../../application/Command/PopulatePlayer'
 import { GetPlayer } from '../../application/Query/GetPlayer'
 import { GetPlayerByName } from '../../application/Query/GetPlayerByName'
+import { NoParameterException } from '../../domain/Exception/NoParameterException'
 
 @Controller('/v1/player')
 export class PlayerController {
   constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) {}
 
   @Get('/')
-  async get(@Query('id') id: string, @Query('name') name: string): Promise<Player> {
-    validateCharacterId(id)
-    validateCharacterName(name)
-    if (id) return this._queryBus.execute(new GetPlayer(id))
-    else return this._queryBus.execute(new GetPlayerByName(name))
+  async get(@Query('id') id?: string, @Query('name') name?: string): Promise<Player> {
+    if (id) {
+      validateCharacterId(id)
+      return this._queryBus.execute(new GetPlayer(id))
+    }
+    if (name) {
+      validateCharacterName(name)
+      return this._queryBus.execute(new GetPlayerByName(name))
+    }
+    throw new NoParameterException()
   }
 
   @Post('/')
