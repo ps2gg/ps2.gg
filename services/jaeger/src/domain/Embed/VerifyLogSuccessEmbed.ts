@@ -1,7 +1,7 @@
 import { EmbedColors } from '@ps2gg/discord/constants'
 import { APIEmbed } from 'discord.js'
 
-export class VerifiedLogEmbed implements APIEmbed {
+export class VerifyLogSuccessEmbed implements APIEmbed {
   description?: string
   color = EmbedColors.Success
   footer = { text: 'Powered by ps2.gg' }
