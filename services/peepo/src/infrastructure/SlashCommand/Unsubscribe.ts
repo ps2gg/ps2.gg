@@ -1,3 +1,4 @@
+import { validateNumericString } from '@ps2gg/common/util'
 import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
 import { RemovePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
@@ -9,6 +10,7 @@ export class UnsubscribeCommand {
   @Main(Unsubscribe)
   async unsubscribe(options: UnsubscribeOptions, @linkedUser user: User): Promise<CommandResponse> {
     const { server, event } = options
+    validateNumericString(event, 'event')
     const embed = await new RemovePopulationSubscription(server, event, user).execute()
     return {
       interactionContext: [],

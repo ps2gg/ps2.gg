@@ -1,3 +1,4 @@
+import { validateNumericString } from '@ps2gg/common/util'
 import {
   Component,
   Command,
@@ -28,6 +29,7 @@ export class NotifyCommand {
   @Main(Notify)
   async notify(options: NotifyOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse | null> {
     const { server, event } = options
+    validateNumericString(event, 'event')
     const embed = await new AddPopulationSubscription(server, event, user).execute()
     return { interactionContext: [server, event], embeds: [embed] }
   }
