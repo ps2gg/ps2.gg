@@ -12,5 +12,5 @@ Some requirements are enforced automatically (i.e. build tests, linting, etc) an
 - Every non-trivial function is unit tested
 - If something takes more than a minute to test manually, it must be automated
 - Every use case is logged
-- Every user input is sanitized
+- Every user input is sanitized or validated
 - Approval of the product owner and code owners
