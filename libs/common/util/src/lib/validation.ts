@@ -11,6 +11,12 @@ export function validateCharacterId(value: string): void {
   }
 }
 
+export function validateCharacterName(value: string): void {
+  if (value.length < 3 || value.length > 32 || /[^a-zA-Z0-9-]$/.test(value)) {
+    throw new Error('Expected the character name to be 3-32 character alphanumeric string')
+  }
+}
+
 export function validateULID(value: string): void {
   if (!/^[0-9A-Z]{26}$/.test(value)) {
     throw new Error('Expected ulid to be a 26 character alphanumeric string')
