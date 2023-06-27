@@ -25,7 +25,7 @@ export function validateULID(value: string): void {
 
 export function validateSnowflake(value: string): void {
   validateNumericString(value, 'snowflake')
-  if (value.length > 18) {
+  if (value.length !== 18) {
     throw new Error('Expected snowflake to be 18 characters long')
   }
 }
