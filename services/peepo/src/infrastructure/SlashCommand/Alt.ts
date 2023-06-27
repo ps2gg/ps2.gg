@@ -1,4 +1,5 @@
 import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { sanitizeCharacterName } from '@ps2gg/common/util'
 import { Autocomplete, AutocompleteResponse, Command, Component, ComponentResponse, SubCommand, CommandResponse } from '@ps2gg/discord/command'
 import { CommandInteraction, MessageComponentInteraction } from 'discord.js'
 import { UpdateAllAlts } from '../../application/Command/UpdateAllAlts'
@@ -14,7 +15,8 @@ import { AltMatch, MatchOptions } from '../../domain/Meta/AltMatch'
 export class AltCommand {
   @SubCommand(AltMatch)
   async match(options: MatchOptions, interaction: CommandInteraction): Promise<CommandResponse | null> {
-    const { name, full } = options
+    const { full } = options
+    const name = sanitizeCharacterName(options.name)
     const embed = await new GetAlts(name).execute()
     return { interactionContext: [name], embeds: [embed] }
   }
