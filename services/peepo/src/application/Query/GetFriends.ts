@@ -1,12 +1,7 @@
 import { FriendsClient } from '@ps2gg/friends/client'
 import { Friends } from '@ps2gg/friends/types'
 
-export class GetFriends {
-  private _friends = new FriendsClient()
-
-  constructor(readonly id: string) {}
-
-  async execute(): Promise<Friends> {
-    return this._friends.get(this.id)
-  }
+export async function getFriends(id: string): Promise<Friends> {
+  const friendsClient = new FriendsClient()
+  return friendsClient.get(id)
 }

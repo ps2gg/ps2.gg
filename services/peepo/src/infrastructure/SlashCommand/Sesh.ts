@@ -1,9 +1,6 @@
-import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
-import { GetFriends } from '../../application/Query/GetFriends'
-import { GetOnlinePlayers } from '../../application/Query/GetOnlinePlayer'
-import { GetPlayer } from '../../application/Query/GetPlayer'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 
 @Command(Sesh)
@@ -33,6 +30,6 @@ export class SeshCommand {
 
   @Autocomplete(Sesh, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerAutocomplete(query).execute()
+    return getPlayerAutocomplete(query)
   }
 }

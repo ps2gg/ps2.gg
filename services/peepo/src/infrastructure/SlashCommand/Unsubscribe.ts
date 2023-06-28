@@ -1,8 +1,8 @@
 import { validateNumericString } from '@ps2gg/common/util'
 import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
-import { RemovePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
-import { GetEventSuggestions } from '../../application/Query/GetEventSuggestions'
+import { removePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
+import { getEventSuggestions } from '../../application/Query/GetEventSuggestions'
 import { UnsubscribeOptions, Unsubscribe } from '../../domain/Meta/Unsubscribe'
 
 @Command(Unsubscribe)
@@ -11,7 +11,7 @@ export class UnsubscribeCommand {
   async unsubscribe(options: UnsubscribeOptions, @linkedUser user: User): Promise<CommandResponse> {
     const { server, event } = options
     validateNumericString(event, 'event')
-    const embed = await new RemovePopulationSubscription(server, event, user).execute()
+    const embed = await removePopulationSubscription(server, event, user)
     return {
       interactionContext: [],
       embeds: [embed],
@@ -21,6 +21,6 @@ export class UnsubscribeCommand {
 
   @Autocomplete(Unsubscribe, 'event')
   async id(query: string): Promise<AutocompleteResponse[]> {
-    return new GetEventSuggestions(query).execute()
+    return getEventSuggestions(query)
   }
 }

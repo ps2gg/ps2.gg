@@ -1,24 +1,14 @@
-import { validateNumericString } from '@ps2gg/common/util'
-import {
-  Component,
-  Command,
-  linkedUser,
-  Autocomplete,
-  AutocompleteResponse,
-  CommandResponse,
-  Main,
-  ComponentResponse,
-  ProgressiveComponent,
-} from '@ps2gg/discord/command'
+import { sanitizeObjectNotation, validateNumericString } from '@ps2gg/common/util'
+import { Component, Command, linkedUser, Autocomplete, AutocompleteResponse, CommandResponse, Main, ComponentResponse, ProgressiveComponent } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
 import { AnySelectMenuInteraction, ButtonInteraction, CommandInteraction } from 'discord.js'
-import { AddPopulationSubscription } from '../../application/Command/AddPopulationSubscription'
-import { ModifyPopulationSubscriptionConfig } from '../../application/Command/ModifyPopulationSubscriptionConfig'
-import { ModifyPopulationSubscriptionTime } from '../../application/Command/ModifyPopulationSubscriptionTime'
-import { RemovePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
-import { GetEventSuggestions } from '../../application/Query/GetEventSuggestions'
-import { GetPopulationSubscriptionIds } from '../../application/Query/GetPopulationSubscriptionIds'
-import { GetSubscription } from '../../application/Query/GetSubscription'
+import { addPopulationSubscription } from '../../application/Command/AddPopulationSubscription'
+import { modifyPopulationSubscriptionConfig } from '../../application/Command/ModifyPopulationSubscriptionConfig'
+import { modifyPopulationSubscriptionTime } from '../../application/Command/ModifyPopulationSubscriptionTime'
+import { removePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
+import { getEventSuggestions } from '../../application/Query/GetEventSuggestions'
+import { getPopulationSubscriptionIds } from '../../application/Query/GetPopulationSubscriptionIds'
+import { getSubscription } from '../../application/Query/GetSubscription'
 import { NotifyConfigurePopulation } from '../../domain/Component/NotifyConfigurePopulation'
 import { NotifyConfigureSendAfter, NotifyConfigureSendBefore } from '../../domain/Component/NotifyConfigureTime'
 import { Unsubscribe } from '../../domain/Component/Unsubscribe'
@@ -28,22 +18,22 @@ import { NotifyOptions, Notify } from '../../domain/Meta/Notify'
 export class NotifyCommand {
   @Main(Notify)
   async notify(options: NotifyOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse | null> {
-    const { server, event } = options
-    validateNumericString(event, 'event')
-    const embed = await new AddPopulationSubscription(server, event, user).execute()
+    const { server } = options
+    const event = sanitizeObjectNotation(options.event)
+    const embed = await addPopulationSubscription(server, event, user)
     return { interactionContext: [server, event], embeds: [embed] }
   }
 
   @Autocomplete(Notify, 'event')
   async event(query: string): Promise<AutocompleteResponse[]> {
-    return new GetEventSuggestions(query).execute()
+    return getEventSuggestions(query)
   }
 
   @Component(Unsubscribe)
   async unsubscribe(interactionContext: string[], @linkedUser user: User, interaction: ButtonInteraction): Promise<void> {
     const server = interactionContext[0]
     const event = interactionContext[1]
-    const embed = await new RemovePopulationSubscription(server, event, user).execute()
+    const embed = await removePopulationSubscription(server, event, user)
     interaction.followUp({ embeds: [embed], ephemeral: true })
   }
 
@@ -52,9 +42,9 @@ export class NotifyCommand {
     const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
-    const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
-    await new ModifyPopulationSubscriptionConfig(subscriptionIds, value).execute()
-    const embed = await new GetSubscription(server, event, user.id).execute()
+    const subscriptionIds = await getPopulationSubscriptionIds(server, event, user)
+    await modifyPopulationSubscriptionConfig(subscriptionIds, value)
+    const embed = await getSubscription(server, event, user.id)
     return {
       embeds: [embed],
     }
@@ -65,9 +55,9 @@ export class NotifyCommand {
     const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
-    const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
-    await new ModifyPopulationSubscriptionTime(subscriptionIds, server, null, value).execute()
-    const embed = await new GetSubscription(server, event, user.id).execute()
+    const subscriptionIds = await getPopulationSubscriptionIds(server, event, user)
+    await modifyPopulationSubscriptionTime(subscriptionIds, server, null, value)
+    const embed = await getSubscription(server, event, user.id)
     return {
       embeds: [embed],
     }
@@ -78,9 +68,9 @@ export class NotifyCommand {
     const value = parseInt(interaction.values[0] as string)
     const server = interactionContext[0]
     const event = interactionContext[1]
-    const subscriptionIds = await new GetPopulationSubscriptionIds(server, event, user).execute()
-    await new ModifyPopulationSubscriptionTime(subscriptionIds, server, value).execute()
-    const embed = await new GetSubscription(server, event, user.id).execute()
+    const subscriptionIds = await getPopulationSubscriptionIds(server, event, user)
+    await modifyPopulationSubscriptionTime(subscriptionIds, server, value)
+    const embed = await getSubscription(server, event, user.id)
     return {
       embeds: [embed],
     }

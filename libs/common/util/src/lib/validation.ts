@@ -30,3 +30,9 @@ export function validateSnowflake(value: string): void {
     throw new Error('Expected snowflake to be no longer than 18 characters')
   }
 }
+
+export function validateObjectNotation(value: string, target: string): void {
+  if (!/^[a-zA-Z0-9.]+$/.test(value)) {
+    throw new Error(`Expected ${target} to be alphanumeric with periods`)
+  }
+}

@@ -1,16 +1,11 @@
 import { PlayerClient } from '@ps2gg/players/client'
 import { Player } from '@ps2gg/players/types'
 
-export class GetPlayer {
-  private _players = new PlayerClient()
+export async function getPlayer(name: string): Promise<Player> {
+  const players = new PlayerClient()
+  const player = await players.findOneByName(name)
 
-  constructor(readonly name: string) {}
+  if (!player) throw new Error(`${name} doesn't exist.`)
 
-  async execute(): Promise<Player> {
-    const player = await this._players.findOneByName(this.name)
-
-    if (!player) throw new Error(`${this.name} doesn't exist.`)
-
-    return player
-  }
+  return player
 }

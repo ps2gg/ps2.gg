@@ -1,22 +1,17 @@
 import { PopulationClient } from '@ps2gg/population/client'
 
-export class GetPopulation {
-  private _population = new PopulationClient()
+export async function getPopulation(ids: string[], event: string, server: string): Promise<{ tr: number; nc: number; vs: number }> {
+  const population = new PopulationClient()
+  const populationSum = { tr: 0, nc: 0, vs: 0 }
 
-  constructor(readonly ids: string[], readonly event: string, readonly server: string) {}
+  for (const id of ids) {
+    const pop = await population.getPopulation(id)
 
-  async execute(): Promise<{ tr: number; nc: number; vs: number }> {
-    const populationSum = { tr: 0, nc: 0, vs: 0 }
-
-    for (const id of this.ids) {
-      const population = await this._population.getPopulation(id)
-
-      if (!population) throw new Error(`No population data found, are you sure ${this.event} exists on ${this.server}?`)
-      populationSum.nc += population.nc
-      populationSum.tr += population.tr
-      populationSum.vs += population.vs
-    }
-
-    return populationSum
+    if (!pop) throw new Error(`No population data found, are you sure ${event} exists on ${server}?`)
+    populationSum.nc += pop.nc
+    populationSum.tr += pop.tr
+    populationSum.vs += pop.vs
   }
+
+  return populationSum
 }

@@ -5,24 +5,19 @@ import { APIEmbed } from 'discord.js'
 import { NotifyEmbed } from '../../domain/Embed/Notify'
 import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 import { SubscriptionEntity } from '../../domain/Entity/SubscriptionEntity'
-import { GetPopulation } from '../Query/GetPopulation'
+import { getPopulation } from '../Query/GetPopulation'
 
-export class AddPopulationSubscription {
-  private _population = new PopulationClient()
+export async function addPopulationSubscription(server: string, event: string, user: User): Promise<APIEmbed> {
+  const population = new PopulationClient()
+  const entity = new PopulationEntity(server, event)
+  const ids = entity.getIds()
+  const pop = await getPopulation(ids, event, server)
+  let subscriptionConfig: DynamicSubscription
 
-  constructor(readonly server: string, readonly event: string, readonly user: User) {}
-
-  async execute(): Promise<APIEmbed> {
-    const entity = new PopulationEntity(this.server, this.event)
-    const ids = entity.getIds()
-    const population = await new GetPopulation(ids, this.event, this.server).execute()
-    let subscriptionConfig: DynamicSubscription
-
-    for (const id of ids) {
-      const subscription = (subscriptionConfig = new SubscriptionEntity(this.server, id, this.user.id))
-      this._population.setSubscription(subscription)
-    }
-
-    return new NotifyEmbed(this.server, this.event, subscriptionConfig, population)
+  for (const id of ids) {
+    const subscription = (subscriptionConfig = new SubscriptionEntity(server, id, user.id))
+    population.setSubscription(subscription)
   }
+
+  return new NotifyEmbed(server, event, subscriptionConfig, pop)
 }

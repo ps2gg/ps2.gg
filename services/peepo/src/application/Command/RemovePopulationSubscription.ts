@@ -3,21 +3,15 @@ import { User } from '@ps2gg/users/types'
 import { UnsubscribeEmbed } from '../../domain/Embed/UnsubscribeEmbed'
 import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
 
-export class RemovePopulationSubscription {
-  private _population = new PopulationClient()
+export async function removePopulationSubscription(server: string, event: string, user: User): Promise<UnsubscribeEmbed> {
+  const population = new PopulationClient()
+  event = event === 'All' ? 'anything' : event
+  const id = new PopulationEntity(server, event)
+  const ids = id.getIds()
 
-  constructor(readonly server: string, readonly event: string, readonly user: User) {
-    this.event = event === 'All' ? 'anything' : event
+  for (const id of ids) {
+    await population.removeSubscription({ userId: user.id, id })
   }
 
-  async execute(): Promise<UnsubscribeEmbed> {
-    const id = new PopulationEntity(this.server, this.event)
-    const ids = id.getIds()
-
-    for (const id of ids) {
-      await this._population.removeSubscription({ userId: this.user.id, id })
-    }
-
-    return new UnsubscribeEmbed(this.event, this.server)
-  }
+  return new UnsubscribeEmbed(event, server)
 }

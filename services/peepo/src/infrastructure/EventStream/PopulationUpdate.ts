@@ -4,8 +4,8 @@ import { Event, Notification } from '@ps2gg/discord/command'
 import { EventResponse } from '@ps2gg/events/ws'
 import { User } from '@ps2gg/users/types'
 import { ButtonInteraction } from 'discord.js'
-import { RemovePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
-import { GetPopulationNotification } from '../../application/Query/GetPopulationNotification'
+import { removePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
+import { getPopulationNotification } from '../../application/Query/GetPopulationNotification'
 import { Unsubscribe } from '../../domain/Component/Unsubscribe'
 
 @Event('DomainEvent.Population.Update', 'population')
@@ -13,7 +13,7 @@ export class PopulationEvent {
   @Notification()
   async notifyUser(event: EventResponse): Promise<CommandResponse> {
     const id: string = event.data.id
-    const embed = await new GetPopulationNotification(id).execute()
+    const embed = await getPopulationNotification(id)
     return {
       interactionContext: [id],
       embeds: [embed],
@@ -25,7 +25,7 @@ export class PopulationEvent {
     const id = interactionContext[0]
     const event = id.split('.')[0]
     const server = servers[id.split('.').pop()]
-    const embed = await new RemovePopulationSubscription(server, event, user).execute()
+    const embed = await removePopulationSubscription(server, event, user)
     interaction.followUp({ embeds: [embed] })
   }
 }
