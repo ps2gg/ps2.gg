@@ -15,17 +15,12 @@ export class PopulatePlayersHandler implements ICommandHandler<PopulatePlayers, 
 
   async execute(command: PopulatePlayers): Promise<void> {
     const { ids } = command
-
     const players = await this._queryBus.execute(new GetPlayers(ids))
     const unpopulated = ids.filter((id) => !players.find((player) => player.id === id))
     logger.info(unpopulated, 'Priming unknown players')
 
     for (const id of unpopulated) {
-      try {
-        await this._commandBus.execute(new PopulatePlayer(id))
-      } catch (err) {
-        logger.error(err, `Failed to prime player ${id}`)
-      }
+      await this._commandBus.execute(new PopulatePlayer(id))
     }
   }
 }
