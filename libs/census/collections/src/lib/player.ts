@@ -9,7 +9,7 @@ function getBaseQuery() {
 }
 
 export async function getPlayer(id: string): Promise<CensusPlayer> {
-  logger.info({ id }, 'Fetching player from Census')
+  logger.debug({ id }, 'Fetching player from Census')
   const query = getBaseQuery().where('character_id').equals(id)
   const res = await query.get()
 
@@ -23,7 +23,7 @@ export async function getPlayer(id: string): Promise<CensusPlayer> {
 }
 
 export async function getPlayerByName(name: string): Promise<CensusPlayer> {
-  logger.info({ name }, 'Fetching player from Census')
+  logger.debug({ name }, 'Fetching player from Census')
   const query = getBaseQuery().where('name.first_lower').equals(name.toLowerCase())
   const res = await query.get()
 

@@ -4,7 +4,7 @@ import { getLogger } from '@ps2gg/common/logging'
 const logger = getLogger()
 
 export async function getAssistXpEvents(): Promise<CensusAssistXpEvents> {
-  logger.info('Fetching valid assist event ids from Census')
+  logger.debug('Fetching valid assist event ids from Census')
 
   const assists = await new CensusQuery().collection('experience').where('description').contains('Assist').limit(1000).get()
   const filtered = assists.experience_list.filter(filterExperienceEvents)
@@ -14,7 +14,7 @@ export async function getAssistXpEvents(): Promise<CensusAssistXpEvents> {
     // @ts-ignore
     parsed[assist.experience_id] = assist.description
   }
-  logger.info(parsed, 'Retrieved assist events')
+  logger.debug(parsed, 'Retrieved assist events')
 
   return parsed
 }
