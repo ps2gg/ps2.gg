@@ -4,7 +4,7 @@ import { getLogger } from '@ps2gg/common/logging'
 const logger = getLogger()
 
 export async function getBases(): Promise<Bases> {
-  logger.debug('Fetching base names and ids from Sanctuary Census')
+  logger.debug('fetch base names and ids from Sanctuary Census')
   const census = new CensusQuery('https://census.lithafalcon.cc/s:ps2gg/get/ps2:v2/')
   const bases = await census.collection('map_region').limit(2000).show('map_region_id,facility_name').get()
   const parsed: any = {}
@@ -15,7 +15,7 @@ export async function getBases(): Promise<Bases> {
     if (!facility_name) continue
     parsed[map_region_id] = facility_name
   }
-  logger.debug(parsed, 'Retrieved bases')
+  logger.debug(parsed, 'bases retrieved')
   return parsed
 }
 

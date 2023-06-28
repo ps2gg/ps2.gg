@@ -4,7 +4,7 @@ import { getLogger } from '@ps2gg/common/logging'
 const logger = getLogger()
 
 export async function getFriendIds(character_id: string): Promise<string[]> {
-  logger.debug({ character_id }, 'Fetching friend ids')
+  logger.debug({ character_id }, 'fetch friend ids')
 
   const census = new CensusQuery()
   const res = await census.collection('character').where('character_id').equals(character_id).resolve('friends').get()
