@@ -1,13 +1,13 @@
 import pino, { Logger } from 'pino'
 
 const production = process.env['NODE_ENV'] === 'production'
+const logger = pino(getLoggerOptions())
 
 export function getLogger(context?: string): Logger {
-  return pino(getLoggerOptions(context))
+  return logger
 }
 
 export function logTransaction(method: string, query: object, result: object, level = 'info'): void {
-  const logger = getLogger()
   logger[level]({ method, query, result }, 'transaction completed')
 }
 
