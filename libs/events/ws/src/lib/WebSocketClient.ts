@@ -73,7 +73,7 @@ export class WebSocketClient {
   private async _createClient(): Promise<any> {
     if (this._state === 'connecting') return
     this._state = 'connecting'
-    this._logger.info({ url: this._url }, `Attempting connection`)
+    this._logger.info({ url: this._url }, `attempt connection`)
 
     const c = new client()
     c.connect(this._url)
@@ -94,7 +94,7 @@ export class WebSocketClient {
 
   private _onConnect(c: any, s: any, resolve: any) {
     this._state = 'open'
-    this._logger.info({ url: this._url }, `Connected`)
+    this._logger.info({ url: this._url }, `connected`)
     this._setSocketListeners(s)
     resolve({ c, s })
   }
