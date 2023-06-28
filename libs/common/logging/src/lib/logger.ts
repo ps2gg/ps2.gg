@@ -6,6 +6,11 @@ export function getLogger(context?: string): Logger {
   return pino(getLoggerOptions(context))
 }
 
+export function logTransaction(method: string, query: object, result: object, level = 'info'): void {
+  const logger = getLogger()
+  logger[level]({ method, query, result }, 'transaction completed')
+}
+
 function getLoggerOptions(service?: string) {
   return {
     name: service,
