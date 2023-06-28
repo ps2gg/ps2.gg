@@ -14,9 +14,8 @@ export class SetFriendsHandler implements ICommandHandler<SetFriends, FriendsEnt
   async execute(command: SetFriends): Promise<FriendsEntity> {
     const friends = (await this._repository.findOne(command.friends.character_id)) ?? command.friends
 
-    if (friends) {
-      friends.friendIds = command.friends.friendIds
-    }
+    if (friends) friends.friendIds = command.friends.friendIds
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return this._repository.save(command.friends)
   }
