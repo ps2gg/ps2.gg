@@ -12,7 +12,7 @@ export class PlayerController extends WsController {
   }
 
   override async onLogin(character_id: string): Promise<void> {
-    this._logger.info({ character_id, isOnline: true }, 'Populate player')
+    this._logger.info({ character_id, isOnline: true }, 'populate player')
     try {
       await this._players.populateOne(character_id, true)
     } catch (error) {
@@ -21,7 +21,7 @@ export class PlayerController extends WsController {
   }
 
   override async onLogout(character_id: string, timestamp: Date): Promise<void> {
-    this._logger.info({ character_id, isOnline: false, timestamp }, 'Populate player')
+    this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
     try {
       await this._players.populateOne(character_id, false, timestamp)
     } catch (error) {

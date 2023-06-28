@@ -25,7 +25,7 @@ export class CensusWs {
 
   private async _init(urlOverride?: string) {
     try {
-      logger.info(`Attempt new connection to ${urlOverride || this._wsUrl}`)
+      logger.info(`attempt new connection to ${urlOverride || this._wsUrl}`)
       const { c, s } = await this._createClient(urlOverride)
 
       this._closePreviousSocket()
@@ -70,7 +70,7 @@ export class CensusWs {
   }
 
   private _onConnect(url: string, c: any, s: any, resolve: any) {
-    logger.info({ url }, 'Connected')
+    logger.info({ url }, 'connected')
     this._state = 'open'
 
     for (const subscription of this._subscriptions) {

@@ -5,21 +5,21 @@ import axios from 'axios'
 const logger = getLogger()
 
 export async function getBasePopulation(): Promise<CensusBasePopulation[]> {
-  logger.info('Fetching base population from Sanctuary Census')
+  logger.debug('fetch base population from Sanctuary Census')
   const census = new CensusQuery('https://census.lithafalcon.cc/s:ps2gg/get/ps2:v2/')
   const mapState = await census.collection('map_state').limit(5000).show('world_id,map_region_id,faction_population_upper_bound').get()
   return mapState.map_state_list
 }
 
 export async function getContinentPopulation(): Promise<SaerroContinentPopulation[]> {
-  logger.info('Fetching continent population from Saerro')
+  logger.debug('fetch continent population from Saerro')
   const req = await axios.get(`https://saerro.ps2.live/graphql?query={allWorlds%20{id%20zones%20{all%20{id%20population%20{nc%20tr%20vs}}}}}`)
   const { data } = req
   return data.data?.allWorlds
 }
 
 export async function getESFPopulation(): Promise<SaerroESFPopulation[]> {
-  logger.info('Fetching ESF population from Saerro')
+  logger.debug('fetch ESF population from Saerro')
   const req = await axios.get(
     'https://saerro.ps2.live/graphql?query={%20allWorlds%20{%20id%20zones%20{%20all%20{%20id%20vehicles%20{%20mosquito%20{%20nc%20tr%20vs%20}%20reaver%20{%20nc%20tr%20vs%20}%20scythe%20{%20nc%20tr%20vs%20}}}}}}'
   )

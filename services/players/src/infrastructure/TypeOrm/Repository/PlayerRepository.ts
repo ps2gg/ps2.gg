@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { logTransaction } from '@ps2gg/common/logging'
 import { Player } from '@ps2gg/players/types'
 import { ILike, In, Repository } from 'typeorm'
 import { PlayerEntity } from '../../../domain/Entity/PlayerEntity'
@@ -9,34 +10,46 @@ export class PlayerRepository {
   constructor(@InjectRepository(PlayerEntity) private readonly _repository: Repository<PlayerEntity>) {}
 
   async findOne(id: string): Promise<PlayerEntity | null> {
-    return this._repository.findOne({
+    const player = await this._repository.findOne({
       where: { id },
     })
-  }
-
-  async findOneByName(name: string): Promise<PlayerEntity | null> {
-    return this._repository.findOne({
-      where: { name: ILike(name) },
-    })
+    logTransaction('findOne', { id }, { player })
+    return player
   }
 
   async findMany(ids: string[]): Promise<PlayerEntity[]> {
-    return this._repository.find({
+    const players = await this._repository.find({
       where: { id: In(ids) },
     })
+    logTransaction('findMany', { ids }, { players })
+    return players
   }
 
   async findManyByOnlineStatus(ids: string[], isOnline: boolean): Promise<PlayerEntity[]> {
-    return this._repository.find({
+    const players = await this._repository.find({
       where: { id: In(ids), isOnline },
     })
+    logTransaction('findManyByOnlineStatus', { ids, isOnline }, { players })
+    return players
   }
 
-  async save(example: Player): Promise<PlayerEntity> {
-    return this._repository.save(example)
+  async save(query: Player): Promise<PlayerEntity> {
+    const player = await this._repository.save(query)
+    logTransaction('save', { query }, { player })
+    return player
   }
 
   async updateOnlineStatus(id: string, isOnline: boolean, lastLogout?: Date): Promise<any> {
-    return this._repository.update(id, { id, isOnline, lastLogout })
+    const result = await this._repository.update(id, { id, isOnline, lastLogout })
+    logTransaction('updateOnlineStatus', { id, isOnline, lastLogout }, { result })
+    return result
+  }
+
+  async findOneByName(name: string): Promise<PlayerEntity | null> {
+    const player = await this._repository.findOne({
+      where: { name: ILike(name) },
+    })
+    logTransaction('findOneByName', { name }, { player })
+    return player
   }
 }
