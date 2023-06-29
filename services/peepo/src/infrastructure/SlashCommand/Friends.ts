@@ -13,7 +13,7 @@ const logger = getLogger('FriendsCommand')
 export class FriendsCommand {
   @Main(Friends)
   async friends(options: FriendsOptions, @linkedUser user: User): Promise<CommandResponse> {
-    if (!user.characterIds.length) {
+    if (!user?.characterIds?.length) {
       logger.info('no characters verified for this user', user)
       return {
         interactionContext: [],
@@ -21,13 +21,16 @@ export class FriendsCommand {
       }
     }
 
-    const allFriends: string[] = []
+    let allFriends: string[] = []
     user.characterIds.forEach(async (cId) => {
       const { friendIds } = await new GetFriends(cId).execute()
-      allFriends.concat(friendIds)
+      allFriends = allFriends.concat(friendIds)
     })
+    // const { friendIds } = await new GetFriends('5428055175457831777').execute()
+    // allFriends = allFriends.concat(friendIds)
+    const friendsDedup = Array.from(new Set(allFriends))
 
-    const friendsDedup = Array.from(new Set(allFriends.values()))
+    if (!friendsDedup.length) logger.warn('no friends found, request may fail')
 
     const friends = await new GetOnlinePlayers(friendsDedup).execute()
     return {
