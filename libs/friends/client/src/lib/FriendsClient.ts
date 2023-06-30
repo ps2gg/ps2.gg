@@ -14,7 +14,7 @@ export class FriendsClient extends HttpClient {
   async get(character_id: string, refresh?: boolean): Promise<Friends> {
     try {
       const params = { refresh }
-      const req = await this.http.get(this._url + character_id, { params })
+      const req = await this.http.get(`${this._url}/${character_id}`, { params })
       return req.data
     } catch (error) {
       this._logger.error(error)
