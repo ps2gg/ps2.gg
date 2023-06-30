@@ -12,7 +12,7 @@ describe('sanitizeCharacterName', () => {
 describe('sanitizeObjectNotation', () => {
   it('should remove all non-word characters except for periods', () => {
     const input = 'my_object-name!.is.@very.#cool.$indeed.32432'
-    const expectedOutput = 'my_object.name.is.very.cool.indeed.32432'
+    const expectedOutput = 'my_objectname.is.very.cool.indeed.32432'
     const actualOutput = sanitizeObjectNotation(input)
     expect(actualOutput).toEqual(expectedOutput)
   })
