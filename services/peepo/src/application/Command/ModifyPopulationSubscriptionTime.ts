@@ -1,17 +1,12 @@
 import { getOffsetAdjustedTimeOfDay, getServerTimezone } from '@ps2gg/common/util'
-import { ModifyPopulationSubscription } from './ModifyPopulationSubscription'
+import { modifyPopulationSubscription } from './ModifyPopulationSubscription'
 
-export class ModifyPopulationSubscriptionTime {
-  constructor(readonly subscriptionIds: string[], readonly server: string, readonly sendBefore?: number, readonly sendAfter?: number) {}
+export async function modifyPopulationSubscriptionTime(subscriptionIds: string[], server: string, sendBefore?: number, sendAfter?: number): Promise<void> {
+  const timezone = getServerTimezone(server)
+  const timezoneAdjustedSendBefore = getOffsetAdjustedTimeOfDay(sendBefore, timezone)
+  const timezoneAdjustedSendAfter = getOffsetAdjustedTimeOfDay(sendAfter, timezone)
 
-  async execute(): Promise<void> {
-    const { subscriptionIds, server, sendAfter, sendBefore } = this
-    const timezone = getServerTimezone(server)
-    const timezoneAdjustedSendBefore = getOffsetAdjustedTimeOfDay(sendBefore, timezone)
-    const timezoneAdjustedSendAfter = getOffsetAdjustedTimeOfDay(sendAfter, timezone)
-
-    for (const subscriptionId of subscriptionIds) {
-      await new ModifyPopulationSubscription(subscriptionId, null, timezoneAdjustedSendBefore, timezoneAdjustedSendAfter).execute()
-    }
+  for (const subscriptionId of subscriptionIds) {
+    await modifyPopulationSubscription(subscriptionId, undefined, timezoneAdjustedSendBefore, timezoneAdjustedSendAfter)
   }
 }

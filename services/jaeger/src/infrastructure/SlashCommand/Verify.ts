@@ -1,11 +1,11 @@
-import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { sanitizeCharacterName } from '@ps2gg/common/util'
 import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, Component, ComponentResponse } from '@ps2gg/discord/command'
 import { DiscordCommand } from '@ps2gg/discord/types'
 import { sendChannel } from '@ps2gg/discord/util'
 import { APIEmbed, ButtonInteraction } from 'discord.js'
-import { VerifyCharacter } from '../../application/Command/VerifyCharacter'
-import { GetPlayer } from '../../application/Query/GetPlayer'
+import { verifyCharacter } from '../../application/Command/VerifyCharacter'
+import { getPlayer } from '../../application/Query/GetPlayer'
 import { VerifyReady } from '../../domain/Components/VerifyReady'
 import { VerifyLogFailureEmbed } from '../../domain/Embed/VerifyLogFailureEmbed'
 import { VerifyLogPromptEmbed } from '../../domain/Embed/VerifyLogPromptEmbed'
@@ -19,7 +19,7 @@ export class VerifyCommand extends DiscordCommand {
   async verify(options: VerifyOptions, interaction: ButtonInteraction): Promise<CommandResponse> {
     const name = sanitizeCharacterName(options.name)
     const { user } = interaction
-    const { embed, id } = await new GetPlayer(name).execute()
+    const { embed, id } = await getPlayer(name)
     this.logPrompt(name, user.id)
     return {
       interactionContext: [id, name],
@@ -30,7 +30,7 @@ export class VerifyCommand extends DiscordCommand {
 
   @Autocomplete(Verify, 'name')
   async playerName(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerAutocomplete(query).execute()
+    return getPlayerAutocomplete(query)
   }
 
   @Component(VerifyReady)
@@ -42,7 +42,7 @@ export class VerifyCommand extends DiscordCommand {
 
     try {
       this.logStart(name, discordId)
-      const embed = await new VerifyCharacter(id, name, discordId).execute()
+      const embed = await verifyCharacter(id, name, discordId)
       this.logSuccess(name, discordId)
       return { embeds: [embed] }
     } catch (error) {

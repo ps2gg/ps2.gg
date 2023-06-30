@@ -1,4 +1,4 @@
-import { validateNumericString, validateCharacterId, validateCharacterName, validateULID, validateSnowflake } from './validation'
+import { validateNumericString, validateCharacterId, validateCharacterName, validateULID, validateSnowflake, validateObjectNotation } from './validation'
 
 describe('validateNumericString', () => {
   it('should not throw an error for a valid numeric string', () => {
@@ -58,5 +58,21 @@ describe('validateSnowflake', () => {
 
   it('should throw an error for an invalid snowflake', () => {
     expect(() => validateSnowflake('1234567890123456789')).toThrow()
+  })
+})
+
+describe('validateObjectNotation', () => {
+  it('should throw an error if the value contains non-alphanumeric characters', () => {
+    expect(() => validateObjectNotation('hello-world', 'test')).toThrowError('Expected test to be alphanumeric with periods')
+    expect(() => validateObjectNotation('hello_world', 'test')).toThrowError('Expected test to be alphanumeric with periods')
+    expect(() => validateObjectNotation('hello world', 'test')).toThrowError('Expected test to be alphanumeric with periods')
+    expect(() => validateObjectNotation('hello.world!', 'test')).toThrowError('Expected test to be alphanumeric with periods')
+  })
+
+  it('should not throw an error if the value is alphanumeric with periods', () => {
+    expect(() => validateObjectNotation('hello.world', 'test')).not.toThrowError()
+    expect(() => validateObjectNotation('hello.world.123', 'test')).not.toThrowError()
+    expect(() => validateObjectNotation('HELLO.WORLD', 'test')).not.toThrowError()
+    expect(() => validateObjectNotation('helloworld', 'test')).not.toThrowError()
   })
 })
