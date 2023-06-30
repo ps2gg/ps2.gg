@@ -1,12 +1,12 @@
 import { CommandConfig } from '@ps2gg/discord/command'
 
-export const Sesh: CommandConfig = {
-  name: 'sesh',
-  description: 'Start a gaming sesh with Peepo',
+export const Verify: CommandConfig = {
+  name: 'verify',
+  description: 'Verify your ingame character.',
   options: [
     {
       type: 'string',
-      name: 'player',
+      name: 'name',
       description: 'your ingame name',
       required: true,
       autocomplete: true,
@@ -14,6 +14,6 @@ export const Sesh: CommandConfig = {
   ],
 }
 
-export type SeshOptions = {
-  player: string
+export type VerifyOptions = {
+  name: string
 }
