@@ -4,8 +4,9 @@ import { TypeOrmModule } from '../infrastructure/TypeOrm/TypeOrmModule'
 import { PopulateFriendsHandler } from './Command/PopulateFriends'
 import { SetFriendsHandler } from './Command/SetFriends'
 import { GetFriendsHandler } from './Query/GetFriends'
+import { GetMultipleHandler } from './Query/GetMultiple'
 
-const queryHandlers = [GetFriendsHandler]
+const queryHandlers = [GetFriendsHandler, GetMultipleHandler]
 const commandHandlers = [SetFriendsHandler, PopulateFriendsHandler]
 
 export const eventHandlers = []

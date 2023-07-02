@@ -1,12 +1,11 @@
 import { AggregateRoot } from '@nestjs/cqrs'
 import { Friends } from '@ps2gg/friends/types'
 import { Entity, PrimaryColumn, Column } from 'typeorm'
-import { ulid } from 'ulid'
 
 @Entity()
 export class FriendsEntity extends AggregateRoot implements Friends {
   @PrimaryColumn('text')
-  readonly character_id: string
+  readonly id: string
 
   @Column('text', { array: true, nullable: false })
   friendIds: string[]
@@ -14,7 +13,7 @@ export class FriendsEntity extends AggregateRoot implements Friends {
   constructor(friends: Friends) {
     super()
     if (!friends) return
-    this.character_id = friends.character_id
+    this.id = friends.id
     this.friendIds = friends.friendIds
   }
 }

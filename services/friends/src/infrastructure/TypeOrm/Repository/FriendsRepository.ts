@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { getLogger, logTransaction } from '@ps2gg/common/logging'
+import { logTransaction } from '@ps2gg/common/logging'
 import { Friends } from '@ps2gg/friends/types'
 import { Repository } from 'typeorm'
+import { In } from 'typeorm'
 import { FriendsEntity } from '../../../domain/Entity/FriendsEntity'
-
-const logger = getLogger()
 
 @Injectable()
 export class FriendsRepository {
@@ -13,9 +12,17 @@ export class FriendsRepository {
 
   async findOne(character_id: string): Promise<FriendsEntity | undefined> {
     const friends = await this._repository.findOne({
-      where: { character_id },
+      where: { id: character_id },
     })
     logTransaction('findOne', { character_id }, { friends })
+    return friends
+  }
+
+  async findMany(ids: string[]): Promise<FriendsEntity[]> {
+    const friends = await this._repository.find({
+      where: { id: In(ids) },
+    })
+    logTransaction('findMany', { ids }, { friends })
     return friends
   }
 
