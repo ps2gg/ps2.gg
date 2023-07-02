@@ -13,21 +13,20 @@ const logger = getLogger('FriendsCommand')
 export class FriendsCommand {
   @Main(Friends)
   async friends(options: FriendsOptions, @linkedUser user: User): Promise<CommandResponse> {
-    if (!user?.characterIds?.length) {
-      logger.info('no characters verified for this user', user)
-      return {
-        interactionContext: [],
-        embeds: [new VerifyHintEmbed()],
-      }
-    }
+    // if (!user?.characterIds?.length) {
+    //   logger.info('no characters verified for this user', user)
+    //   return {
+    //     interactionContext: [],
+    //     embeds: [new VerifyHintEmbed()],
+    //   }
+    // }
 
     let allFriends: string[] = []
     user.characterIds.forEach(async (cId) => {
       const { friendIds } = await new GetFriends(cId).execute()
       allFriends = allFriends.concat(friendIds)
     })
-    // const { friendIds } = await new GetFriends('5428055175457831777').execute()
-    // allFriends = allFriends.concat(friendIds)
+
     const friendsDedup = Array.from(new Set(allFriends))
 
     if (!friendsDedup.length) logger.warn('no friends found, request may fail')
@@ -41,20 +40,10 @@ export class FriendsCommand {
 
   @Autocomplete(Friends, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
-    return [
-      {
-        name: 'Admutin',
-        value: 'Admutin',
-        // value: '5428055175457831777',
-      },
-      {
-        name: 'AdmutinVS',
-        value: 'admutinvs',
-      },
-    ]
-    // return new GetPlayerAutocomplete(query).execute()
+    return new GetPlayerAutocomplete(query).execute()
   }
 }
+
 export class GetOnlinePlayers {
   private _players = new PlayerClient()
 
