@@ -9,13 +9,15 @@ export async function getAltWideFriends(user: User, name: string, includesFriend
   let characterIds = user.characterIds?.length ? user.characterIds : []
 
   const player = name ? await getPlayer(name) : null
+  const alreadyLinked = characterIds.includes(player.id)
 
-  if (player && !characterIds.includes(player.id)) characterIds = characterIds.concat(player.id)
+  if (player && !alreadyLinked) characterIds = characterIds.concat(player.id)
 
   const altIds = await getAltIds(characterIds)
   const friendLookupIds = [...altIds, ...characterIds]
   const { friendIds } = await getFriends(friendLookupIds)
-  const onlineLookupIds = includesFriendsAlts ? [...friendIds, ...(await getAltIds(friendIds))] : friendIds
+  const friendAltIds = includesFriendsAlts ? await getAltIds(friendIds) : []
+  const onlineLookupIds = [...friendIds, ...friendAltIds]
   const friends = await getOnlinePlayers(onlineLookupIds, includesFriendsAlts)
   return friends
 }
