@@ -17,3 +17,7 @@ export async function getPlayerSearchSuggestions(query: string): Promise<Respons
 export async function getAltMatches(playerName: string): Promise<Response & { result: { alts: Alt[]; tree: any } }> {
   return client.get(`/character/${playerName}/alts`)
 }
+
+export async function getAltMatchesById(id: string): Promise<Response & { result: { alts: Alt[]; tree: any } }> {
+  return client.get(`/character/${id}/alts?byId=true`)
+}

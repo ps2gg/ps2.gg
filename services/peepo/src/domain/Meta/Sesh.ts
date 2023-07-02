@@ -8,7 +8,6 @@ export const Sesh: CommandConfig = {
       type: 'string',
       name: 'player',
       description: 'your ingame name',
-      required: true,
       autocomplete: true,
     },
   ],

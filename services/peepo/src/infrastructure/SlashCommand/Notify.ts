@@ -1,4 +1,4 @@
-import { sanitizeObjectNotation, validateNumericString } from '@ps2gg/common/util'
+import { sanitizeObjectNotation } from '@ps2gg/common/util'
 import { Component, Command, linkedUser, Autocomplete, AutocompleteResponse, CommandResponse, Main, ComponentResponse, ProgressiveComponent } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
 import { AnySelectMenuInteraction, ButtonInteraction, CommandInteraction } from 'discord.js'

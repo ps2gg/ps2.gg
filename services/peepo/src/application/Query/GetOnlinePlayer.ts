@@ -1,8 +1,8 @@
 import { PlayerClient } from '@ps2gg/players/client'
-import { SeshFriendsEmbed } from '../../domain/Embed/SeshFriendsEmbed'
+import { SeshEmbed } from '../../domain/Embed/SeshFriendsEmbed'
 
-export async function getOnlinePlayers(ids: string[]): Promise<SeshFriendsEmbed> {
+export async function getOnlinePlayers(ids: string[], includesFriendsAlts: boolean): Promise<SeshEmbed> {
   const players = new PlayerClient()
   const friends = await players.findManyOnline(ids)
-  return new SeshFriendsEmbed(friends)
+  return new SeshEmbed(friends, includesFriendsAlts)
 }
