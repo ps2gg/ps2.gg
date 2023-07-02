@@ -35,8 +35,8 @@ export class PlayerClient extends SubscriptionClient {
 
   async findMany(ids: string[]): Promise<Player[]> {
     try {
-      const params = { ids }
-      const req = await this.http.get('/v1/players', { params })
+      const data = { ids }
+      const req = await this.http.post('/v1/players/get', data)
       return req.data
     } catch (error) {
       this._logger.error(error)
@@ -46,8 +46,8 @@ export class PlayerClient extends SubscriptionClient {
 
   async findManyOnline(ids: string[]): Promise<Player[]> {
     try {
-      const params = { ids }
-      const req = await this.http.get('/v1/players/online', { params })
+      const data = { ids }
+      const req = await this.http.post('/v1/players/online/get', data)
       return req.data
     } catch (error) {
       this._logger.error(error)

@@ -9,8 +9,8 @@ import { GetPlayers } from '../../application/Query/GetPlayers'
 export class PlayersController {
   constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) {}
 
-  @Get('/')
-  async get(@Query('ids[]') ids: string[]): Promise<Player[]> {
+  @Post('/get')
+  async get(@Body('ids') ids: string[]): Promise<Player[]> {
     return this._queryBus.execute(new GetPlayers(ids))
   }
 
@@ -19,8 +19,8 @@ export class PlayersController {
     return this._commandBus.execute(new PopulatePlayers(ids))
   }
 
-  @Get('/online')
-  async getOnline(@Query('ids[]') ids: string[]): Promise<Player[]> {
+  @Post('/online/get')
+  async getOnline(@Body('ids') ids: string[]): Promise<Player[]> {
     return this._queryBus.execute(new GetOnlinePlayers(ids))
   }
 }
