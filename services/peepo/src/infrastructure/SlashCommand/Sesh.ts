@@ -4,7 +4,6 @@ import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { validateVerification } from '../../application/Command/ValidateVerification'
 import { getAltWideFriends } from '../../application/Query/GetAltWideFriends'
-import { getFriends } from '../../application/Query/GetFriends'
 import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 

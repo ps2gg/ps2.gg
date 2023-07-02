@@ -10,11 +10,11 @@ import { FriendsEntity } from '../../../domain/Entity/FriendsEntity'
 export class FriendsRepository {
   constructor(@InjectRepository(FriendsEntity) private readonly _repository: Repository<FriendsEntity>) {}
 
-  async findOne(character_id: string): Promise<FriendsEntity | undefined> {
+  async findOne(id: string): Promise<FriendsEntity | undefined> {
     const friends = await this._repository.findOne({
-      where: { id: character_id },
+      where: { id },
     })
-    logTransaction('findOne', { character_id }, { friends })
+    logTransaction('findOne', { id }, { friends })
     return friends
   }
 
