@@ -5,6 +5,7 @@ import { validateCharacterId } from '@ps2gg/common/util'
 import { Friends } from '@ps2gg/friends/types'
 import { PopulateFriends } from '../../application/Command/PopulateFriends'
 import { GetFriends } from '../../application/Query/GetFriends'
+import { GetMultiple } from '../../application/Query/GetMultiple'
 
 const logger = getLogger()
 
@@ -22,6 +23,13 @@ export class FriendsController {
     }
 
     return this._queryBus.execute(new GetFriends(character_id))
+  }
+
+  @Get('/')
+  async getMany(@Query('ids[]') ids: string[]): Promise<Friends> {
+    if (typeof ids === 'string') ids = [ids] // nest doesn't use the correct type on single elements
+    for (const id of ids) validateCharacterId(id)
+    return this._queryBus.execute(new GetMultiple(ids))
   }
 
   @Post('/populate')

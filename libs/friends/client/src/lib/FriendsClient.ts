@@ -22,6 +22,17 @@ export class FriendsClient extends HttpClient {
     }
   }
 
+  async getMany(ids: string[]): Promise<Friends> {
+    try {
+      const params = { ids }
+      const req = await this.http.get(`${this._url}`, { params })
+      return req.data
+    } catch (error) {
+      this._logger.error(error)
+      throw error
+    }
+  }
+
   async populate(character_id: string): Promise<Friends> {
     try {
       const body = { character_id }
