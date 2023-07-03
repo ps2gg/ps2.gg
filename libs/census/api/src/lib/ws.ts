@@ -11,6 +11,7 @@ export class CensusWs {
   private _useFallback = false
   private _socket: any
   private _client: any
+  private _listeners: Listener[] = []
   private _lastMessageAt = new Date(0)
   private _wsUrl = 'wss://push.nanite-systems.net/streaming?environment=ps2&service-id=s:ps2gg'
   private _wsFallbackUrl = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:ps2gg'
@@ -21,6 +22,27 @@ export class CensusWs {
   constructor() {
     this._init()
     this._checkDeadConnection()
+  }
+
+  use(fn: { (...args: any): void }): void {
+    this._fns.push(fn)
+  }
+
+  subscribe(subscription: Subscription): void {
+    subscription = {
+      service: 'event',
+      action: 'subscribe',
+      ...subscription,
+    }
+    this._subscriptions.push(subscription)
+    // Already connected? Fire manually
+    if (this._state === 'open') {
+      this._sendWs(this._socket, subscription)
+    }
+  }
+
+  on(event: string, fn: (message: any) => void): void {
+    this._listeners.push({ event, fn })
   }
 
   private async _init(urlOverride?: string) {
@@ -73,6 +95,9 @@ export class CensusWs {
     logger.info({ url }, 'connected')
     this._state = 'open'
 
+    for (const listener of this._listeners) {
+      if (listener.event === 'connect') listener.fn({ url })
+    }
     for (const subscription of this._subscriptions) {
       this._sendWs(s, subscription)
     }
@@ -103,23 +128,6 @@ export class CensusWs {
     logger.error(err)
     this._state = 'closed'
     this._socket.close()
-  }
-
-  use(fn: { (...args: any): void }): void {
-    this._fns.push(fn)
-  }
-
-  subscribe(subscription: Subscription): void {
-    subscription = {
-      service: 'event',
-      action: 'subscribe',
-      ...subscription,
-    }
-    this._subscriptions.push(subscription)
-    // Already connected? Fire manually
-    if (this._state === 'open') {
-      this._sendWs(this._socket, subscription)
-    }
   }
 
   private _publish(data: any) {
@@ -154,4 +162,9 @@ export class CensusWs {
       this._init(this._useFallback ? this._wsUrl : this._wsFallbackUrl)
     }
   }
+}
+
+type Listener = {
+  event: string
+  fn: (data: any) => void
 }
