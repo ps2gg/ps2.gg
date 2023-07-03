@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Player } from '@ps2gg/players/types'
 import { PopulatePlayers } from '../../application/Command/PopulatePlayers'
+import { ResetOnlineState } from '../../application/Command/ResetOnlineState'
 import { GetOnlinePlayers } from '../../application/Query/GetOnlinePlayers'
 import { GetPlayers } from '../../application/Query/GetPlayers'
 
@@ -22,5 +23,10 @@ export class PlayersController {
   @Post('/online/get')
   async getOnline(@Body('ids') ids: string[]): Promise<Player[]> {
     return this._queryBus.execute(new GetOnlinePlayers(ids))
+  }
+
+  @Post('/online/reset')
+  async resetOnline(): Promise<Player[]> {
+    return this._commandBus.execute(new ResetOnlineState())
   }
 }

@@ -19,6 +19,7 @@ export class PlayerEntity extends SubscribableEntity implements Player {
   @Column('text', { nullable: true })
   readonly outfitTag: string
 
+  @Index()
   @Column('boolean', { nullable: true })
   readonly isOnline: boolean
 
