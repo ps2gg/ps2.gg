@@ -1,9 +1,9 @@
-import { GetPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { getLogger } from '@ps2gg/common/logging'
 import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { PlayerClient } from '@ps2gg/players/client'
 import { User } from '@ps2gg/users/types'
-import { GetFriends } from '../../application/Query/GetFriends'
+import { getFriends } from '../../application/Query/GetFriends'
 import { FriendsEmbed, VerifyHintEmbed } from '../../domain/Embed/FriendsEmbed'
 import { Friends, FriendsOptions } from '../../domain/Meta/Friends'
 
@@ -21,17 +21,11 @@ export class FriendsCommand {
     //   }
     // }
 
-    let allFriends: string[] = []
-    user.characterIds.forEach(async (cId) => {
-      const { friendIds } = await new GetFriends(cId).execute()
-      allFriends = allFriends.concat(friendIds)
-    })
+    const { friendIds } = await getFriends(user.characterIds)
 
-    const friendsDedup = Array.from(new Set(allFriends))
+    if (!friendIds.length) logger.warn('no friends found, request may fail')
 
-    if (!friendsDedup.length) logger.warn('no friends found, request may fail')
-
-    const friends = await new GetOnlinePlayers(friendsDedup).execute()
+    const friends = await new GetOnlinePlayers(friendIds).execute()
     return {
       interactionContext: [],
       embeds: [friends],
@@ -40,7 +34,7 @@ export class FriendsCommand {
 
   @Autocomplete(Friends, 'name')
   async search(query: string): Promise<AutocompleteResponse[]> {
-    return new GetPlayerAutocomplete(query).execute()
+    return getPlayerAutocomplete(query)
   }
 }
 
