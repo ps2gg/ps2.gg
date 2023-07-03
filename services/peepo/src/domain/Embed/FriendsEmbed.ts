@@ -19,12 +19,3 @@ export class FriendsEmbed implements APIEmbed {
       : code('No frens online :(')
   }
 }
-
-export class VerifyHintEmbed implements APIEmbed {
-  title = 'Verification required'
-  description: string
-
-  constructor() {
-    this.description = `Use </verify:blablabla>, to link your character.`
-  }
-}

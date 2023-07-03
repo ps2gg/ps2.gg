@@ -4,7 +4,8 @@ import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, lin
 import { PlayerClient } from '@ps2gg/players/client'
 import { User } from '@ps2gg/users/types'
 import { getFriends } from '../../application/Query/GetFriends'
-import { FriendsEmbed, VerifyHintEmbed } from '../../domain/Embed/FriendsEmbed'
+import { FriendsEmbed } from '../../domain/Embed/FriendsEmbed'
+import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
 import { Friends, FriendsOptions } from '../../domain/Meta/Friends'
 
 const logger = getLogger('FriendsCommand')
@@ -13,13 +14,13 @@ const logger = getLogger('FriendsCommand')
 export class FriendsCommand {
   @Main(Friends)
   async friends(options: FriendsOptions, @linkedUser user: User): Promise<CommandResponse> {
-    // if (!user?.characterIds?.length) {
-    //   logger.info('no characters verified for this user', user)
-    //   return {
-    //     interactionContext: [],
-    //     embeds: [new VerifyHintEmbed()],
-    //   }
-    // }
+    if (!user?.characterIds?.length) {
+      logger.info('no characters verified for this user', user)
+      return {
+        interactionContext: [],
+        embeds: [new VerifyHintEmbed()],
+      }
+    }
 
     const { friendIds } = await getFriends(user.characterIds)
 
