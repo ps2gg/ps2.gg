@@ -9,6 +9,9 @@ export class PlayerController extends WsController {
 
   constructor(ws: CensusWs) {
     super(ws, ['PlayerLogin', 'PlayerLogout'])
+    // We can't ensure 100% uptime, so we need to prevent
+    // players from being stuck online forever
+    this._players.resetOnlineState()
   }
 
   override async onLogin(character_id: string): Promise<void> {

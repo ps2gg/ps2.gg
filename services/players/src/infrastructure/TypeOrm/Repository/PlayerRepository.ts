@@ -52,4 +52,10 @@ export class PlayerRepository {
     logTransaction('findOneByName', { name }, { player })
     return player
   }
+
+  async resetOnlineState(): Promise<any> {
+    const result = await this._repository.update({ isOnline: true }, { isOnline: false })
+    logTransaction('resetOnlineStatus', { isOnline: true }, { result })
+    return result
+  }
 }
