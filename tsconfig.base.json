@@ -47,6 +47,7 @@
       "@ps2gg/nx/nest-app": ["libs/nx/nest-app/src/index.ts"],
       "@ps2gg/nx/nest-domain-events": ["libs/nx/nest-domain-events/src/index.ts"],
       "@ps2gg/nx/nest-microservice-rabbitmq": ["libs/nx/nest-microservice-rabbitmq/src/index.ts"],
+      "@ps2gg/peepo/types": ["libs/peepo/types/src/index.ts"],
       "@ps2gg/players-api": ["libs/players/api/src/index.ts"],
       "@ps2gg/players/client": ["libs/players/client/src/index.ts"],
       "@ps2gg/players/types": ["libs/players/types/src/index.ts"],

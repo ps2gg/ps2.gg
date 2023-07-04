@@ -34,6 +34,7 @@
     "nx-nest-domain-events": "libs/nx/nest-domain-events",
     "nx-nest-microservice-rabbitmq": "libs/nx/nest-microservice-rabbitmq",
     "peepo": "services/peepo",
+    "peepo-types": "libs/peepo/types",
     "players": "services/players",
     "players-client": "libs/players/client",
     "players-types": "libs/players/types",
