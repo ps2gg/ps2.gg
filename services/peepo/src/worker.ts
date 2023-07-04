@@ -8,7 +8,7 @@ import { InfrastructureModule } from './infrastructure/InfrastructureModule'
 export async function bootstrap(): Promise<void> {
   const app = await setupMicroserviceApp(
     InfrastructureModule.forWorker(),
-    isProd('test') ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq-pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
+    isProd('peepo') ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq-pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
     `${environment.env}_app_peepo`,
     [], // TODO: Subscribe to any events by adding their routing keys
     environment.env
