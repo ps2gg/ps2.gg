@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
-import { Example } from '@ps2gg/test/types'
+import { Example } from '@ps2gg/peepo/types'
 import { ExampleEntity } from '../../domain/Entity/ExampleEntity'
 import { ExampleRepository } from '../../infrastructure/TypeOrm/Repository/ExampleRepository'
 

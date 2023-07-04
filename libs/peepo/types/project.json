@@ -1,20 +1,20 @@
 {
-  "name": "test-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "peepo-types",
   "tags": [],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/test/client/**/*.ts"]
+        "lintFilePatterns": ["libs/peepo/types/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/test/client"],
+      "outputs": ["coverage/libs/peepo/types"],
       "options": {
-        "jestConfig": "libs/test/client/jest.config.ts",
+        "jestConfig": "libs/peepo/types/jest.config.ts",
         "passWithNoTests": true
       }
     }

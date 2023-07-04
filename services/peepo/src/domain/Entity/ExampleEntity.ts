@@ -1,5 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs'
-import { Example } from '@ps2gg/test/types'
+import { Example } from '@ps2gg/peepo/types'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 import { ulid } from 'ulid'
 
