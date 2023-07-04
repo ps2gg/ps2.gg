@@ -40,6 +40,8 @@
     "population": "services/population",
     "population-client": "libs/population/client",
     "population-types": "libs/population/types",
+    "test-client": "libs/test/client",
+    "test-types": "libs/test/types",
     "users": "services/users",
     "users-client": "libs/users/client",
     "users-types": "libs/users/types"

@@ -1,0 +1,22 @@
+{
+  "name": "test-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/test/client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/test/client"],
+      "options": {
+        "jestConfig": "libs/test/client/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

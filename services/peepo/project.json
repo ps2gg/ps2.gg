@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "services/peepo/src",
   "projectType": "application",
   "targets": {
@@ -9,22 +8,70 @@
         "{options.outputPath}"
       ],
       "options": {
-        "target": "node",
-        "compiler": "tsc",
         "outputPath": "dist/services/peepo",
         "main": "services/peepo/src/main.ts",
+        "tsConfig": "services/peepo/tsconfig.app.json",
+        "tsPlugins": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "dtoFileNameSuffix": "RestResource.ts",
+              "controllerFileNameSuffix": "Controller.ts",
+              "classValidatorShim": false,
+              "introspectComments": true
+            }
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": false,
+          "inspect": false
+        }
+      }
+    },
+    "build-worker": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/services/peepo",
+        "main": "services/peepo/src/worker.ts",
         "tsConfig": "services/peepo/tsconfig.app.json"
       },
       "configurations": {
         "production": {
           "optimization": true,
-          "extractLicenses": true,
           "inspect": false
         }
       }
     },
+    "build-migration": {
+      "executor": "libs/nx-tools:migration",
+      "options": {
+        "tsConfig": "services/peepo/tsconfig.migration.json"
+      },
+      "configurations": {
+        "production": {
+          "outDir": "dist/migrations"
+        }
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn ts-node -r tsconfig-paths/register -P services/peepo/tsconfig.app.json ./node_modules/typeorm/cli.js -d services/peepo/src/infrastructure/TypeOrm/DataSource.ts"
+      }
+    },
+    "typeorm-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn nx run peepo:typeorm migration:generate services/peepo/src/infrastructure/TypeOrm/Migrations/{args.name} --pretty"
+      }
+    },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "peepo:build"
       },
