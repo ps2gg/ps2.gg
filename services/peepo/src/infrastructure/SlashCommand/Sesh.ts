@@ -4,6 +4,8 @@ import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { validateVerification } from '../../application/Command/ValidateVerification'
 import { getAltWideFriends } from '../../application/Query/GetAltWideFriends'
+import { getFights } from '../../application/Query/GetFights'
+import { SeshEmbed } from '../../domain/Embed/SeshEmbed'
 import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 
@@ -18,11 +20,14 @@ export class SeshCommand {
     if (name) await validateVerification(name, user, interaction)
 
     const friends = await getAltWideFriends(user, name)
-    await interaction.editReply({ embeds: [friends] })
+    const fights = await getFights(user.id)
+    const embed = new SeshEmbed(friends, false, fights)
+    await interaction.editReply({ embeds: [embed] })
     const friendsAllAlts = await getAltWideFriends(user, name, true)
+    const embedAllAlts = new SeshEmbed(friendsAllAlts, true, fights)
     return {
       interactionContext: [],
-      embeds: [friendsAllAlts],
+      embeds: [embedAllAlts],
     }
   }
 

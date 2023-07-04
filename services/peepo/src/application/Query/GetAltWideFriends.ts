@@ -1,11 +1,11 @@
+import { Player } from '@ps2gg/players/types'
 import { User } from '@ps2gg/users/types'
-import { SeshEmbed } from '../../domain/Embed/SeshEmbed'
 import { getAltIds } from './GetAltIds'
 import { getFriends } from './GetFriends'
 import { getOnlinePlayers } from './GetOnlinePlayer'
 import { getPlayer } from './GetPlayer'
 
-export async function getAltWideFriends(user: User, name: string, includesFriendsAlts = false): Promise<SeshEmbed> {
+export async function getAltWideFriends(user: User, name: string, includesFriendsAlts = false): Promise<Player[]> {
   let characterIds = user.characterIds?.length ? user.characterIds : []
 
   const player = name ? await getPlayer(name) : null
