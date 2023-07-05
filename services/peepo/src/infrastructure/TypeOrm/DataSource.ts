@@ -4,11 +4,11 @@ import { getProdPostgresDSN } from '@ps2gg/nx/nest-app'
 import { DataSource } from 'typeorm'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { existsSync, readFileSync } from 'fs'
+import { readFileSync } from 'fs'
 
 export const options: PostgresConnectionOptions = {
   type: 'postgres',
-  url: isProd('test') ? getProdPostgresDSN('test', readFileSync) : (process.env['POSTGRES_DSN'] as string),
+  url: isProd('peepo') ? getProdPostgresDSN('peepo', readFileSync) : (process.env['POSTGRES_DSN'] as string),
   entities: [`${__dirname}/../../domain/Entity/*.{ts,js}`, SubscriptionEntity],
   entityPrefix: '',
   synchronize: false,
