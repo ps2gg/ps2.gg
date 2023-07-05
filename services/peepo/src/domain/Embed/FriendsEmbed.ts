@@ -6,7 +6,7 @@ import { APIEmbed } from 'discord.js'
 function printFriends(friends: Player[], faction: string): string {
   friends = friends.filter((f) => factions[f.factionId] == faction)
 
-  return friends.length ? `${faction} \n${code(friends.map((friend) => `[${friend.outfitTag || '/'}] ${friend.name}`).join('\n'))} \n` : ''
+  return friends.length ? `${faction} \n${code(friends.map((friend) => `${friend.outfitTag ? `[${friend.outfitTag}]` : ''} ${friend.name}`).join('\n'))} \n` : ''
 }
 
 export class FriendsEmbed implements APIEmbed {
