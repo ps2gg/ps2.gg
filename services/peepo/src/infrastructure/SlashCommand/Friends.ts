@@ -30,6 +30,7 @@ export class FriendsCommand {
     return {
       interactionContext: [],
       embeds: [friends],
+      ephemeral: true,
     }
   }
 

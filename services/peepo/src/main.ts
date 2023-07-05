@@ -9,13 +9,23 @@ import { SeshCommand } from './infrastructure/SlashCommand/Sesh'
 import { SetupCommand } from './infrastructure/SlashCommand/Setup'
 import { UnsubscribeCommand } from './infrastructure/SlashCommand/Unsubscribe'
 import { VerifyCommand } from './infrastructure/SlashCommand/Verify'
+import { WhoAmICommand } from './infrastructure/SlashCommand/WhoAmI'
 import { bootstrap } from './worker'
 
 const discord = setupDiscordClient({
   id: '715535257939607602',
   token: readFileSync('/run/secrets/peepo-token', 'utf-8'),
   activity: 'Sees all',
-  commands: [new AltCommand(), new NotifyCommand(), new UnsubscribeCommand(), new SetupCommand(), new SeshCommand(), new FriendsCommand(), new VerifyCommand()],
+  commands: [
+    new AltCommand(),
+    new NotifyCommand(),
+    new UnsubscribeCommand(),
+    new SetupCommand(),
+    new SeshCommand(),
+    new FriendsCommand(),
+    new VerifyCommand(),
+    new WhoAmICommand(),
+  ],
   events: [new PopulationEvent()],
   restrictions: {
     development: {
