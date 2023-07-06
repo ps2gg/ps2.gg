@@ -77,7 +77,7 @@ function generateNestService(service: Service, env: string) {
     ${image(env)}
     ${entrypoint(env, service.name)}
     ${networks(['internal', 'external'])}
-    ${healthcheck()}
+    ${healthcheck(service.name)}
     ${environment('nest', env, service.name)}
     ${secrets('nest', env, service.name)}
     ${volumes(env)}

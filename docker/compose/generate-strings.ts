@@ -14,7 +14,8 @@ export function volumes(env: string) {
   }
 }
 
-export function healthcheck() {
+export function healthcheck(name: string) {
+  if (name === 'peepo') return '' // Doesn't run an HTTP server, should generalize this in the future
   return `healthcheck:
       test: 'curl -f localhost:3000/healthz'
       timeout: 5s
