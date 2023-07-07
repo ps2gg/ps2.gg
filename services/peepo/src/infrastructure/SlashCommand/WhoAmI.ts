@@ -9,8 +9,8 @@ import { WhoAmI } from '../../domain/Meta/WhoAmI'
 export class WhoAmICommand extends DiscordCommand {
   @Main(WhoAmI)
   async whoAmI(options: null, @linkedUser user: User): Promise<CommandResponse> {
-    const friends = user.characterIds.length ? await getPlayers(user.characterIds) : []
-    const embed = new VerifiedCharactersEmbed(friends)
+    const characters = user.characterIds.length ? await getPlayers(user.characterIds) : []
+    const embed = new VerifiedCharactersEmbed(characters)
     return {
       interactionContext: [],
       embeds: [embed],

@@ -9,13 +9,13 @@ export class VerifiedCharactersEmbed implements APIEmbed {
   footer = { text: 'To link more characters, use /verify' }
   fields: APIEmbedField[] = []
 
-  constructor(friends: Player[]) {
-    if (!friends.length) this.description += code('No characters linked')
+  constructor(characters: Player[]) {
+    if (!characters.length) this.description += code('No characters linked')
 
-    const nc = getFriendsByFaction(friends, 'NC')
-    const tr = getFriendsByFaction(friends, 'TR')
-    const vs = getFriendsByFaction(friends, 'VS')
-    const ns = getFriendsByFaction(friends, 'NS')
+    const nc = getCharactersByFaction(characters, 'NC')
+    const tr = getCharactersByFaction(characters, 'TR')
+    const vs = getCharactersByFaction(characters, 'VS')
+    const ns = getCharactersByFaction(characters, 'NS')
 
     if (nc) this.fields.push(nc)
     if (tr) this.fields.push(tr)
@@ -24,7 +24,7 @@ export class VerifiedCharactersEmbed implements APIEmbed {
   }
 }
 
-function getFriendsByFaction(players: Player[], faction: string): APIEmbedField | null {
+function getCharactersByFaction(players: Player[], faction: string): APIEmbedField | null {
   players = players.filter((f) => factions[f.factionId] == faction)
   return players.length
     ? {
