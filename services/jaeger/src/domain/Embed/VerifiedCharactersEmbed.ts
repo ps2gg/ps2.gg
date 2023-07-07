@@ -15,10 +15,12 @@ export class VerifiedCharactersEmbed implements APIEmbed {
     const nc = getFriendsByFaction(friends, 'NC')
     const tr = getFriendsByFaction(friends, 'TR')
     const vs = getFriendsByFaction(friends, 'VS')
+    const ns = getFriendsByFaction(friends, 'NS')
 
     if (nc) this.fields.push(nc)
     if (tr) this.fields.push(tr)
     if (vs) this.fields.push(vs)
+    if (ns) this.fields.push(ns)
   }
 }
 
