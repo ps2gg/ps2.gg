@@ -9,8 +9,9 @@ export class PlayerController extends WsController {
 
   constructor(ws: CensusWs) {
     super(ws, ['PlayerLogin', 'PlayerLogout'])
-    // We can't ensure 100% uptime, so we need to prevent
-    // players from being stuck online forever
+
+    // We can't ensure 100% uptime, so we reset the online state
+    // on every connect, assuming missed events.
     this._players.resetOnlineState()
     ws.on('connect', () => this._players.resetOnlineState())
   }
