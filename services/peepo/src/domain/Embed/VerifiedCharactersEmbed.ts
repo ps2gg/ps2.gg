@@ -5,7 +5,7 @@ import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField } from 'discord.js'
 
 export class VerifiedCharactersEmbed implements APIEmbed {
-  description = '## Everyone we know you as'
+  description = '## Everyone we know you as\n'
   footer = { text: 'To link more characters, use /verify' }
   fields: APIEmbedField[] = []
 

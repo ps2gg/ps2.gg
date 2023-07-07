@@ -5,12 +5,12 @@ import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField } from 'discord.js'
 
 export class VerifiedCharactersEmbed implements APIEmbed {
-  description = '## Everyone we know you as'
+  description = '## Everyone we know you as\n'
   footer = { text: 'To link more characters, use /verify' }
   fields: APIEmbedField[] = []
 
   constructor(friends: Player[]) {
-    if (!friends.length) this.description += code('No characters linked')
+    if (!friends.length) this.description += code('You have no characters linked')
 
     const nc = getFriendsByFaction(friends, 'NC')
     const tr = getFriendsByFaction(friends, 'TR')
