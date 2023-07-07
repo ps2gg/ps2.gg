@@ -8,16 +8,15 @@ export class CensusWs {
   private _fns: { (...args: any): void }[] = []
   private _subscriptions: Subscription[] = []
   private _state = 'closed'
-  private _useFallback = false
   private _socket: any
   private _client: any
   private _listeners: Listener[] = []
-  private _lastMessageAt = new Date(0)
+  private _lastMessageAt: Date = null
   private _wsUrl = 'wss://push.nanite-systems.net/streaming?environment=ps2&service-id=s:ps2gg'
   private _wsFallbackUrl = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:ps2gg'
+  private _useFallback = false
 
-  lastMessageTimeout = 1000 * 10 // TODO: R
-  connectionCycleInterval = 1000 * 60 * 10
+  lastMessageTimeout = 1000 * 10
 
   constructor() {
     this._init()
@@ -48,6 +47,7 @@ export class CensusWs {
   private async _init(urlOverride?: string) {
     try {
       logger.info(`attempt new connection to ${urlOverride || this._wsUrl}`)
+      this._lastMessageAt = null
       const { c, s } = await this._createClient(urlOverride)
 
       this._closePreviousSocket()
@@ -142,18 +142,11 @@ export class CensusWs {
 
   // The original census API stops sending events at some point
   private _checkDeadConnection() {
-    setInterval(() => this._reinitializeFallback(), this.connectionCycleInterval)
     setInterval(() => this._reinitializeIfNoMessages(), this.lastMessageTimeout)
   }
 
-  private _reinitializeFallback() {
-    if (this._useFallback) {
-      this._init()
-    }
-  }
-
   private _reinitializeIfNoMessages() {
-    if (this._lastMessageAt === null) this._lastMessageAt = new Date()
+    if (this._lastMessageAt === null) return
     const now = new Date().getTime()
     const lastMessageTime = this._lastMessageAt.getTime()
     const lastMessageTimeoutExceeded = now - lastMessageTime > this.lastMessageTimeout

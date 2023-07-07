@@ -10,7 +10,7 @@ export class VerifiedCharactersEmbed implements APIEmbed {
   fields: APIEmbedField[] = []
 
   constructor(friends: Player[]) {
-    if (!friends.length) this.description += code('No characters linked')
+    if (!friends.length) this.description += code('You have no characters linked')
 
     const nc = getFriendsByFaction(friends, 'NC')
     const tr = getFriendsByFaction(friends, 'TR')
