@@ -12,11 +12,11 @@ export async function getAltWideFriends(user: User, name: string, includesFriend
 
   if (player && !characterIds.includes(player.id)) characterIds = characterIds.concat(player.id)
 
-  const altIds = await getAltIds(characterIds)
+  const { altIds } = await getAltIds(characterIds)
   const friendLookupIds = [...altIds, ...characterIds]
   const { friendIds } = await getFriends(friendLookupIds)
-  const friendAltIds = includesFriendsAlts ? await getAltIds(friendIds) : []
+  const { altIds: friendAltIds, relations } = includesFriendsAlts ? await getAltIds(friendIds) : { altIds: [], relations: [] }
   const onlineLookupIds = [...friendIds, ...friendAltIds]
-  const friends = await getOnlinePlayers(onlineLookupIds)
+  const friends = await getOnlinePlayers(onlineLookupIds, relations)
   return new FriendsEmbed(friends, includesFriendsAlts)
 }

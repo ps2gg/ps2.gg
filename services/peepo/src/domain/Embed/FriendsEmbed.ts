@@ -10,10 +10,10 @@ export class FriendsEmbed implements APIEmbed {
   footer: APIEmbedFooter
 
   constructor(friends: Player[], includesFriendsAlts = false) {
-    this.description = `## Global alt-wide friends\n${friends.length ? code('No frens online') : ''}`
+    this.description = `## Global alt-wide friends\n${friends.length ? '' : code('No frens online')}`
     this.footer = {
       icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
-      text: includesFriendsAlts ? "Everyone's alts included in your friends list" : "Adding your friends' alts...",
+      text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts...",
     }
 
     const nc = getCharactersByFaction(friends, 'NC')
@@ -33,7 +33,7 @@ function getCharactersByFaction(players: Player[], faction: string): APIEmbedFie
   return players.length
     ? {
         name: `${emojis[faction.toLowerCase()]} ${faction}`,
-        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(20)}`).join('\n'))}`,
+        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'))}`,
       }
     : null
 }
