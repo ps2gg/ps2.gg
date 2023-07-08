@@ -1,11 +1,11 @@
 import { User } from '@ps2gg/users/types'
-import { FriendsEmbed } from '../../domain/Embed/FriendsEmbed'
+import { SeshEmbed } from '../../domain/Embed/SeshEmbed'
 import { getAltIds } from './GetAltIds'
 import { getFriends } from './GetFriends'
-import { getOnlinePlayers } from './GetOnlinePlayers'
 import { getPlayer } from './GetPlayer'
+import { getSesh } from './GetSesh'
 
-export async function getAltWideFriends(user: User, name: string, includesFriendsAlts = false): Promise<FriendsEmbed> {
+export async function getAltWideSesh(user: User, name: string, includesFriendsAlts = false): Promise<SeshEmbed> {
   let characterIds = user.characterIds?.length ? user.characterIds : []
 
   const player = name ? await getPlayer(name) : null
@@ -17,6 +17,6 @@ export async function getAltWideFriends(user: User, name: string, includesFriend
   const { friendIds } = await getFriends(friendLookupIds)
   const friendAltIds = includesFriendsAlts ? await getAltIds(friendIds) : []
   const onlineLookupIds = [...friendIds, ...friendAltIds]
-  const friends = await getOnlinePlayers(onlineLookupIds)
-  return new FriendsEmbed(friends, includesFriendsAlts)
+  const friends = await getSesh(onlineLookupIds, includesFriendsAlts)
+  return friends
 }
