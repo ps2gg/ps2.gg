@@ -10,7 +10,7 @@ export class VerifiedCharactersEmbed implements APIEmbed {
   footer: APIEmbedFooter
 
   constructor(characters: Player[], isThirdPerson = false) {
-    this.description = isThirdPerson ? '## Everyone we know them as\n' : '## Everyone we know you as\n'
+    this.description = isThirdPerson ? '## Verified as:\n' : '## Everyone we know you as\n'
     if (!characters.length) this.description += code(isThirdPerson ? 'They have no characters linked' : 'You have no characters linked')
     if (!isThirdPerson) this.footer = { text: 'To link more characters, use /verify' }
 
@@ -31,7 +31,7 @@ function getCharactersByFaction(players: Player[], faction: string): APIEmbedFie
   return players.length
     ? {
         name: `${emojis[faction.toLowerCase()]} ${faction}`,
-        value: `${code(players.map((friend) => `${friend.outfitTag ? `[${friend.outfitTag}] ` : ''}${friend.name}`).join('\n'))}`,
+        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(20)}`).join('\n'))}`,
       }
     : null
 }
