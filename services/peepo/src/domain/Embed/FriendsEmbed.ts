@@ -10,7 +10,7 @@ export class FriendsEmbed implements APIEmbed {
   footer: APIEmbedFooter
 
   constructor(friends: Player[], includesFriendsAlts = false) {
-    this.description = `## Global alt-wide friends\n${friends.length ? '' : code('No frens online')}`
+    this.description = `## All your friends, everywhere\nNever miss out on a session with your friends again\n${friends.length ? '' : code('No frens online')}`
     this.footer = {
       icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
       text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts...",
