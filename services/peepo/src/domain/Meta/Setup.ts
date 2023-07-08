@@ -5,4 +5,5 @@ export const Setup: CommandConfig = {
   name: 'setup',
   description: 'Sets up various admin tools',
   permissions: PermissionFlagsBits.Administrator,
+  options: [],
 }

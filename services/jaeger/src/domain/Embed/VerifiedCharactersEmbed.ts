@@ -2,20 +2,22 @@ import { factions } from '@ps2gg/common/constants'
 import { emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
-import { APIEmbed, APIEmbedField } from 'discord.js'
+import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
 
 export class VerifiedCharactersEmbed implements APIEmbed {
-  description = '## Everyone we know you as\n'
-  footer = { text: 'To link more characters, use /verify' }
+  description: string
   fields: APIEmbedField[] = []
+  footer: APIEmbedFooter
 
-  constructor(friends: Player[]) {
-    if (!friends.length) this.description += code('You have no characters linked')
+  constructor(characters: Player[], isThirdPerson = false) {
+    this.description = isThirdPerson ? '## Verified as:\n' : '## Everyone we know you as\n'
+    if (!characters.length) this.description += code(isThirdPerson ? 'They have no characters linked' : 'You have no characters linked')
+    if (!isThirdPerson) this.footer = { text: 'To link more characters, use /verify' }
 
-    const nc = getFriendsByFaction(friends, 'NC')
-    const tr = getFriendsByFaction(friends, 'TR')
-    const vs = getFriendsByFaction(friends, 'VS')
-    const ns = getFriendsByFaction(friends, 'NS')
+    const nc = getCharactersByFaction(characters, 'NC')
+    const tr = getCharactersByFaction(characters, 'TR')
+    const vs = getCharactersByFaction(characters, 'VS')
+    const ns = getCharactersByFaction(characters, 'NS')
 
     if (nc) this.fields.push(nc)
     if (tr) this.fields.push(tr)
@@ -24,12 +26,12 @@ export class VerifiedCharactersEmbed implements APIEmbed {
   }
 }
 
-function getFriendsByFaction(players: Player[], faction: string): APIEmbedField | null {
+function getCharactersByFaction(players: Player[], faction: string): APIEmbedField | null {
   players = players.filter((f) => factions[f.factionId] == faction)
   return players.length
     ? {
         name: `${emojis[faction.toLowerCase()]} ${faction}`,
-        value: `${code(players.map((friend) => `${friend.outfitTag ? `[${friend.outfitTag}] ` : ''}${friend.name}`).join('\n'))}`,
+        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(20)}`).join('\n'))}`,
       }
     : null
 }
