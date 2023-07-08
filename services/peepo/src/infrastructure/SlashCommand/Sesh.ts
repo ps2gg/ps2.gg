@@ -4,7 +4,7 @@ import { defer, reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { validateVerification } from '../../application/Command/ValidateVerification'
-import { getAltWideFriends } from '../../application/Query/GetAltWideFriends'
+import { getAltWideSesh } from '../../application/Query/GetAltWideSesh'
 import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 
@@ -18,9 +18,9 @@ export class SeshCommand {
     if (!name && !user.characterIds?.length) return { interactionContext: [], embeds: [new VerifyHintEmbed()], ephemeral: true }
     if (name) await validateVerification(name, user, interaction)
 
-    const friends = await getAltWideFriends(user, name)
+    const friends = await getAltWideSesh(user, name)
     await reply(interaction, { embeds: [friends] })
-    const friendsAllAlts = await getAltWideFriends(user, name, true)
+    const friendsAllAlts = await getAltWideSesh(user, name, true)
     return {
       interactionContext: [],
       embeds: [friendsAllAlts],
