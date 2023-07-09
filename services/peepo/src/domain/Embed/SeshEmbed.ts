@@ -9,7 +9,7 @@ export class SeshEmbed implements APIEmbed {
 
   constructor(friends: Player[], player: Player) {
     this.description = `## The best place to be, at all times
-    Never waste your time in bad fights again
+    Never waste your time with bad fights again
 ### Best Fights
     Coming soon:tm:\n### Who's playing?
     ${code(friends.length ? friends.map((friend) => friend.name).join('\n') : 'No frens online')}`

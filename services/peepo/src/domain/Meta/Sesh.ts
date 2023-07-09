@@ -2,7 +2,7 @@ import { CommandConfig } from '@ps2gg/discord/command'
 
 export const Sesh: CommandConfig = {
   name: 'sesh',
-  description: 'Start a gaming sesh with Peepo',
+  description: 'Have peepo show you the best fights, as you play',
   options: [
     {
       type: 'string',
