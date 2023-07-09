@@ -6,7 +6,7 @@ import { APIEmbed } from 'discord.js'
 import { PopulationEntity } from '../Entity/PopulationEntity'
 
 export class NotifyEmbed implements APIEmbed {
-  description = '## Notifications are underway!\n\n'
+  description = "## Good fights coming your way!\nWe'll let you know when it's worth logging in"
   color = EmbedColors.Success
   fields: any[]
   footer: any
