@@ -3,7 +3,7 @@ import { CommandConfig } from '@ps2gg/discord/command'
 
 export const Notify: CommandConfig = {
   name: 'notify',
-  description: 'Get notifications when something happens ingame',
+  description: "Get notifications when it's worth logging in",
   options: [
     {
       type: 'string',
