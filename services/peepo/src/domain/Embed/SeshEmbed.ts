@@ -7,15 +7,23 @@ export class SeshEmbed implements APIEmbed {
   fields?: APIEmbedField[]
   footer?: APIEmbedFooter
 
-  constructor(friends: Player[], includesFriendsAlts: boolean) {
-    this.description = `## Get the most out of Planetside
-    ### Best Fights
+  constructor(friends: Player[], player: Player) {
+    this.description = `## The best place to be, at all times
+    Never waste your time with bad fights again
+### Best Fights
     Coming soon:tm:\n### Who's playing?
     ${code(friends.length ? friends.map((friend) => friend.name).join('\n') : 'No frens online')}`
 
-    this.footer = {
-      icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
-      text: includesFriendsAlts ? "Everyone's alts included in your friends list" : "Adding your friends' alts...",
+    if (player && player.isOnline) {
+      this.footer = {
+        icon_url: 'https://cdn.discordapp.com/emojis/717334812083355658.webp?size=240&quality=lossless',
+        text: `Playing as ${player.name}`,
+      }
+    } else {
+      this.footer = {
+        icon_url: 'https://cdn.discordapp.com/emojis/717334809621430352.webp?size=240&quality=lossless',
+        text: "We don't see you online",
+      }
     }
   }
 }
