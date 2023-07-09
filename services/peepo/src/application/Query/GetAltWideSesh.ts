@@ -17,6 +17,6 @@ export async function getAltWideSesh(user: User, name: string, includesFriendsAl
   const { friendIds } = await getFriends(friendLookupIds)
   const { altIds: friendAltIds, relations } = includesFriendsAlts ? await getAltIds(friendIds) : { altIds: [], relations: [] }
   const onlineLookupIds = [...friendIds, ...friendAltIds]
-  const friends = await getSesh(onlineLookupIds, relations, includesFriendsAlts)
+  const friends = await getSesh(onlineLookupIds, relations, player)
   return friends
 }
