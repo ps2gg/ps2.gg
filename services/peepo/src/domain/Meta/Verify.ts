@@ -2,7 +2,7 @@ import { CommandConfig } from '@ps2gg/discord/command'
 
 export const Verify: CommandConfig = {
   name: 'verify',
-  description: 'Verify your ingame character.',
+  description: 'Verify your ingame character',
   options: [
     {
       type: 'string',
