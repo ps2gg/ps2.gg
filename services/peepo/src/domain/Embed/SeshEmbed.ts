@@ -22,7 +22,7 @@ export class SeshEmbed implements APIEmbed {
     } else {
       this.footer = {
         icon_url: 'https://cdn.discordapp.com/emojis/717334809621430352.webp?size=240&quality=lossless',
-        text: "We don't see you online. Results are optimized as you play.",
+        text: "We don't see you online",
       }
     }
   }
