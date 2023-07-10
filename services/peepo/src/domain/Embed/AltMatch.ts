@@ -1,7 +1,7 @@
 import { Alt } from '@ps2gg/alts/types'
 import { servers } from '@ps2gg/common/constants'
 import { getRegion } from '@ps2gg/common/util'
-import { emojis } from '@ps2gg/discord/constants'
+import { EmbedColors, emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { APIEmbed } from 'discord.js'
 import { format } from 'timeago.js'
@@ -11,6 +11,7 @@ export class AltMatchEmbed implements APIEmbed {
   url: string
   fields: any[]
   footer: any
+  color: EmbedColors
 
   constructor(alts: Alt[], full?: boolean) {
     const main = alts.find((a) => a.matchType.includes('primary'))
@@ -23,6 +24,7 @@ export class AltMatchEmbed implements APIEmbed {
     this.url = `https://ps2.fisu.pw/player/?name=${main.name.toLowerCase()}`
     this.fields = [].concat(characters).concat(roleStats.slice().reverse())
     this.footer = getFooter(alts)
+    this.color = alts.length > 1 ? EmbedColors.Success : null
   }
 }
 
