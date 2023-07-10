@@ -5,7 +5,7 @@ import { getLogger } from '@ps2gg/common/logging'
 const logger = getLogger()
 
 function getBaseQuery() {
-  return new CensusQuery().collection('character').resolve('outfit')
+  return new CensusQuery().collection('character').resolve('outfit').resolve('world')
 }
 
 export async function getPlayer(id: string): Promise<CensusPlayer> {
@@ -19,7 +19,8 @@ export async function getPlayer(id: string): Promise<CensusPlayer> {
   const name = player.name.first
   const factionId = player.faction_id
   const outfitTag = player.outfit?.alias
-  return { id, name, factionId, outfitTag }
+  const serverId = player.world_id
+  return { id, name, factionId, outfitTag, serverId }
 }
 
 export async function getPlayerByName(name: string): Promise<CensusPlayer> {
@@ -34,7 +35,8 @@ export async function getPlayerByName(name: string): Promise<CensusPlayer> {
   const nameActual = player.name.first
   const factionId = player.faction_id
   const outfitTag = player.outfit?.alias
-  return { id, name: nameActual, factionId, outfitTag }
+  const serverId = player.world_id
+  return { id, name: nameActual, factionId, outfitTag, serverId }
 }
 
 export class PlayerDoesNotExistException extends HttpException {
@@ -46,6 +48,7 @@ export class PlayerDoesNotExistException extends HttpException {
 export type CensusPlayer = {
   id?: string
   name?: string
+  serverId: string
   factionId: string
   outfitTag?: string
 }
