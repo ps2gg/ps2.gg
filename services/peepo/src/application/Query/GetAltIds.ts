@@ -15,6 +15,8 @@ function linkAltsWithParents(alts: Alt[][]): AltRelation[] {
   for (const matches of alts) {
     const parent = matches.find((a) => a.matchType.includes('primary'))
 
+    if (!parent) continue
+
     for (const alt of matches) {
       relations.push({
         parent: parent.name,
