@@ -1,5 +1,5 @@
 import { factions } from '@ps2gg/common/constants'
-import { emojis } from '@ps2gg/discord/constants'
+import { EmbedColors, emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
@@ -8,6 +8,7 @@ export class FriendsEmbed implements APIEmbed {
   description: string
   fields: APIEmbedField[] = []
   footer: APIEmbedFooter
+  color: EmbedColors
 
   constructor(friends: Player[], includesFriendsAlts = false) {
     this.description = `## All your friends, everywhere\nAlways see who's there to play with\n${friends.length ? '' : code('No frens online')}`
@@ -15,6 +16,7 @@ export class FriendsEmbed implements APIEmbed {
       icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
       text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts...",
     }
+    if (friends.length) this.color = EmbedColors.Success
 
     const nc = getCharactersByFaction(friends, 'NC')
     const tr = getCharactersByFaction(friends, 'TR')
