@@ -16,8 +16,8 @@ export class PopulatePlayerHandler implements ICommandHandler<PopulatePlayer, Pl
 
     if (isOnline !== undefined) this._repository.updateOnlineStatus(id, isOnline, lastLogout)
 
-    const { name, factionId, outfitTag } = await getPlayer(id)
-    const player = new PlayerEntity({ id, name, factionId, outfitTag, isOnline, lastLogout })
+    const { name, factionId, outfitTag, serverId } = await getPlayer(id)
+    const player = new PlayerEntity({ id, name, factionId, serverId, outfitTag, isOnline, lastLogout })
     return this._repository.save(player)
   }
 }

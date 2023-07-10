@@ -16,6 +16,9 @@ export class PlayerEntity extends SubscribableEntity implements Player {
   @Column('text')
   readonly factionId: string
 
+  @Column('text')
+  readonly serverId: string
+
   @Column('text', { nullable: true })
   readonly outfitTag: string
 
