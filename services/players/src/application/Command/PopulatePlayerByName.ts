@@ -13,8 +13,8 @@ export class PopulatePlayerByNameHandler implements ICommandHandler<PopulatePlay
 
   async execute(command: PopulatePlayerByName): Promise<PlayerEntity | null> {
     const { name } = command
-    const { id, name: nameActual, factionId, outfitTag } = await getPlayerByName(name)
-    const player = new PlayerEntity({ id, name: nameActual, factionId, outfitTag, isOnline: false, lastLogout: new Date(0) })
+    const { id, name: nameActual, factionId, serverId, outfitTag } = await getPlayerByName(name)
+    const player = new PlayerEntity({ id, name: nameActual, factionId, serverId, outfitTag })
     return this._repository.save(player)
   }
 }

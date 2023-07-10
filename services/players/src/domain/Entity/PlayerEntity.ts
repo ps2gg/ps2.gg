@@ -16,6 +16,9 @@ export class PlayerEntity extends SubscribableEntity implements Player {
   @Column('text')
   readonly factionId: string
 
+  @Column('text')
+  readonly serverId: string
+
   @Column('text', { nullable: true })
   readonly outfitTag: string
 
@@ -30,11 +33,12 @@ export class PlayerEntity extends SubscribableEntity implements Player {
     super()
     if (!player) return
 
-    const { id, name, factionId, outfitTag, isOnline, lastLogout } = player
+    const { id, name, factionId, serverId, outfitTag, isOnline, lastLogout } = player
     this.id = `Player.${id}`
     this.id = id
     this.name = name
     this.factionId = factionId
+    this.serverId = serverId
     this.outfitTag = outfitTag
     this.isOnline = isOnline
     this.lastLogout = lastLogout
