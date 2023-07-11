@@ -1,6 +1,7 @@
 import { CensusWs } from '@ps2gg/census/api'
 import { WsController } from '@ps2gg/census/controllers'
 import { getLogger } from '@ps2gg/common/logging'
+import { sleep } from '@ps2gg/common/util'
 import { PlayerClient } from '@ps2gg/players/client'
 
 export class PlayerController extends WsController {
@@ -12,8 +13,18 @@ export class PlayerController extends WsController {
 
     // We can't ensure 100% uptime, so we reset the online state
     // on every connect, assuming missed events.
-    this._players.resetOnlineState()
-    ws.on('connect', () => this._players.resetOnlineState())
+    this._resetOnlineState()
+    ws.on('connect', () => this._resetOnlineState())
+  }
+
+  private async _resetOnlineState(): Promise<void> {
+    try {
+      await this._players.resetOnlineState()
+    } catch (error) {
+      // The player service may not be available yet, so we retry until it is
+      await sleep(1000)
+      return this._resetOnlineState()
+    }
   }
 
   override async onLogin(character_id: string): Promise<void> {
