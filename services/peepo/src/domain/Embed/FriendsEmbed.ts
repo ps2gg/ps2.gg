@@ -1,6 +1,6 @@
-import { factions } from '@ps2gg/common/constants'
+import { factions, servers } from '@ps2gg/common/constants'
 import { EmbedColors, emojis } from '@ps2gg/discord/constants'
-import { code } from '@ps2gg/discord/util'
+import { code, getFaction } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
 
@@ -11,31 +11,33 @@ export class FriendsEmbed implements APIEmbed {
   color: EmbedColors
 
   constructor(friends: Player[], includesFriendsAlts = false) {
-    this.description = `## All your friends, everywhere\nAlways see who's there to play with\n${friends.length ? '' : code('No frens online')}`
+    this.description = `## All your friends, everywhere\nAlways see who's there to play with\n\u200b${friends.length ? '' : code('No frens online')}`
     this.footer = {
       icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
-      text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts...",
+      text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts, this may take a while...",
     }
     if (friends.length) this.color = EmbedColors.Success
+    this._populateFields(friends)
+  }
 
-    const nc = getCharactersByFaction(friends, 'NC')
-    const tr = getCharactersByFaction(friends, 'TR')
-    const vs = getCharactersByFaction(friends, 'VS')
-    const ns = getCharactersByFaction(friends, 'NS')
+  private _populateFields(friends: Player[]) {
+    for (const server of Object.values(servers)) {
+      const field = getCharactersByServer(friends, server)
 
-    if (nc) this.fields.push(nc)
-    if (tr) this.fields.push(tr)
-    if (vs) this.fields.push(vs)
-    if (ns) this.fields.push(ns)
+      if (field) this.fields.push(field)
+    }
   }
 }
 
-function getCharactersByFaction(players: Player[], faction: string): APIEmbedField | null {
-  players = players.filter((f) => factions[f.factionId] == faction)
+function getCharactersByServer(players: Player[], server: string) {
+  players = players.filter((p) => servers[p.serverId] == server).sort((a, b) => a.name.localeCompare(b.factionId))
   return players.length
     ? {
-        name: `${emojis[faction.toLowerCase()]} ${faction}`,
-        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'))}`,
+        name: `${emojis[server.toLowerCase()]} ${server}`,
+        value: `${code(
+          players.map((player) => `${getFaction(factions[player.factionId])} ${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'),
+          'css'
+        )}`,
       }
     : null
 }

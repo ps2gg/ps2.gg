@@ -1,7 +1,7 @@
 import { Alt } from '@ps2gg/alts/types'
 import * as asciiTree from 'ascii-tree'
 import { APIEmbed } from 'discord.js'
-import { AltMatchEmbed } from './AltMatch'
+import { AltMatchEmbed } from './AltMatchEmbed'
 
 export class AltTreeEmbed implements APIEmbed {
   title: string

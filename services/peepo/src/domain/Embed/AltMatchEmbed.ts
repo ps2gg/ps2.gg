@@ -89,15 +89,7 @@ function getOutfit(alt) {
 
 function getRegionEmoji(server: string) {
   const region = getRegion(server)
-
-  switch (region) {
-    case 'NA':
-      return emojis.na
-    case 'EU':
-      return emojis.eu
-    case 'CN':
-      return emojis.cn
-  }
+  return emojis[region.toLowerCase()]
 }
 
 function getFaction(alt) {

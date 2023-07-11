@@ -1,7 +1,7 @@
 import { Alt } from '@ps2gg/alts/types'
 import { getAltMatches } from '@ps2gg/alts/ws'
 import { APIEmbed } from 'discord.js'
-import { AltMatchEmbed } from '../../domain/Embed/AltMatch'
+import { AltMatchEmbed } from '../../domain/Embed/AltMatchEmbed'
 
 export async function getAlts(name: string, full?: boolean): Promise<APIEmbed> {
   const { result } = await getAltMatches(name)
