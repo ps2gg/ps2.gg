@@ -41,7 +41,7 @@ docker service create -d \
   registry:latest &2> /dev/null
 
 # Build to local registry
-docker buildx build . \
+docker build . \
   -t "127.0.0.1:5000/ps2gg:$1" \
   -f "docker/Dockerfile.$1"
 docker push "127.0.0.1:5000/ps2gg:$1"
