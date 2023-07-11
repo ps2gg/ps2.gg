@@ -5,9 +5,15 @@ if [ -z ${1+x} ]; then
 fi
 
 # Update git
-git pull
+if [ "$1" = 'dev' ]; then
+  git pull
+else
+  git fetch origin master --depth=1
+  git reset --hard origin/master
+fi
+
 git submodule init
-git pull --recurse-submodules
+git pull --recurse-submodules --jobs=999
 
 # Remove previous builds
 rm -rf dist
@@ -17,9 +23,13 @@ if [ "$1" = 'dev' ]; then
   bun install
 else
   bun install
+  services=""
   for dir in ./services/*/; do
-    bun nx build $(basename "$dir") --prod
+    service=$(basename "$dir")
+    services="$services,$service"
   done
+  services="${services:1}"
+  bun nx run-many --target=build --prod --projects="$services" --parallel=10
 fi
 
 # Create private image registry on our swarm
@@ -31,7 +41,7 @@ docker service create -d \
   registry:latest &2> /dev/null
 
 # Build to local registry
-docker build . \
+docker buildx build . \
   -t "127.0.0.1:5000/ps2gg:$1" \
   -f "docker/Dockerfile.$1"
 docker push "127.0.0.1:5000/ps2gg:$1"

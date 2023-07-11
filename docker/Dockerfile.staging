@@ -6,7 +6,6 @@ RUN curl -fsSL https://bun.sh/install | bash
 
 COPY . /app
 WORKDIR /app
-RUN ~/.bun/bin/bun install
 
 ENV NODE_ENV=production
 
