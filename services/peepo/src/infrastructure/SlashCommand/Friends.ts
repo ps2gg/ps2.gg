@@ -17,7 +17,7 @@ export class FriendsCommand {
     if (!name && !user.characterIds?.length) return { interactionContext: [], embeds: [new VerifyHintEmbed()], ephemeral: true }
     if (name) await validateVerification(name, user, interaction)
 
-    interaction.deferReply({ ephemeral: true })
+    await interaction.deferReply({ ephemeral: true })
     const friends = await getAltWideFriends(user, name)
     await reply(interaction, { embeds: [friends], ephemeral: true })
     const friendsAllAlts = await getAltWideFriends(user, name, true)
