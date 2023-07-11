@@ -10,7 +10,7 @@ export function volumes(env: string) {
   if (env === 'dev') {
     return `volumes:\n      - ../../..:/app`
   } else {
-    return ''
+    return 'volumes:\n      - ../../../node_modules:/app/node_modules'
   }
 }
 

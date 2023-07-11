@@ -1,4 +1,5 @@
 .git
 docs
 tools
+node_modules
 **/Migrations
