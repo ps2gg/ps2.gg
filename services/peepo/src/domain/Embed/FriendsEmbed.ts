@@ -21,23 +21,23 @@ export class FriendsEmbed implements APIEmbed {
   }
 
   private _populateFields(friends: Player[]) {
-    for (const server of Object.values(servers)) {
-      const field = getCharactersByServer(friends, server)
-
-      if (field) this.fields.push(field)
+    for (const serverId of Object.keys(servers)) {
+      for (const factionId of Object.keys(factions)) {
+        const field = getCharactersByServer(friends, serverId, factionId)
+        if (field) this.fields.push(field)
+      }
     }
   }
 }
 
-function getCharactersByServer(players: Player[], server: string) {
-  players = players.filter((p) => servers[p.serverId] == server).sort((a, b) => a.name.localeCompare(b.factionId))
+function getCharactersByServer(players: Player[], serverId: string, factionId: string) {
+  const server = servers[serverId]
+  const faction = factions[factionId]
+  players = players.filter((p) => p.serverId == serverId && p.factionId == factionId)
   return players.length
     ? {
-        name: `${emojis[server.toLowerCase()]} ${server}`,
-        value: `${code(
-          players.map((player) => `${getFaction(factions[player.factionId])} ${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'),
-          'css'
-        )}`,
+        name: `${emojis[server.toLowerCase()]} ${server} \u200b \u200b ${emojis[faction.toLowerCase()]} ${faction}`,
+        value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'), 'css')}`,
       }
     : null
 }
