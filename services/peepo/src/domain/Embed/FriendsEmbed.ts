@@ -1,6 +1,6 @@
 import { factions, servers } from '@ps2gg/common/constants'
 import { EmbedColors, emojis } from '@ps2gg/discord/constants'
-import { code, getFaction } from '@ps2gg/discord/util'
+import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
 
@@ -36,7 +36,7 @@ function getCharactersByServer(players: Player[], serverId: string, factionId: s
   players = players.filter((p) => p.serverId == serverId && p.factionId == factionId)
   return players.length
     ? {
-        name: `${emojis[server.toLowerCase()]} ${server} \u200b \u200b ${emojis[faction.toLowerCase()]} ${faction}`,
+        name: `${emojis[server.toLowerCase()]} ${server} ${faction}`,
         value: `${code(players.map((player) => `${player.outfitTag ? `[${player.outfitTag}] ` : ''}${player.name.padEnd(25)}`).join('\n'), 'css')}`,
       }
     : null
