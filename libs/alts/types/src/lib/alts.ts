@@ -41,3 +41,9 @@ export interface ClassStats {
   playTimePercent: number
   kills: number
 }
+
+export type Preprocessed = {
+  characterId: string
+  alts: Alt[]
+  deduped: Alt[]
+}

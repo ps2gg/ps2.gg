@@ -1,4 +1,4 @@
-import { Alt, Response } from '@ps2gg/alts/types'
+import { Alt, Preprocessed, Response } from '@ps2gg/alts/types'
 import * as Client from 'cubic-client'
 
 const client = new Client({
@@ -20,4 +20,8 @@ export async function getAltMatches(playerName: string): Promise<Response & { re
 
 export async function getAltMatchesById(id: string): Promise<Response & { result: { alts: Alt[]; tree: any } }> {
   return client.get(`/character/${id}/alts?byId=true`)
+}
+
+export async function getPreprocessedAltMatches(characterIds: string[]): Promise<Response & Preprocessed[]> {
+  return client.post(`/character/preprocessed`, { characterIds })
 }

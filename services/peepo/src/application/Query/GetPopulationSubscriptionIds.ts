@@ -8,7 +8,7 @@ export async function getPopulationSubscriptionIds(server: string, event: string
   const subscriptionIds: string[] = []
 
   for (const id of ids) {
-    const subscriptions = await population.getSubscriptions({ userId: user.id, id })
+    const subscriptions = await population.getSubscriptions(user.id, id)
     const subscriptionIdMap: string[] = subscriptions.map((subscription) => subscription.subscriptionId)
     subscriptionIds.push(...subscriptionIdMap)
   }

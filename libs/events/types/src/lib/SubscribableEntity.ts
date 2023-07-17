@@ -3,7 +3,6 @@ import { Column, Index, PrimaryColumn } from 'typeorm'
 
 export class SubscribableEntity extends AggregateRoot {
   @PrimaryColumn('text')
-  @Index({ unique: true })
   id: string
 
   @Column('boolean', { nullable: true })
