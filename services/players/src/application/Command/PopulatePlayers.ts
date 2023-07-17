@@ -17,9 +17,10 @@ export class PopulatePlayersHandler implements ICommandHandler<PopulatePlayers, 
     const { ids } = command
     const players = await this._queryBus.execute(new GetPlayers(ids))
     const unpopulated = ids.filter((id) => !players.find((player) => player.id === id))
-    logger.info(unpopulated, 'prime unknown players')
+    const deduped = unpopulated.filter((id, index) => unpopulated.indexOf(id) === index)
+    logger.info(deduped, 'prime unknown players')
 
-    for (const id of unpopulated) {
+    for (const id of deduped) {
       await this._commandBus.execute(new PopulatePlayer(id))
     }
   }
