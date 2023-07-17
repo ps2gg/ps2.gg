@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Post, Query } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { Player } from '@ps2gg/players/types'
 import { PopulatePlayers } from '../../application/Command/PopulatePlayers'
@@ -26,7 +26,7 @@ export class PlayersController {
   }
 
   @Post('/online/reset')
-  async resetOnline(): Promise<Player[]> {
-    return this._commandBus.execute(new ResetOnlineState())
+  async resetOnline(@Query('serverId') serverId?: string): Promise<Player[]> {
+    return this._commandBus.execute(new ResetOnlineState(serverId))
   }
 }
