@@ -53,9 +53,10 @@ export class PlayerRepository {
     return player
   }
 
-  async resetOnlineState(): Promise<any> {
-    const result = await this._repository.update({ isOnline: true }, { isOnline: false })
-    logTransaction('resetOnlineStatus', { isOnline: true }, { result })
+  async resetOnlineState(serverId?: string): Promise<any> {
+    const query = serverId ? { isOnline: true, serverId } : { isOnline: true }
+    const result = await this._repository.update(query, { isOnline: false })
+    logTransaction('resetOnlineStatus', query, { result })
     return result
   }
 }

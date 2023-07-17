@@ -5,6 +5,7 @@ import { Column, Entity, Index, PrimaryColumn } from 'typeorm'
 
 @Entity()
 @Subscribable()
+@Index(['isOnline', 'serverId'])
 export class PlayerEntity extends SubscribableEntity implements Player {
   @PrimaryColumn('text')
   readonly id: string
@@ -22,7 +23,6 @@ export class PlayerEntity extends SubscribableEntity implements Player {
   @Column('text', { nullable: true })
   readonly outfitTag: string
 
-  @Index()
   @Column('boolean', { nullable: true })
   readonly isOnline: boolean
 
