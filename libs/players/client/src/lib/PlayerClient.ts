@@ -76,9 +76,10 @@ export class PlayerClient extends SubscriptionClient {
     }
   }
 
-  async resetOnlineState(): Promise<void> {
+  async resetOnlineState(serverId?: string): Promise<void> {
     try {
-      await this.http.post('/v1/players/online/reset')
+      const params = serverId ? { serverId } : undefined
+      await this.http.post('/v1/players/online/reset', undefined, { params })
     } catch (error) {
       this._logger.error(error)
       throw error
