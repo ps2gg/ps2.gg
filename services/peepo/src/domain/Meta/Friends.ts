@@ -14,5 +14,5 @@ export const Friends: CommandConfig = {
 }
 
 export type FriendsOptions = {
-  name: string
+  player: string
 }

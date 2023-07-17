@@ -2,20 +2,19 @@ import { factions, servers } from '@ps2gg/common/constants'
 import { EmbedColors, emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
-import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
+import { APIEmbed, APIEmbedField } from 'discord.js'
 
 export class FriendsEmbed implements APIEmbed {
   description: string
   fields: APIEmbedField[] = []
-  footer: APIEmbedFooter
   color: EmbedColors
+  footer = {
+    icon_url: 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless',
+    text: "Everyone's alts included",
+  }
 
-  constructor(friends: Player[], includesFriendsAlts = false) {
+  constructor(friends: Player[]) {
     this.description = `## All your friends, everywhere\nAlways see who's there to play with\n\u200b${friends.length ? '' : code('No frens online')}`
-    this.footer = {
-      icon_url: includesFriendsAlts ? 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless' : undefined,
-      text: includesFriendsAlts ? "Everyone's alts included" : "Adding your friends' alts, this may take a while...",
-    }
     if (friends.length) this.color = EmbedColors.Success
     this._populateFields(friends)
   }
@@ -24,6 +23,7 @@ export class FriendsEmbed implements APIEmbed {
     for (const serverId of Object.keys(servers)) {
       for (const factionId of Object.keys(factions)) {
         const field = getCharactersByServer(friends, serverId, factionId)
+
         if (field) this.fields.push(field)
       }
     }

@@ -5,7 +5,7 @@ import { getFriends } from './GetFriends'
 import { getOnlinePlayers } from './GetOnlinePlayers'
 import { getPlayer } from './GetPlayer'
 
-export async function getAltWideFriends(user: User, name: string, includesFriendsAlts = false): Promise<FriendsEmbed> {
+export async function getAltWideFriends(user: User, name: string): Promise<FriendsEmbed> {
   let characterIds = user.characterIds?.length ? user.characterIds : []
 
   const player = name ? await getPlayer(name) : null
@@ -15,8 +15,8 @@ export async function getAltWideFriends(user: User, name: string, includesFriend
   const { altIds } = await getAltIds(characterIds)
   const friendLookupIds = [...altIds, ...characterIds]
   const { friendIds } = await getFriends(friendLookupIds)
-  const { altIds: friendAltIds, relations } = includesFriendsAlts ? await getAltIds(friendIds) : { altIds: [], relations: [] }
+  const { altIds: friendAltIds, relations } = await getAltIds(friendIds)
   const onlineLookupIds = [...friendIds, ...friendAltIds]
   const friends = await getOnlinePlayers(onlineLookupIds, relations)
-  return new FriendsEmbed(friends, includesFriendsAlts)
+  return new FriendsEmbed(friends)
 }

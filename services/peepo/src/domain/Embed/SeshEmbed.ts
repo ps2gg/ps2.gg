@@ -1,13 +1,13 @@
 import { EmbedColors } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
-import { APIEmbed, APIEmbedField, APIEmbedFooter } from 'discord.js'
+import { APIEmbed, APIEmbedField, APIEmbedFooter, APIEmbedImage } from 'discord.js'
 
 export class SeshEmbed implements APIEmbed {
   description: string
-  fields?: APIEmbedField[]
-  footer?: APIEmbedFooter
-  color?: EmbedColors
+  fields: APIEmbedField[]
+  footer: APIEmbedFooter
+  color: EmbedColors
 
   constructor(friends: Player[], player: Player) {
     this.description = this._getDescription(friends)
@@ -17,9 +17,10 @@ export class SeshEmbed implements APIEmbed {
 
   private _getDescription(friends: Player[]) {
     return `## The best place to be, at all times
-    Never waste your time with bad fights again
+    Never stare at the map again.
 ### Best Fights
-    Coming soon:tm:\n### Who's playing?
+    Coming soon:tm:
+### Who's playing?
     ${code(friends.length ? friends.map((friend) => friend.name).join('\n') : 'No frens online')}`
   }
 
