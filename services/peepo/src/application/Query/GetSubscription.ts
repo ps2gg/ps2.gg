@@ -8,7 +8,7 @@ export async function getSubscription(server: string, event: string, userId: str
   const ids = new PopulationEntity(server, event).getIds()
   const pop = await getPopulation(ids, event, server)
   const population = new PopulationClient()
-  const subscriptions = await population.getSubscriptions({ userId: userId, id: ids[0] })
+  const subscriptions = await population.getSubscriptions(userId, ids[0])
   const demoSubscription: DynamicSubscription = subscriptions[0]
 
   if (!subscriptions.length) throw new Error(`You aren't subscribed to ${event} on ${server}.`)
