@@ -18,12 +18,10 @@ export class SeshCommand {
     if (!name && !user.characterIds?.length) return { interactionContext: [], embeds: [new VerifyHintEmbed()], ephemeral: true }
     if (name) await validateVerification(name, user, interaction)
 
-    const friends = await getAltWideSesh(user, name)
-    await reply(interaction, { embeds: [friends] })
-    const friendsAllAlts = await getAltWideSesh(user, name, true)
+    const sesh = await getAltWideSesh(user, name)
     return {
       interactionContext: [],
-      embeds: [friendsAllAlts],
+      embeds: [sesh],
     }
   }
 
