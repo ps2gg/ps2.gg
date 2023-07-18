@@ -1,6 +1,6 @@
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
-import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
+import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
 
 export async function getPopulationSubscriptionIds(server: string, event: string, user: User): Promise<string[]> {
   const population = new PopulationClient()

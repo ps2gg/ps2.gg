@@ -3,8 +3,8 @@ import { Command, Main, Autocomplete, AutocompleteResponse, linkedUser, CommandR
 import { defer, reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
-import { validateVerification } from '../../application/Command/ValidateVerification'
-import { getAltWideSesh } from '../../application/Query/GetAltWideSesh'
+import { validateVerification } from '../../application/Command/Users/ValidateVerification'
+import { getAltWideSesh } from '../../application/Query/Sesh/GetAltWideSesh'
 import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
 import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
 

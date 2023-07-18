@@ -3,10 +3,10 @@ import { reply } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
-import { VerifyReady } from '../../domain/Component/VerifyReady'
-import { verificationCoordinator } from '../../domain/Coordinator/VerificationCoordinator'
-import { getPlayer } from '../Query/GetPlayer'
-import { getSelectedCharacter } from '../Query/GetSelectedCharacter'
+import { VerifyReady } from '../../../domain/Component/VerifyReady'
+import { verificationCoordinator } from '../../../domain/Coordinator/VerificationCoordinator'
+import { getPlayer } from '../../Query/Players/GetPlayer'
+import { getSelectedCharacter } from '../../Query/Players/GetSelectedCharacter'
 
 export async function validateVerification(name: string, user: User, interaction: CommandInteraction): Promise<void> {
   const player = await getPlayer(name)

@@ -1,7 +1,7 @@
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
-import { UnsubscribeEmbed } from '../../domain/Embed/UnsubscribeEmbed'
-import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
+import { UnsubscribeEmbed } from '../../../domain/Embed/UnsubscribeEmbed'
+import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
 
 export async function removePopulationSubscription(server: string, event: string, user: User): Promise<UnsubscribeEmbed> {
   const population = new PopulationClient()

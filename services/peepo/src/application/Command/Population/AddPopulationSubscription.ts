@@ -2,10 +2,10 @@ import { DynamicSubscription } from '@ps2gg/events/types'
 import { PopulationClient } from '@ps2gg/population/client'
 import { User } from '@ps2gg/users/types'
 import { APIEmbed } from 'discord.js'
-import { NotifyEmbed } from '../../domain/Embed/Notify'
-import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
-import { SubscriptionEntity } from '../../domain/Entity/SubscriptionEntity'
-import { getPopulation } from '../Query/GetPopulation'
+import { NotifyEmbed } from '../../../domain/Embed/Notify'
+import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
+import { SubscriptionEntity } from '../../../domain/Entity/SubscriptionEntity'
+import { getPopulation } from '../../Query/Population/GetPopulation'
 
 export async function addPopulationSubscription(server: string, event: string, user: User): Promise<APIEmbed> {
   const population = new PopulationClient()

@@ -1,6 +1,6 @@
 import { PlayerClient } from '@ps2gg/players/client'
 import { Player } from '@ps2gg/players/types'
-import { AltMatch } from './GetAltIds'
+import { AltMatch } from '../Alts/GetAltIds'
 
 export async function getFriendsWithParent(friends: Player[], friendIds: string[], alts: AltMatch[]): Promise<Player[]> {
   const players = new PlayerClient()
