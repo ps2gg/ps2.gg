@@ -12,11 +12,13 @@ export async function getAltWideSesh(user: User, name: string): Promise<SeshEmbe
 
   if (player && !characterIds.includes(player.id)) characterIds = characterIds.concat(player.id)
 
-  const { altIds } = await getAltIds(characterIds)
-  const friendLookupIds = [...altIds, ...characterIds]
+  const playersAlts = await getAltIds(characterIds)
+  const playersAltIds = playersAlts.map((alt) => alt.characterId)
+  const friendLookupIds = [...playersAltIds, ...characterIds]
   const { friendIds } = await getFriends(friendLookupIds)
-  const { altIds: friendAltIds, relations } = await getAltIds(friendIds)
-  const onlineLookupIds = [...friendIds, ...friendAltIds]
-  const friends = await getSesh(onlineLookupIds, relations, player)
-  return friends
+  const friendsAlts = await getAltIds(friendIds)
+  const friendsAltIds = friendsAlts.map((alt) => alt.characterId)
+  const altWideFriendIds = [...friendIds, ...friendsAltIds]
+  const alts = [...playersAlts, ...friendsAlts]
+  return getSesh(player, friendIds, altWideFriendIds, alts)
 }

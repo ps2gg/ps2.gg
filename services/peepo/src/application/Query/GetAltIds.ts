@@ -1,29 +1,21 @@
 import { getPreprocessedAltMatches } from '@ps2gg/alts/ws'
-import { sleep } from '@ps2gg/common/util'
 
-export async function getAltIds(characterIds: string[]): Promise<{ altIds: string[]; relations: AltRelation[] }> {
+export async function getAltIds(characterIds: string[]): Promise<AltMatch[]> {
   const alts = await getPreprocessedAltMatches(characterIds)
-  const relations = linkAltsWithParents(alts)
-  const altIds = alts.map((a) => a.deduped.map((a) => a.character_id)).flat()
-  return { altIds, relations }
-}
-
-function linkAltsWithParents(preprocessed: any): AltRelation[] {
-  const relations = []
-
-  for (const character of preprocessed) {
-    for (const alt of character.deduped) {
-      relations.push({
-        parent: character.characterId,
-        child: alt.name,
+  const altIds = alts
+    .map((alt) =>
+      alt.deduped.map((a) => {
+        return {
+          characterId: a.character_id,
+          parentId: alt.character_id,
+        }
       })
-    }
-  }
-
-  return relations
+    )
+    .flat()
+  return altIds
 }
 
-export type AltRelation = {
-  parent: string
-  child: string
+export type AltMatch = {
+  characterId: string
+  parentId: string
 }
