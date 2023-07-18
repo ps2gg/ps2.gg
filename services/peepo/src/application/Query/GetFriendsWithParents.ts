@@ -5,14 +5,20 @@ import { AltMatch } from './GetAltIds'
 export async function getFriendsWithParent(friends: Player[], friendIds: string[], alts: AltMatch[]): Promise<Player[]> {
   const players = new PlayerClient()
   const unknownFriends = friends.filter((friend) => !friendIds.includes(friend.id))
-  const lookups = []
+  const lookupIds: string[] = []
 
   for (const friend of unknownFriends) {
     const alt = alts.find((alt) => alt.characterId === friend.id)
-    lookups.push(players.findOne(alt.parentId).then((parent) => (friend.name += ` (${parent.name})`)))
+    lookupIds.push(alt.parentId)
   }
 
-  await Promise.all(lookups)
+  const parents = await players.findMany(lookupIds)
+
+  for (const friend of unknownFriends) {
+    const alt = alts.find((alt) => alt.characterId === friend.id)
+    const parent = parents.find((parent) => parent.id === alt.parentId)
+    friend.name += ` (${parent.name})`
+  }
 
   return friends
 }
