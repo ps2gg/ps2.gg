@@ -5,7 +5,7 @@
 
 <br>
 
-This is the home of ps2.gg, where Planetside is turned into a better game by improving the ecosystem for developers in our community.<br>
+This is the home of ps2.gg, where Planetside is turned into a better game by improving the ecosystem for developers in our community.
 This repo includes all microservices that empower our UI mods and third party applications.
 
 <br>
