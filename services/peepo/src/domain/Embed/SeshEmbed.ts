@@ -3,6 +3,7 @@ import { EmbedColors } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { APIEmbed, APIEmbedField, APIEmbedFooter, APIEmbedImage } from 'discord.js'
+import { finished } from 'stream'
 
 export class SeshEmbed implements APIEmbed {
   description: string
@@ -31,12 +32,12 @@ export class SeshEmbed implements APIEmbed {
     if (!friends.length) return code('No frens online :(', 'css')
     let string = ''
 
+    friends.sort((a, b) => (a.serverId + a.factionId).localeCompare(b.serverId + b.factionId))
     for (const friend of friends) {
       const server = servers[friend.serverId]
       const faction = factions[friend.factionId]
-      const blop = `${friend.name} [${server} ${faction}]`
-      string += blop.length > 40 ? blop.slice(0, 40 - 3) + '...' : blop
-      string += '\n'
+      const name = friend.name.length > 40 ? friend.name.slice(0, 40 - 3) + '...' : friend.name
+      string += `${name} [${server} ${faction}]\n`
     }
     return code(string, 'css')
   }
