@@ -5,24 +5,23 @@
 
 <br>
 
-This is the home of ps2.gg, where we provide Planetside's developer community with unique data you won't find on the Census API.
-This repo includes all microservices that empower our UI mods and third party applications.
+This is the home of ps2.gg, where we provide Planetside's developer community with unique data that can't be found on the Census API.
+This repo includes all microservices that empower our own Bots and UI mods.
 
 <br>
 
-## Services
+## Public Services
 
 | Name                                   | Description                                     | Documentation                                                    |
 | -------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
 | [peepo](/services/peepo/) 🔹           | A Planetside2 Companion                         | [Try it on Discord](https://discord.gg/vVa7gDK7Ky)               |
 | [jaeger](/services/jaeger/) 🔹         | Jaeger character verification                   | [Available on the Jaeger Discord](https://discord.gg/v6reuCe6QW) |
-| [population](/services/population/) 🔹 | Real-time population data                       | -/-                                                              |
-| [players](/services/players/) 🔹       | Planetside character information                | -/-                                                              |
-| [friends](/services/players/) 🔹       | Global alt-wide friend list                     | -/-                                                              |
-| [users](/services/users/)              | Verifies and links users on different platforms | soon™                                                            |
-| alts                                   | Matches alt characters                          | soon™                                                            |
+| [population](/services/population/) 🔹 | Real-time population data and per-fight metrics | soon™                                                            |
+| [friends](/services/players/) 🔹       | Maintains a global alt-wide friends list        | soon™                                                            |
+| [users](/services/users/)              | Verifies and links users on different platforms  | soon™                                                           |
+| alts                                   | Matches alt characters across a player's account | soon™                                                           |
 
-Services with a 🔹 are open source.
+Services with a 🔹 are open source. For a list of all internal services, [see here](https://github.com/ps2gg/ps2.gg/blob/master/docs/First-Time-Setup.md#microservices).
 
 <br>
 
