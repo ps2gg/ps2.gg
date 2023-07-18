@@ -43,7 +43,7 @@ export interface ClassStats {
 }
 
 export type Preprocessed = {
-  characterId: string
+  character_id: string
   alts: Alt[]
   deduped: Alt[]
 }

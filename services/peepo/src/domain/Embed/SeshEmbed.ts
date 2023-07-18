@@ -9,7 +9,7 @@ export class SeshEmbed implements APIEmbed {
   footer: APIEmbedFooter
   color: EmbedColors
 
-  constructor(friends: Player[], player: Player) {
+  constructor(player: Player, friends: Player[]) {
     this.description = this._getDescription(friends)
     this.footer = player && player.isOnline ? this._getOnlineFooter(player) : this._getOfflineFooter()
     if (player && player.isOnline) this.color = EmbedColors.Success
