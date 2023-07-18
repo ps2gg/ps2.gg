@@ -13,7 +13,7 @@ export class SeshEmbed implements APIEmbed {
     text: "Everyone's alts included",
   }
 
-  constructor(friends: Player[], player: Player) {
+  constructor(player: Player, friends: Player[]) {
     this.description = this._getDescription(friends)
     if (player && player.isOnline) this.color = EmbedColors.Success
   }

@@ -2,6 +2,7 @@ import { User } from '@ps2gg/users/types'
 import { FriendsEmbed } from '../../domain/Embed/FriendsEmbed'
 import { getAltIds } from './GetAltIds'
 import { getFriends } from './GetFriends'
+import { getFriendsWithParent } from './GetFriendsWithParents'
 import { getOnlinePlayers } from './GetOnlinePlayers'
 import { getPlayer } from './GetPlayer'
 
@@ -12,11 +13,15 @@ export async function getAltWideFriends(user: User, name: string): Promise<Frien
 
   if (player && !characterIds.includes(player.id)) characterIds = characterIds.concat(player.id)
 
-  const { altIds } = await getAltIds(characterIds)
-  const friendLookupIds = [...altIds, ...characterIds]
+  const playersAlts = await getAltIds(characterIds)
+  const playersAltIds = playersAlts.map((alt) => alt.characterId)
+  const friendLookupIds = [...playersAltIds, ...characterIds]
   const { friendIds } = await getFriends(friendLookupIds)
-  const { altIds: friendAltIds, relations } = await getAltIds(friendIds)
-  const onlineLookupIds = [...friendIds, ...friendAltIds]
-  const friends = await getOnlinePlayers(onlineLookupIds, relations)
-  return new FriendsEmbed(friends)
+  const friendsAlts = await getAltIds(friendIds)
+  const friendsAltIds = friendsAlts.map((alt) => alt.characterId)
+  const altWideFriendIds = [...friendIds, ...friendsAltIds]
+  const alts = [...playersAlts, ...friendsAlts]
+  const friends = await getOnlinePlayers(altWideFriendIds)
+  const friendsWithParent = await getFriendsWithParent(friends, friendIds, alts)
+  return new FriendsEmbed(friendsWithParent)
 }
