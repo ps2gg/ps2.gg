@@ -4,8 +4,8 @@ import { Event, Notification } from '@ps2gg/discord/command'
 import { EventResponse } from '@ps2gg/events/ws'
 import { User } from '@ps2gg/users/types'
 import { ButtonInteraction } from 'discord.js'
-import { removePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
-import { getPopulationNotification } from '../../application/Query/GetPopulationNotification'
+import { removePopulationSubscription } from '../../application/Command/Population/RemovePopulationSubscription'
+import { getPopulationNotification } from '../../application/Query/Population/GetPopulationNotification'
 import { Unsubscribe } from '../../domain/Component/Unsubscribe'
 
 @Event('DomainEvent.Population.Update', 'population')

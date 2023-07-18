@@ -1,3 +1,4 @@
+import { factions, servers } from '@ps2gg/common/constants'
 import { EmbedColors } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
@@ -6,35 +7,37 @@ import { APIEmbed, APIEmbedField, APIEmbedFooter, APIEmbedImage } from 'discord.
 export class SeshEmbed implements APIEmbed {
   description: string
   fields: APIEmbedField[]
-  footer: APIEmbedFooter
   color: EmbedColors
+  footer = {
+    icon_url: 'https://cdn.discordapp.com/emojis/715544975730802688.webp?size=240&quality=lossless',
+    text: "Everyone's alts included",
+  }
 
   constructor(player: Player, friends: Player[]) {
     this.description = this._getDescription(friends)
-    this.footer = player && player.isOnline ? this._getOnlineFooter(player) : this._getOfflineFooter()
     if (player && player.isOnline) this.color = EmbedColors.Success
   }
 
   private _getDescription(friends: Player[]) {
     return `## The best place to be, at all times
-    Never stare at the map again.
+    Always see what's happening
 ### Best Fights
     Coming soon:tm:
 ### Who's playing?
-    ${code(friends.length ? friends.map((friend) => friend.name).join('\n') : 'No frens online')}`
+    ${this._getFriends(friends)}`
   }
 
-  private _getOnlineFooter(player) {
-    return {
-      icon_url: 'https://cdn.discordapp.com/emojis/717334812083355658.webp?size=240&quality=lossless',
-      text: `Playing as ${player.name}`,
-    }
-  }
+  private _getFriends(friends: Player[]) {
+    if (!friends.length) return code('No frens online :(', 'css')
+    let string = ''
 
-  private _getOfflineFooter() {
-    return {
-      icon_url: 'https://cdn.discordapp.com/emojis/717334809621430352.webp?size=240&quality=lossless',
-      text: "We don't see you online",
+    for (const friend of friends) {
+      const server = servers[friend.serverId]
+      const faction = factions[friend.factionId]
+      const blop = `${friend.name} [${server} ${faction}]`
+      string += blop.length > 40 ? blop.slice(0, 40 - 3) + '...' : blop
+      string += '\n'
     }
+    return code(string, 'css')
   }
 }

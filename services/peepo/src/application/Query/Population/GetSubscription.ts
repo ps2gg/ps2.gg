@@ -1,7 +1,7 @@
 import { DynamicSubscription } from '@ps2gg/events/types'
 import { PopulationClient } from '@ps2gg/population/client'
-import { NotifyEmbed } from '../../domain/Embed/Notify'
-import { PopulationEntity } from '../../domain/Entity/PopulationEntity'
+import { NotifyEmbed } from '../../../domain/Embed/Notify'
+import { PopulationEntity } from '../../../domain/Entity/PopulationEntity'
 import { getPopulation } from './GetPopulation'
 
 export async function getSubscription(server: string, event: string, userId: string): Promise<NotifyEmbed> {

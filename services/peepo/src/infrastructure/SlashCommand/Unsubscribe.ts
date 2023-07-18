@@ -1,8 +1,8 @@
 import { sanitizeObjectNotation } from '@ps2gg/common/util'
 import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
-import { removePopulationSubscription } from '../../application/Command/RemovePopulationSubscription'
-import { getEventSuggestions } from '../../application/Query/GetEventSuggestions'
+import { removePopulationSubscription } from '../../application/Command/Population/RemovePopulationSubscription'
+import { getEventSuggestions } from '../../application/Query/Population/GetEventSuggestions'
 import { UnsubscribeOptions, Unsubscribe } from '../../domain/Meta/Unsubscribe'
 
 @Command(Unsubscribe)
