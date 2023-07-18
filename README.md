@@ -5,7 +5,7 @@
 
 <br>
 
-This is the home of ps2.gg, where we provide Planetside's ecosystem with unique data for developers in our community.
+This is the home of ps2.gg, where we provide Planetside's developer community with unique data you won't find on the Census API.
 This repo includes all microservices that empower our UI mods and third party applications.
 
 <br>
