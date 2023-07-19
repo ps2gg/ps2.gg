@@ -86,4 +86,4 @@ Production secrets can be generated with [/docker/create-secrets.sh](/docker/cre
 
 <br>
 
-### Next guide for beginners: [Our Workflow](/docs/Workflow.md)
+### Next guide for beginners: [First Time Setup](/docs/First-Time-Setup.md)
