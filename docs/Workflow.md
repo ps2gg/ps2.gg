@@ -1,4 +1,4 @@
-# Our work process
+# How we approach new features
 
 Thank you for showing an interest in our project. We want to make sure everyone has a good time working with us, so we follow a consistent workflow that keeps your workload reasonably sized and always lets you know what everyone else is up to.
 
@@ -11,7 +11,7 @@ When defining our features, we look for **single use cases** that are complex en
 
 ### 1.1) Splitting up milestones
 
-Then, we split them up into the next smallest use case, for example "maintaining each players friends list" - and further "linking alts to player's friends". We continue doing this until we can't make the component any smaller without going into implementation specifics.
+Next, we split up the use cases into smaller components, layer by layer, until we can't make them any smaller without going into implementation specifics. E.g. "Maintain an alt-wide friends list", which is split up into "Retrieve the friends list of every user" and "Provide accurate alt data".
 <br>
 
 ### 1.2) Defining our Sprints
@@ -21,9 +21,12 @@ The result is a tree with several layers that we can progressively work through 
 
 ### Naming Conventions
 
-Each branch of that tree is tracked as a milestone on Github, like:<br>
-**Friends-L1-B1** "Maintains an alt-wide friends list"<br>
-Where `L` identifies the layer and `B` identifies the branch in the tree.
+Each branch of that tree is tracked as a milestone on Github, e.g.<br>
+
+> **Friends-L2-B1** "Retrieve the friends list of every user"<br>
+
+Where `L` identifies the layer and `B` identifies the branch in the tree.<br>
+This naming scheme helps us stay aware of where we are and how every feature builds up on each other to reach our goal.
 
 <br>
 
@@ -63,6 +66,10 @@ Next, we repeat the process and continuously improve our workflow. Ideally, we'd
 <br>
 
 ---
+
+<br>
+
+Please keep in mind that we always plan these together [on our Discord](https://discord.gg/8MvTaUQM2E), so be sure to join us if you haven't already.
 
 <br>
 
