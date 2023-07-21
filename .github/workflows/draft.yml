@@ -5,7 +5,7 @@ on:
     types: [assigned]
 
 jobs:
-  build:
+  draft:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,14 +13,18 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issue = context.issue;
-            const owner = issue.owner;
-            const repo = issue.repo;
-            const issueNumber = issue.number;
+            const { owner, repo, number: issueNumber } = context.issue;
+            const req = await github.issues.get({
+              owner,
+              repo,
+              issue_number: issueNumber
+            });
+            const issue = req.data
             const labels = issue.labels;
             const typeLabel = labels.find(label => label.name.startsWith('Type'));
             const serviceLabel = labels.find(label => label.name.startsWith('Service'))
             const service = serviceLabel ? serviceLabel.name.split(':')[1].trim().toLowerCase() : null;
+            const dod = issue.body.split('### Definition of Done')[1].split('- ').slice(2)
             let type = 'patch';
 
             if (typeLabel.name === 'Type: Bug') {
@@ -33,6 +37,8 @@ jobs:
 
             const branchName = `${type}${service ? `/${service}` : ''}/${issueNumber}`
 
+            console.log(branchName)
+
             const baseBranchRef = await github.git.getRef({
               owner,
               repo,
@@ -43,7 +49,7 @@ jobs:
               owner,
               repo,
               ref: `refs/heads/${branchName}`,
-              sha: baseBranchRef
+              sha: baseBranchRef.data.object.sha
             })
 
             const currentCommit = await github.git.getCommit({
@@ -52,24 +58,33 @@ jobs:
               commit_sha: newBranchRef.data.object.sha
             })
 
+            const newCommit = await github.git.createCommit({
+              owner,
+              repo,
+              message: 'chore: Prime new branch',
+              tree: currentCommit.data.tree.sha,
+              parents: [currentCommit.data.sha],
+            });
+
             await github.git.updateRef({
               owner,
               repo,
               ref: `heads/${branchName}`,
-              sha: currentCommit.data.sha,
+              sha: newCommit.data.sha,
             })
 
             await github.pulls.create({
               owner,
               repo,
-              title: `${type}: ${issue.title}`,
+              title: `${type}${service ? `(${service})` : ''}: ${issue.title}`,
               head: branchName,
               base: 'master',
-              body: `### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses ->
+              draft: true,
+              body: `### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses -->
               Resolves #${issueNumber}
 
               ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
 
-              - [ ] [Universal Definition of Done](https://github.com/ps2gg/ps2.gg/blob/master/docs/standards/Definition-Of-Done.md) is adhered to
+              ${dod.map(d => `- [ ] ${d}`).join('\n')}
               `
             });
