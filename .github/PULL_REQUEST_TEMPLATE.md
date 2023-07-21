@@ -1,6 +1,6 @@
 <!-- PULL REQUEST TEMPLATE -->
 
-### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses ->
+### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses -->
 
 ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
 
