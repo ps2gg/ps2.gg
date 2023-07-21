@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -17,7 +17,6 @@ jobs:
             const owner = issue.owner;
             const repo = issue.repo;
             const issueNumber = issue.number;
-            const assignee = issue.assignees[0];
             const labels = issue.labels;
             const typeLabel = labels.find(label => label.name.startsWith('Type'));
             const serviceLabel = labels.find(label => label.name.startsWith('Service'))
