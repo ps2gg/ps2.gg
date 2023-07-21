@@ -1,14 +1,7 @@
 <!-- PULL REQUEST TEMPLATE -->
-### What kind of change does this PR introduce?
-- [ ] Bugfix
-- [ ] New Feature
-- [ ] Enhancement
-- [ ] Refactor
-- [ ] Build-related changes
-- [ ] Other, please describe:
 
-### Does this PR introduce a breaking change?
-- [ ] Yes <!-- If yes, please describe the impact and migration path for existing applications -->
-- [ ] No
+### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses -->
 
-### Description
+### Definition of Done <!-- Please add all DoDs and mark them as completed -->
+
+- [ ] [Universal Definition of Done](https://github.com/ps2gg/ps2.gg/blob/master/docs/standards/Definition-Of-Done.md) is adhered to

@@ -1,0 +1,76 @@
+name: Draft
+
+on:
+  issues:
+    types: [assigned]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.issue;
+            const owner = issue.owner;
+            const repo = issue.repo;
+            const issueNumber = issue.number;
+            const assignee = issue.assignees[0];
+            const labels = issue.labels;
+            const typeLabel = labels.find(label => label.name.startsWith('Type'));
+            const serviceLabel = labels.find(label => label.name.startsWith('Service'))
+            const service = serviceLabel ? serviceLabel.name.split(':')[1].trim().toLowerCase() : null;
+            let type = 'patch';
+
+            if (typeLabel.name === 'Type: Bug') {
+              type = 'fix';
+            } else if (typeLabel.name === 'Type: New Feature') {
+              type = 'feat';
+            } else if (typeLabel.name === 'Type: Refactor') {
+              type = 'refactor';
+            }
+
+            const branchName = `${type}${service ? `/${service}` : ''}/${issueNumber}`
+
+            const baseBranchRef = await github.git.getRef({
+              owner,
+              repo,
+              ref: 'heads/master'
+            })
+
+            const newBranchRef = await github.git.createRef({
+              owner,
+              repo,
+              ref: `refs/heads/${branchName}`,
+              sha: baseBranchRef
+            })
+
+            const currentCommit = await github.git.getCommit({
+              owner,
+              repo,
+              commit_sha: newBranchRef.data.object.sha
+            })
+
+            await github.git.updateRef({
+              owner,
+              repo,
+              ref: `heads/${branchName}`,
+              sha: currentCommit.data.sha,
+            })
+
+            await github.pulls.create({
+              owner,
+              repo,
+              title: `${type}: ${issue.title}`,
+              head: branchName,
+              base: 'master',
+              body: `### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses ->
+              Resolves #${issueNumber}
+
+              ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
+
+              - [ ] [Universal Definition of Done](https://github.com/ps2gg/ps2.gg/blob/master/docs/standards/Definition-Of-Done.md) is adhered to
+              `
+            });

@@ -9,17 +9,17 @@ on:
           - 'prod'
           - 'staging'
         default: 'prod'
-      
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to ${{ github.event.inputs.environment}}
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        host: ${{ secrets.SSH_HOST }}
-        script: |
-          cd /opt/ps2gg/ps2.gg
-          bash deploy.sh ${{ github.event.inputs.environment}}
+      - name: Deploy to ${{ github.event.inputs.environment}}
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          script: |
+            cd /opt/ps2gg/ps2.gg
+            bash deploy.sh ${{ github.event.inputs.environment}}

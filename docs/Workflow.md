@@ -1,24 +1,42 @@
-# Our work process
+# How we approach new features
 
-We employ a lightweight version of Scrum to achieve consistent results.<br>
-In essence, the process looks like this:
+Thank you for showing an interest in our project. We want to make sure everyone has a good time working with us, so we follow a consistent workflow that keeps your workload reasonably sized and always lets you know what everyone else is up to.
 
 <br>
 
-## 1) We start with a project
+## 1) Planning a feature
 
-To define our projects, we look for **single use cases** that are complex enough that they have to be broken down into minimal pieces.<br>
-Our goal is to have every component tracked as an issue on Github.
+When defining our features, we look for **single use cases** that are complex enough that they have to be broken down into smaller components. For example, an "alt wide friends list" or an "inofficial ranked mode".
+<br>
+
+### 1.1) Splitting up milestones
+
+Next, we split up the use cases into smaller components, layer by layer, until we can't make them any smaller without going into implementation specifics. E.g. "Maintain an alt-wide friends list", which is split up into "Retrieve the friends list of every user" and "Provide accurate alt data".
+<br>
+
+### 1.2) Defining our Sprints
+
+The result is a tree with several layers that we can progressively work through in sprints. Each sprint being focused around the most atomic parts of every layer, which we track as issues on Github. We work through them one layer at a time until we completed the feature.
+<br>
+
+### Naming Conventions
+
+Each branch of that tree is tracked as a milestone on Github, e.g.<br>
+
+> **Friends-L2-B1** "Retrieve the friends list of every user"<br>
+
+Where `L` identifies the layer and `B` identifies the branch in the tree.<br>
+This naming scheme helps us stay aware of where we are and how every feature builds up on each other to reach our goal.
 
 <br>
 
 ## 2) Sprint planning
 
-We look for overarching goals and select a portion of the issues to resolve in our next sprint.<br>
-Everyone in the team may then select a number of issues they'd like to work on. <br>
-It doesn't matter if there are one or five people working on the same issue. Just pick the ones that suit your interests and abilities.
+As described, each sprint covers the smallest issues of every layer in the feature tree.
 
-Our sprints aren't forced into a timeframe. Rather, we're done when we delivered an acceptable result.
+Everyone is free to choose what they'd like to work on. It doesn't matter if there are one or five people working on the same issue. Just pick the ones that suit your interests and abilities.
+
+We don't force sprints into a timeframe. Rather, we're done when we delivered an acceptable result.
 
 <br>
 
@@ -43,7 +61,7 @@ In our retrospective, we address how frictionless and rewarding the sprint has f
 
 ## 6) Repeat
 
-The next day, we start again from the start and continuously improve our experience with the project, so we'll be just as happy as the hundreds of users that we serve 😊
+Next, we repeat the process and continuously improve our workflow. Ideally, we'd have as much fun writing the software as our users have using it 😊
 
 <br>
 
@@ -51,4 +69,8 @@ The next day, we start again from the start and continuously improve our experie
 
 <br>
 
-### Next guide for beginners: [Our Git Conventions](/docs/Git-Conventions.md)
+Please keep in mind that we always plan these together [on our Discord](https://discord.gg/8MvTaUQM2E), so be sure to join us if you haven't already.
+
+<br>
+
+### Next guide for beginners: [Prerequisites](/docs/Prerequisites.md)
