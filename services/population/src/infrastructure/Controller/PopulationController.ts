@@ -20,4 +20,9 @@ export class PopulationController {
     validateObjectNotation(id, 'id')
     return this._queryBus.execute(new GetPopulation(id))
   }
+
+  @Get('/bestFights')
+  async getBestFights(): Promise<Population> {
+    return this._queryBus.execute(new GetPopulation('best'))
+  }
 }

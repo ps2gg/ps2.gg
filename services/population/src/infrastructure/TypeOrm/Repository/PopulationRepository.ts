@@ -22,4 +22,15 @@ export class PopulationRepository {
     logTransaction('save', { population }, { population: result })
     return result
   }
+
+  /**
+   * Best fights have no more than a 60/40 pop ratio and no less than 24 players
+   */
+  async findEven(): Promise<PopulationEntity | null> {
+    const population = await this._repository.findOne({
+      where: {},
+    })
+    logTransaction('findBest', {}, { population })
+    return population
+  }
 }
