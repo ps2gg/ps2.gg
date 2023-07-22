@@ -1,11 +1,12 @@
 import { Subscribable } from '@ps2gg/events/subscriptions'
 import { SubscribableEntity } from '@ps2gg/events/types'
 import { Population } from '@ps2gg/population/types'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, Index } from 'typeorm'
 import { PopulationPercentages } from '../Types/PopulationPercentages'
 
 @Entity()
 @Subscribable()
+@Index(['tr', 'nc', 'vs'])
 export class PopulationEntity extends SubscribableEntity implements Population {
   @Column('int', { nullable: false })
   readonly tr: number

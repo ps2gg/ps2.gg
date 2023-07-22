@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { validateObjectNotation } from '@ps2gg/common/util'
 import { Population } from '@ps2gg/population/types'
 import { SetPopulation } from '../../application/Command/SetPopulation'
+import { GetBestFights } from '../../application/Query/GetBestFights'
 import { GetPopulation } from '../../application/Query/GetPopulation'
 
 @Controller('/v1/population')
@@ -21,8 +22,8 @@ export class PopulationController {
     return this._queryBus.execute(new GetPopulation(id))
   }
 
-  @Get('/bestFights')
+  @Get('/best-fights')
   async getBestFights(): Promise<Population> {
-    return this._queryBus.execute(new GetPopulation('best'))
+    return this._queryBus.execute(new GetBestFights('best'))
   }
 }

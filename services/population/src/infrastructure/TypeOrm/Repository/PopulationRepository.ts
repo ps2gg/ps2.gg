@@ -26,11 +26,27 @@ export class PopulationRepository {
   /**
    * Best fights have no more than a 60/40 pop ratio and no less than 24 players
    */
-  async findEven(): Promise<PopulationEntity | null> {
-    const population = await this._repository.findOne({
-      where: {},
-    })
-    logTransaction('findBest', {}, { population })
-    return population
+  async findBest(): Promise<PopulationEntity[] | null> {
+    const allFactionFights = this._repository
+      .createQueryBuilder()
+      .select()
+      .where('vs >= 12')
+      .andWhere('nc >= 12')
+      .andWhere('tr >= 12')
+      .andWhere('ABS(1 - (vs / nc)) < 0.6')
+      .andWhere('ABS(1 - (vs / tr)) < 0.6')
+      .andWhere('ABS(1 - (nc / tr)) < 0.6')
+      .getMany()
+    const vsNcFights = this._findTwoFactionFight('vs', 'nc')
+    const vsTrFights = this._findTwoFactionFight('vs', 'tr')
+    const ncTrFights = this._findTwoFactionFight('nc', 'tr')
+    const fights = (await Promise.all([allFactionFights, vsNcFights, vsTrFights, ncTrFights])).flat()
+
+    logTransaction('findBest', { fights }, {})
+    return allFactionFights
+  }
+
+  _findTwoFactionFight(faction1: string, faction2: string): Promise<PopulationEntity[] | null> {
+    return this._repository.createQueryBuilder().select().where(`${faction1} >= 12`).andWhere(`${faction2} >= 12`).andWhere(`ABS(1 - (${faction1} / ${faction2})) < 0.6`).getMany()
   }
 }
