@@ -89,7 +89,7 @@ jobs:
               `
             });
 
-            await github.addAssignees({
+            await github.add_assignees({
               owner,
               repo,
               issue_number: pr.data.number,
