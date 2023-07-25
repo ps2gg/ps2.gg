@@ -3,5 +3,6 @@ import { Population } from '@ps2gg/population/types'
 
 export async function getBestFights(): Promise<Population[]> {
   const population = new PopulationClient()
-  return population.getBestFights()
+  const fights = await population.getBestFights()
+  return fights.slice(0, 8)
 }

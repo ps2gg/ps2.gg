@@ -23,7 +23,7 @@ export class PopulationController {
   }
 
   @Get('/best-fights')
-  async getBestFights(): Promise<Population> {
-    return this._queryBus.execute(new GetBestFights('best'))
+  async getBestFights(): Promise<Population[]> {
+    return this._queryBus.execute(new GetBestFights())
   }
 }

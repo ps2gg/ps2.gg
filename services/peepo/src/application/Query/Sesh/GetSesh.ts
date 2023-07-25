@@ -1,13 +1,14 @@
-import { Player } from '@ps2gg/players/types'
+import { User } from '@ps2gg/users/types'
 import { SeshEmbed } from '../../../domain/Embed/SeshEmbed'
-import { AltMatch } from '../Alts/GetAltIds'
+import { getAltWideFriends } from '../Alts/GetAltWideFriends'
 import { getFriendsWithParent } from '../Friends/GetFriendsWithParents'
 import { getOnlinePlayers } from '../Players/GetOnlinePlayers'
 import { getBestFights } from './GetBestFights'
 
-export async function getSesh(player: Player, friendIds: string[], altWideFriendIds: string[], alts: AltMatch[]): Promise<SeshEmbed> {
+export async function getSesh(user: User, name: string): Promise<SeshEmbed> {
+  const { player, friendIds, altWideFriendIds, alts } = await getAltWideFriends(user, name)
   const friends = await getOnlinePlayers(altWideFriendIds)
   const friendsWithParent = await getFriendsWithParent(friends, friendIds, alts)
-  console.log(await getBestFights())
-  return new SeshEmbed(player, friendsWithParent)
+  const fights = await getBestFights()
+  return new SeshEmbed(player, fights, friendsWithParent)
 }

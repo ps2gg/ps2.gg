@@ -1,9 +1,10 @@
-import { factions, servers } from '@ps2gg/common/constants'
-import { EmbedColors } from '@ps2gg/discord/constants'
+import { bases, factions, servers } from '@ps2gg/common/constants'
+import { padNumber } from '@ps2gg/common/util'
+import { EmbedColors, emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
-import { APIEmbed, APIEmbedField, APIEmbedFooter, APIEmbedImage } from 'discord.js'
-import { finished } from 'stream'
+import { Population } from '@ps2gg/population/types'
+import { APIEmbed, APIEmbedField } from 'discord.js'
 
 export class SeshEmbed implements APIEmbed {
   description: string
@@ -14,31 +15,58 @@ export class SeshEmbed implements APIEmbed {
     text: "Everyone's alts included",
   }
 
-  constructor(player: Player, friends: Player[]) {
-    this.description = this._getDescription(friends)
-    if (player && player.isOnline) this.color = EmbedColors.Success
+  constructor(player: Player, fights: Population[], friends: Player[]) {
+    this.description = this._getDescription(friends, fights)
+    if (fights.length || friends.length) this.color = EmbedColors.Success
   }
 
-  private _getDescription(friends: Player[]) {
+  private _getDescription(friends: Player[], fights: Population[]) {
     return `## The best place to be, at all times
-    Always see what's happening
-### Best Fights
-    Coming soon:tm:
-### Who's playing?
-    ${this._getFriends(friends)}`
+    Always see what's happening${this._getServers(fights, friends)}`
+  }
+
+  private _getServers(fights: Population[], friends: Player[]): string {
+    let string = ''
+
+    for (const serverId of Object.keys(servers)) {
+      if (serverId === '17') continue
+      if (serverId === '1') continue
+      const serverWideFriends = friends.filter((friend) => friend.serverId === serverId)
+      const serverWideFights = fights.filter((fight) => fight.id.split('.')[1] === serverId)
+
+      if (!serverWideFights.length) continue
+
+      string += `\n### ${servers[serverId]}\n`
+      string += this._getFights(serverWideFights)
+      string += this._getFriends(serverWideFriends)
+    }
+    return string
+  }
+
+  private _getFights(fights: Population[]) {
+    let string = ''
+
+    for (const fight of fights) {
+      const baseId = fight.id.split('.')[0]
+      const base = bases[baseId]
+      const population = fight.vs + fight.nc + fight.tr
+      const factionBalance = Math.abs(Math.abs(fight.nc - fight.vs) - fight.tr)
+      const factionBalancePercent = Math.round(100 - (factionBalance / population) * 100)
+      string += `${base} (${fight.vs}/${fight.nc}/${fight.tr})\n`
+    }
+    return code(string, 'less')
   }
 
   private _getFriends(friends: Player[]) {
-    if (!friends.length) return code('No frens online :(', 'css')
-    let string = ''
+    if (!friends.length) return ''
+    let string = '\n**Friends**'
 
-    friends.sort((a, b) => (a.serverId + a.factionId).localeCompare(b.serverId + b.factionId))
+    friends.sort((a, b) => a.factionId.localeCompare(b.factionId))
     for (const friend of friends) {
-      const server = servers[friend.serverId]
-      const faction = factions[friend.factionId]
+      const faction = factions[friend.factionId].toLowerCase()
       const name = friend.name.length > 40 ? friend.name.slice(0, 40 - 3) + '...' : friend.name
-      string += `${name} [${server} ${faction}]\n`
+      string += `\n${emojis[faction]} ${name}`
     }
-    return code(string, 'css')
+    return string
   }
 }
