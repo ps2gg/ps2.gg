@@ -20,14 +20,22 @@ export class BasePopulationTask {
         const base = basePopulations.find((p) => p.world_id === serverId && p.map_region_id === baseId)
 
         if (!base) continue
-        const population = base.faction_population_upper_bound
+        const maxPopulation = base.faction_population_upper_bound
+        const populationPercentages = base.faction_population_percentage
         const id = `${baseId}.${serverId}`
-        const tr = parseInt(population.TR) || 0
-        const nc = parseInt(population.NC) || 0
-        const vs = parseInt(population.VS) || 0
-        const populationSum = tr + nc + vs
+        const population = {
+          tr: parseInt(maxPopulation.TR) || 0,
+          nc: parseInt(maxPopulation.NC) || 0,
+          vs: parseInt(maxPopulation.VS) || 0,
+        }
+        const percentages = {
+          tr: parseInt(populationPercentages.TR) || 0,
+          nc: parseInt(populationPercentages.NC) || 0,
+          vs: parseInt(populationPercentages.VS) || 0,
+        }
+        const populationSum = population.tr + population.nc + population.vs
         const __resetSubscriptions = populationSum === 0
-        await this._commandBus.execute(new SetPopulation({ id, tr, nc, vs, __resetSubscriptions }))
+        await this._commandBus.execute(new SetPopulation({ id, __resetSubscriptions, ...population }, percentages))
       }
     }
   }

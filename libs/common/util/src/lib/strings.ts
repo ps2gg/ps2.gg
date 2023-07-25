@@ -4,6 +4,13 @@ export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+export function padNumber(num: number, size: number): string {
+  let s = num + ''
+
+  while (s.length < size) s = '0' + s
+  return s
+}
+
 export function getRegion(server: string): string | null {
   let region
 

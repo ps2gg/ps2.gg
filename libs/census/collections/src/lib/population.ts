@@ -7,7 +7,7 @@ const logger = getLogger()
 export async function getBasePopulation(): Promise<CensusBasePopulation[]> {
   logger.debug('fetch base population from Sanctuary Census')
   const census = new CensusQuery('https://census.lithafalcon.cc/s:ps2gg/get/ps2:v2/')
-  const mapState = await census.collection('map_state').limit(5000).show('world_id,map_region_id,faction_population_upper_bound').get()
+  const mapState = await census.collection('map_state').limit(5000).show('world_id,map_region_id,faction_population_upper_bound,faction_population_percentage').get()
   return mapState.map_state_list
 }
 
@@ -31,6 +31,11 @@ export type CensusBasePopulation = {
   world_id: string
   map_region_id: string
   faction_population_upper_bound: {
+    NC: string
+    TR: string
+    VS: string
+  }
+  faction_population_percentage: {
     NC: string
     TR: string
     VS: string

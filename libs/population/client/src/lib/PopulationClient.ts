@@ -21,4 +21,14 @@ export class PopulationClient extends SubscriptionClient {
       throw err
     }
   }
+
+  async getBestFights(): Promise<Population[]> {
+    try {
+      const req = await this.http.get<Population[]>(`${this._url}/best-fights`)
+      return req.data
+    } catch (err) {
+      this._logger.error(err)
+      throw err
+    }
+  }
 }

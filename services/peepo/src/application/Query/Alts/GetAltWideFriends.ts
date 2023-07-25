@@ -1,11 +1,10 @@
+import { Player } from '@ps2gg/players/types'
 import { User } from '@ps2gg/users/types'
-import { SeshEmbed } from '../../../domain/Embed/SeshEmbed'
-import { getAltIds } from '../Alts/GetAltIds'
 import { getFriends } from '../Friends/GetFriends'
 import { getPlayer } from '../Players/GetPlayer'
-import { getSesh } from './GetSesh'
+import { AltMatch, getAltIds } from './GetAltIds'
 
-export async function getAltWideSesh(user: User, name: string): Promise<SeshEmbed> {
+export async function getAltWideFriends(user: User, name: string): Promise<{ player: Player; friendIds: string[]; altWideFriendIds: string[]; alts: AltMatch[] }> {
   let characterIds = user.characterIds?.length ? user.characterIds : []
 
   const player = name ? await getPlayer(name) : null
@@ -20,5 +19,5 @@ export async function getAltWideSesh(user: User, name: string): Promise<SeshEmbe
   const friendsAltIds = friendsAlts.map((alt) => alt.characterId)
   const altWideFriendIds = [...friendIds, ...friendsAltIds]
   const alts = [...playersAlts, ...friendsAlts]
-  return getSesh(player, friendIds, altWideFriendIds, alts)
+  return { player, friendIds, altWideFriendIds, alts }
 }

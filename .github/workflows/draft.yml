@@ -73,7 +73,7 @@ jobs:
               sha: newCommit.data.sha,
             })
 
-            await github.pulls.create({
+            const pr = await github.pulls.create({
               owner,
               repo,
               title: `${type}${service ? `(${service})` : ''}: ${issue.title}`,
@@ -88,3 +88,10 @@ jobs:
               ${dod.map(d => `- [ ] ${d}`).join()}
               `
             });
+
+            await github.addAssignees({
+              owner,
+              repo,
+              issue_number: pr.data.number,
+              assignees: [issue.assignee.login]
+            })
