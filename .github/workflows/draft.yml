@@ -21,9 +21,9 @@ jobs:
             });
             const issue = req.data
             const labels = issue.labels;
-            const typeLabel = labels.find(label => label.name.startsWith('Type'));
+            const typeLabel = labels.find(label => label.name.startsWith('Type')) || { name: '' }
             const serviceLabel = labels.find(label => label.name.startsWith('Service'))
-            const service = serviceLabel ? serviceLabel.name.split(':')[1].trim().toLowerCase() : null;
+            const service = serviceLabel ? serviceLabel.name.split(':')[1].trim().toLowerCase() : null
             const dod = issue.body.split('### Definition of Done')[1].split('- ').slice(2)
             let type = 'patch';
 
