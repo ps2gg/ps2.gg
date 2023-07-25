@@ -3,9 +3,9 @@ import { readFileSync } from 'fs'
 import { DiscordListener } from './infrastructure/Discord/DiscordListener'
 import { PopulationEvent } from './infrastructure/EventStream/PopulationUpdate'
 import { AltCommand } from './infrastructure/SlashCommand/Alt'
+import { CompanionCommand } from './infrastructure/SlashCommand/Companion'
 import { FriendsCommand } from './infrastructure/SlashCommand/Friends'
 import { NotifyCommand } from './infrastructure/SlashCommand/Notify'
-import { SeshCommand } from './infrastructure/SlashCommand/Sesh'
 import { SetupCommand } from './infrastructure/SlashCommand/Setup'
 import { UnsubscribeCommand } from './infrastructure/SlashCommand/Unsubscribe'
 import { VerifyCommand } from './infrastructure/SlashCommand/Verify'
@@ -21,7 +21,7 @@ const discord = setupDiscordClient({
     new NotifyCommand(),
     new UnsubscribeCommand(),
     new SetupCommand(),
-    new SeshCommand(),
+    new CompanionCommand(),
     new FriendsCommand(),
     new VerifyCommand(),
     new WhoAmICommand(),
