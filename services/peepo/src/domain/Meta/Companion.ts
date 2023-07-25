@@ -1,8 +1,8 @@
 import { CommandConfig } from '@ps2gg/discord/command'
 
-export const Sesh: CommandConfig = {
-  name: 'sesh',
-  description: 'Let peepo help you find the best fights on all servers, right as you play',
+export const Companion: CommandConfig = {
+  name: 'companion',
+  description: 'Let peepo help you get the most out of the game',
   options: [
     {
       type: 'string',
@@ -13,6 +13,6 @@ export const Sesh: CommandConfig = {
   ],
 }
 
-export type SeshOptions = {
+export type CompanionOptions = {
   player: string
 }

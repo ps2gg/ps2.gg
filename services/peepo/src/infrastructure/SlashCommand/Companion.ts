@@ -4,14 +4,14 @@ import { defer, reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { validateVerification } from '../../application/Command/Users/ValidateVerification'
-import { getSesh } from '../../application/Query/Sesh/GetSesh'
+import { getSuggestions } from '../../application/Query/Companion/GetSuggestions'
 import { VerifyHintEmbed } from '../../domain/Embed/VerifyHintEmbed'
-import { Sesh, SeshOptions } from '../../domain/Meta/Sesh'
+import { Companion, CompanionOptions } from '../../domain/Meta/Companion'
 
-@Command(Sesh)
-export class SeshCommand {
-  @Main(Sesh)
-  async sesh(options: SeshOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
+@Command(Companion)
+export class CompanionCommand {
+  @Main(Companion)
+  async companion(options: CompanionOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
     return {
       interactionContext: [],
       content: 'This command is still in development, please check back later!',
@@ -23,15 +23,15 @@ export class SeshCommand {
     if (!name && !user.characterIds?.length) return { interactionContext: [], embeds: [new VerifyHintEmbed()], ephemeral: true }
     if (name) await validateVerification(name, user, interaction)
 
-    const sesh = await getSesh(user, name)
+    const suggestions = await getSuggestions(user, name)
     return {
       interactionContext: [],
-      embeds: [sesh],
+      embeds: [suggestions],
     }
     */
   }
 
-  @Autocomplete(Sesh, 'player')
+  @Autocomplete(Companion, 'player')
   async search(query: string): Promise<AutocompleteResponse[]> {
     return getPlayerAutocomplete(query)
   }

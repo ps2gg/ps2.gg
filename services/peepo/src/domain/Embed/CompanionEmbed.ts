@@ -1,12 +1,11 @@
 import { bases, factions, servers } from '@ps2gg/common/constants'
-import { padNumber } from '@ps2gg/common/util'
 import { EmbedColors, emojis } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { Population } from '@ps2gg/population/types'
 import { APIEmbed, APIEmbedField } from 'discord.js'
 
-export class SeshEmbed implements APIEmbed {
+export class CompanionEmbed implements APIEmbed {
   description: string
   fields: APIEmbedField[]
   color: EmbedColors
