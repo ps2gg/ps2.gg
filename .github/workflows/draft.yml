@@ -24,7 +24,7 @@ jobs:
             const typeLabel = labels.find(label => label.name.startsWith('Type')) || { name: '' }
             const serviceLabel = labels.find(label => label.name.startsWith('Service'))
             const service = serviceLabel ? serviceLabel.name.split(':')[1].trim().toLowerCase() : null
-            const dod = issue.body.split('### Definition of Done')[1].split('- ').slice(2)
+            const dod = issue.body.split('### Definition of Done')[1].split('- ').slice(3)
             let type = 'patch';
 
             if (typeLabel.name === 'Type: Bug') {
@@ -82,11 +82,17 @@ jobs:
             Resolves #${issueNumber}
 
             ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
-
+            - [ ] Acceptance tests are passed
+            - [ ] Every user/service-facing endpoint is covered in automated tests
+            - [ ] Every non-trivial function is unit tested
+            - [ ] If something takes more than a minute to test manually, it must be automated
+            - [ ] Every use case is logged
+            - [ ] Every user input is sanitized or validated
+            - [ ] Approval of the product owner and code owners
             ${dod.map(d => `- [ ] ${d}`).join()}`
             });
 
-            await github.add_assignees({
+            await github.issues.addAssignees({
               owner,
               repo,
               issue_number: pr.data.number,
