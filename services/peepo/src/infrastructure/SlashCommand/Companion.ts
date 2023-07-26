@@ -1,8 +1,9 @@
 import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
+import { validateCharacterName } from '@ps2gg/common/util'
 import { Command, Main, Autocomplete, AutocompleteResponse, linkedUser, CommandResponse, Component } from '@ps2gg/discord/command'
 import { reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
-import { CommandInteraction, InteractionResponse } from 'discord.js'
+import { CommandInteraction } from 'discord.js'
 import { getIntroduction } from '../../application/Aggregation/Companion/Introduction'
 import { getVerifyHint } from '../../application/Aggregation/Verification/VerifyHint'
 import { verifyPlayer } from '../../application/Command/Users/VerifyPlayer'
@@ -16,6 +17,7 @@ export class CompanionCommand {
   @Main(Companion)
   async companion(options: CompanionOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
     const { player: name } = options
+    validateCharacterName(name)
 
     await this.showIntroduction(interaction)
 
