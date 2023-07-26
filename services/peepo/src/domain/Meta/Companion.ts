@@ -2,7 +2,7 @@ import { CommandConfig } from '@ps2gg/discord/command'
 
 export const Companion: CommandConfig = {
   name: 'companion',
-  description: 'Let peepo help you get the most out of the game',
+  description: 'Get the most out of the game with suggestions from Peepo',
   options: [
     {
       type: 'string',

@@ -9,12 +9,12 @@ class VerificationCoordinator {
     setInterval(() => {
       const now = new Date()
       this._queue = this._queue.filter((item) => {
-        const isObsolete = now.getTime() - item.createdAt.getTime() > 1000 * 60 * 1 // TODO: reset to 5 minutes
+        const isObsolete = now.getTime() - item.createdAt.getTime() > 1000 * 60 * 5
 
         if (isObsolete) item.reject(false)
         return !isObsolete
       })
-    }, 1000 * 60 * 1)
+    }, 1000 * 60 * 5)
   }
 
   async awaitVerification(discordId: string, characterId: string): Promise<boolean> {

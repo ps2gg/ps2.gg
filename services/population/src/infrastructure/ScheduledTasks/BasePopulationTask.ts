@@ -24,14 +24,14 @@ export class BasePopulationTask {
         const populationPercentages = base.faction_population_percentage
         const id = `${baseId}.${serverId}`
         const population = {
-          tr: parseInt(maxPopulation.TR) || 0,
-          nc: parseInt(maxPopulation.NC) || 0,
-          vs: parseInt(maxPopulation.VS) || 0,
+          tr: parseFloat(maxPopulation.TR) || 0,
+          nc: parseFloat(maxPopulation.NC) || 0,
+          vs: parseFloat(maxPopulation.VS) || 0,
         }
         const percentages = {
-          tr: parseInt(populationPercentages.TR) || 0,
-          nc: parseInt(populationPercentages.NC) || 0,
-          vs: parseInt(populationPercentages.VS) || 0,
+          tr: parseFloat(populationPercentages.TR) || 0,
+          nc: parseFloat(populationPercentages.NC) || 0,
+          vs: parseFloat(populationPercentages.VS) || 0,
         }
         const populationSum = population.tr + population.nc + population.vs
         const __resetSubscriptions = populationSum === 0

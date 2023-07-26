@@ -62,7 +62,7 @@ function getMaxPrecisePopulationByPercentage(population: number, targetPercentag
     for (let i = population; i >= getLowerBound(population); i--) {
       const percentage = Math.round((i / j) * 100)
 
-      if (percentage === targetPercentage) return i
+      if (percentage === Math.round(targetPercentage)) return i
     }
   }
   return population // Bandaid while percentages aren't reliable for every fight

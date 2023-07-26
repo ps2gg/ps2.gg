@@ -1,6 +1,6 @@
 import { EmbedColors } from '@ps2gg/discord/constants'
 import { APIEmbed } from 'discord.js'
-import { PopulationEntity } from '../Entity/PopulationEntity'
+import { PopulationEntity } from '../../Entity/PopulationEntity'
 
 export class UnsubscribeEmbed implements APIEmbed {
   title = 'Unsubscribed!'

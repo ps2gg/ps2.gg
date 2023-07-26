@@ -5,7 +5,7 @@ import { DiscordCommand } from '@ps2gg/discord/types'
 import { ButtonInteraction } from 'discord.js'
 import { verifyCharacter } from '../../application/Command/Players/VerifyCharacter'
 import { getSelectedCharacter } from '../../application/Query/Players/GetSelectedCharacter'
-import { VerifyReady } from '../../domain/Component/VerifyReady'
+import { VerifyReady } from '../../domain/Component/Verification/VerifyReady'
 import { verificationCoordinator } from '../../domain/Coordinator/VerificationCoordinator'
 import { Verify, VerifyOptions } from '../../domain/Meta/Verify'
 

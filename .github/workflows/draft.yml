@@ -37,8 +37,6 @@ jobs:
 
             const branchName = `${type}${service ? `/${service}` : ''}/${issueNumber}`
 
-            console.log(branchName)
-
             const baseBranchRef = await github.git.getRef({
               owner,
               repo,

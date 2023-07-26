@@ -3,7 +3,7 @@ import { EmbedColors } from '@ps2gg/discord/constants'
 import { code } from '@ps2gg/discord/util'
 import { DynamicSubscription } from '@ps2gg/events/types'
 import { APIEmbed } from 'discord.js'
-import { PopulationEntity } from '../Entity/PopulationEntity'
+import { PopulationEntity } from '../../Entity/PopulationEntity'
 
 export class NotifyEmbed implements APIEmbed {
   description = '## Good fights coming your way!\nLet your next session start off right\n'
