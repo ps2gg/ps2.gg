@@ -79,12 +79,11 @@ jobs:
               base: 'master',
               draft: true,
               body: `### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses -->
-              Resolves #${issueNumber}
+            Resolves #${issueNumber}
 
-              ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
+            ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
 
-              ${dod.map(d => `- [ ] ${d}`).join()}
-              `
+            ${dod.map(d => `- [ ] ${d}`).join()}`
             });
 
             await github.add_assignees({
