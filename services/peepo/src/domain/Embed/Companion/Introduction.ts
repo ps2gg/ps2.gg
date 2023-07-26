@@ -1,4 +1,4 @@
-import { APIEmbed, APIEmbedThumbnail } from 'discord.js'
+import { APIEmbed } from 'discord.js'
 
 export class CompanionIntroductionEmbed implements APIEmbed {
   description = `## The best place to be, at all times

@@ -1,6 +1,6 @@
 import { getComponents } from '@ps2gg/discord/command'
 import { InteractionReplyOptions } from 'discord.js'
-import { IntroductionServerSelect } from 'services/peepo/src/domain/Component/Companion/IntroductionServerSelect'
+import { IntroductionServerSelect } from '../../../domain/Component/Companion/IntroductionServerSelect'
 import { CompanionIntroductionEmbed } from '../../../domain/Embed/Companion/Introduction'
 
 export function getIntroduction(interactionId: string): InteractionReplyOptions {
