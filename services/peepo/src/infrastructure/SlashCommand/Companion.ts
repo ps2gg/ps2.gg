@@ -17,7 +17,8 @@ export class CompanionCommand {
   @Main(Companion)
   async companion(options: CompanionOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
     const { player: name } = options
-    validateCharacterName(name)
+
+    if (name) validateCharacterName(name)
 
     await this.showIntroduction(interaction)
 
