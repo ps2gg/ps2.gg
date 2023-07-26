@@ -37,8 +37,6 @@ jobs:
 
             const branchName = `${type}${service ? `/${service}` : ''}/${issueNumber}`
 
-            console.log(branchName)
-
             const baseBranchRef = await github.git.getRef({
               owner,
               repo,
@@ -81,18 +79,17 @@ jobs:
               base: 'master',
               draft: true,
               body: `### Related Issues <!-- Use "Resolves #number" to close the issues that this PR addresses -->
-              Resolves #${issueNumber}
+            Resolves #${issueNumber}
 
-              ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
-              - [ ] Acceptance tests are passed
-              - [ ] Every user/service-facing endpoint is covered in automated tests
-              - [ ] Every non-trivial function is unit tested
-              - [ ] If something takes more than a minute to test manually, it must be automated
-              - [ ] Every use case is logged
-              - [ ] Every user input is sanitized or validated
-              - [ ] Approval of the product owner and code owners
-              ${dod.map(d => `- [ ] ${d}`).join()}
-              `
+            ### Definition of Done <!-- Please add all DoDs and mark them as completed -->
+            - [ ] Acceptance tests are passed
+            - [ ] Every user/service-facing endpoint is covered in automated tests
+            - [ ] Every non-trivial function is unit tested
+            - [ ] If something takes more than a minute to test manually, it must be automated
+            - [ ] Every use case is logged
+            - [ ] Every user input is sanitized or validated
+            - [ ] Approval of the product owner and code owners
+            ${dod.map(d => `- [ ] ${d}`).join()}`
             });
 
             await github.issues.addAssignees({

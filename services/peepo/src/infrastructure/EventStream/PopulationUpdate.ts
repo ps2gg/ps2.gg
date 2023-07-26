@@ -6,7 +6,7 @@ import { User } from '@ps2gg/users/types'
 import { ButtonInteraction } from 'discord.js'
 import { removePopulationSubscription } from '../../application/Command/Population/RemovePopulationSubscription'
 import { getPopulationNotification } from '../../application/Query/Population/GetPopulationNotification'
-import { Unsubscribe } from '../../domain/Component/Unsubscribe'
+import { Unsubscribe } from '../../domain/Component/Notification/Unsubscribe'
 
 @Event('DomainEvent.Population.Update', 'population')
 export class PopulationEvent {

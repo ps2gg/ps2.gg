@@ -1,5 +1,5 @@
 import { Player } from '@ps2gg/players/types'
-import { VerifyPlayerEmbed } from '../../../domain/Embed/VerifyPlayerEmbed'
+import { VerifyPlayerEmbed } from '../../../domain/Embed/Verification/VerifyPlayerEmbed'
 import { getPlayer } from './GetPlayer'
 
 export async function getSelectedCharacter(name: string, player?: Player): Promise<{ embed: VerifyPlayerEmbed; id: string }> {

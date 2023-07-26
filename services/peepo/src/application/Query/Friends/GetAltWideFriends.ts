@@ -1,5 +1,5 @@
 import { User } from '@ps2gg/users/types'
-import { FriendsEmbed } from '../../../domain/Embed/FriendsEmbed'
+import { FriendsEmbed } from '../../../domain/Embed/Friends/FriendsEmbed'
 import { getAltIds } from '../Alts/GetAltIds'
 import { getOnlinePlayers } from '../Players/GetOnlinePlayers'
 import { getPlayer } from '../Players/GetPlayer'

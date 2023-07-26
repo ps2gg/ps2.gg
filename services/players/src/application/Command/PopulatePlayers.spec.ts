@@ -43,7 +43,6 @@ describe('PopulatePlayersHandler', () => {
     const populatePlayerSpy = jest.spyOn(commandBus, 'execute').mockResolvedValue(null)
 
     await handler.execute(new PopulatePlayers(ids))
-    console.log('e')
     expect(getPlayersSpy).toHaveBeenCalledWith(new GetPlayers(ids))
     expect(populatePlayerSpy).toHaveBeenCalledTimes(1)
     expect(populatePlayerSpy).toHaveBeenCalledWith(new PopulatePlayer('3'))

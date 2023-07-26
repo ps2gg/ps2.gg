@@ -3,12 +3,12 @@ import { reply } from '@ps2gg/discord/util'
 import { Player } from '@ps2gg/players/types'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
-import { VerifyReady } from '../../../domain/Component/VerifyReady'
+import { VerifyReady } from '../../../domain/Component/Verification/VerifyReady'
 import { verificationCoordinator } from '../../../domain/Coordinator/VerificationCoordinator'
 import { getPlayer } from '../../Query/Players/GetPlayer'
 import { getSelectedCharacter } from '../../Query/Players/GetSelectedCharacter'
 
-export async function validateVerification(name: string, user: User, interaction: CommandInteraction): Promise<void> {
+export async function verifyPlayer(name: string, user: User, interaction: CommandInteraction): Promise<void> {
   const player = await getPlayer(name)
   const isVerified = user.characterIds.includes(player.id)
 
@@ -24,7 +24,6 @@ async function verify(player: Player, user: User, interaction: CommandInteractio
     ephemeral: true,
     components,
   }
-
   reply(interaction, payload)
 
   const success = await verificationCoordinator.awaitVerification(user.discordId, id)

@@ -9,9 +9,9 @@ import { removePopulationSubscription } from '../../application/Command/Populati
 import { getEventSuggestions } from '../../application/Query/Population/GetEventSuggestions'
 import { getPopulationSubscriptionIds } from '../../application/Query/Population/GetPopulationSubscriptionIds'
 import { getSubscription } from '../../application/Query/Population/GetSubscription'
-import { NotifyConfigurePopulation } from '../../domain/Component/NotifyConfigurePopulation'
-import { NotifyConfigureSendAfter, NotifyConfigureSendBefore } from '../../domain/Component/NotifyConfigureTime'
-import { Unsubscribe } from '../../domain/Component/Unsubscribe'
+import { NotifyConfigurePopulation } from '../../domain/Component/Notification/NotifyConfigurePopulation'
+import { NotifyConfigureSendAfter, NotifyConfigureSendBefore } from '../../domain/Component/Notification/NotifyConfigureTime'
+import { Unsubscribe } from '../../domain/Component/Notification/Unsubscribe'
 import { NotifyOptions, Notify } from '../../domain/Meta/Notify'
 
 @Command(Notify)
