@@ -2,7 +2,8 @@ import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { Autocomplete, AutocompleteResponse, Command, CommandResponse, Main, linkedUser } from '@ps2gg/discord/command'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
-import { verifyPlayer } from '../../application/Command/Users/VerifyPlayer'
+import { showVerification } from '../../application/Command/Verification/ShowVerification'
+import { showVerificationHint } from '../../application/Command/Verification/ShowVerificationHint'
 import { getAltWideFriends } from '../../application/Query/Friends/GetAltWideFriends'
 import { VerifyHintEmbed } from '../../domain/Embed/Verification/VerifyHintEmbed'
 import { Friends, FriendsOptions } from '../../domain/Meta/Friends'
@@ -13,8 +14,8 @@ export class FriendsCommand {
   async friends(options: FriendsOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
     const { player } = options
 
-    if (!player && !user.characterIds?.length) return { interactionContext: [], embeds: [new VerifyHintEmbed()], ephemeral: true }
-    if (player) await verifyPlayer(player, user, interaction)
+    if (!player && !user.characterIds?.length) await showVerificationHint(interaction, user.discordId)
+    if (player) await showVerification(player, user, interaction)
 
     const friendsAllAlts = await getAltWideFriends(user, player)
     return {

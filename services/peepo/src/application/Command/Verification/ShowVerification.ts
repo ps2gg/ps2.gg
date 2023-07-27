@@ -8,7 +8,7 @@ import { verificationCoordinator } from '../../../domain/Coordinator/Verificatio
 import { getPlayer } from '../../Query/Players/GetPlayer'
 import { getSelectedCharacter } from '../../Query/Players/GetSelectedCharacter'
 
-export async function verifyPlayer(name: string, user: User, interaction: CommandInteraction): Promise<void> {
+export async function showVerification(name: string, user: User, interaction: CommandInteraction): Promise<void> {
   const player = await getPlayer(name)
   const isVerified = user.characterIds.includes(player.id)
 

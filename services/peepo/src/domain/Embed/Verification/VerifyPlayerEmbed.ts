@@ -3,8 +3,17 @@ import { APIEmbed } from 'discord.js'
 
 export class VerifyPlayerEmbed implements APIEmbed {
   description: string
+  thumbnail = {
+    url: 'https://i.imgur.com/ua8y2eo.png',
+  }
 
   constructor(player: Player) {
-    this.description = '### Just one more step\n' + `Press "Verify" below and log in as **${player.name}**, so we know it's you.`
+    this.description =
+      '## Please verify your character\n' +
+      `To make sure it's really you, please
+- **1)** Start the game
+- **2)** Press **"Verify"** below
+- **3)** Log in as **${player.name}**
+`
   }
 }

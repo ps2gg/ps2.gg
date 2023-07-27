@@ -46,7 +46,7 @@ export class PlayerController extends WsController {
 
   private async _resetOnlineState(serverId?: string): Promise<void> {
     try {
-      this._logger.info({ serverId }, 'reset online state')
+      this._logger.info({ serverId }, 'reset player online state')
       await this._players.resetOnlineState(serverId)
     } catch (error) {
       // The player service may not be available yet, so we retry until it is
