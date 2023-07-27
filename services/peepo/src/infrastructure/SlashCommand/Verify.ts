@@ -37,6 +37,7 @@ export class VerifyCommand extends DiscordCommand {
     try {
       const embed = await verifyCharacter(id, name, discordId)
       verificationCoordinator.completeVerification(discordId, id)
+      verificationCoordinator.completeVerification(discordId, 'unknown') // When triggered via hint
       return { embeds: [embed] }
     } catch (error) {
       if (error?.response?.status === 408) {

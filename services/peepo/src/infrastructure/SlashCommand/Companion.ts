@@ -5,8 +5,8 @@ import { reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { getIntroduction } from '../../application/Aggregation/Companion/Introduction'
-import { getVerifyHint } from '../../application/Aggregation/Verification/VerifyHint'
-import { verifyPlayer } from '../../application/Command/Users/VerifyPlayer'
+import { showVerification } from '../../application/Command/Verification/ShowVerification'
+import { showVerificationHint } from '../../application/Command/Verification/ShowVerificationHint'
 import { getSuggestions } from '../../application/Query/Companion/GetSuggestions'
 import { IntroductionServerSelect } from '../../domain/Component/Companion/IntroductionServerSelect'
 import { messageCoordinator } from '../../domain/Coordinator/MessageCoordinator'
@@ -22,8 +22,8 @@ export class CompanionCommand {
 
     await this.showIntroduction(interaction)
 
-    if (!name && !user.characterIds?.length) return getVerifyHint()
-    if (name) await verifyPlayer(name, user, interaction)
+    if (!name && !user.characterIds?.length) await showVerificationHint(interaction, user.discordId)
+    if (name) await showVerification(name, user, interaction)
 
     return this.showSuggestions(user, name)
   }
