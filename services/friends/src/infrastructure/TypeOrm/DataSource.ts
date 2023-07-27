@@ -8,7 +8,7 @@ import { readFileSync } from 'fs'
 export const options: PostgresConnectionOptions = {
   type: 'postgres',
   url: isProd('friends') ? getProdPostgresDSN('friends', readFileSync) : (process.env['POSTGRES_DSN'] as string),
-  entities: [`${__dirname}/../../domain/Entity/*.{ts,js}`],
+  entities: [`${__dirname}/../../domain/Entity/!(*.test.ts)!(*.spec.ts)`],
   entityPrefix: '',
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),
