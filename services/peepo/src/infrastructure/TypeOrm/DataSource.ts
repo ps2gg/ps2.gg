@@ -9,7 +9,7 @@ import { readFileSync } from 'fs'
 export const options: PostgresConnectionOptions = {
   type: 'postgres',
   url: isProd('peepo') ? getProdPostgresDSN('peepo', readFileSync) : (process.env['POSTGRES_DSN'] as string),
-  entities: [`${__dirname}/../../domain/Entity/*.{ts,js}`, SubscriptionEntity],
+  entities: [`${__dirname}/../../domain/Entity/!(*.test.ts)!(*.spec.ts)`, SubscriptionEntity],
   entityPrefix: '',
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),
