@@ -9,7 +9,7 @@ import { getPlayer } from '../../Query/Players/GetPlayer'
 import { getSelectedCharacter } from '../../Query/Players/GetSelectedCharacter'
 
 export async function showVerification(name: string, user: User, interaction: CommandInteraction): Promise<void> {
-  const player = await getPlayer(name)
+  const player = await getPlayer(name, true)
   const isVerified = user.characterIds.includes(player.id)
 
   if (!isVerified) return verify(player, user, interaction)
