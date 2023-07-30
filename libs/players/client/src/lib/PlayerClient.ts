@@ -22,9 +22,9 @@ export class PlayerClient extends SubscriptionClient {
     }
   }
 
-  async findOneByName(name: string): Promise<Player> {
+  async findOneByName(name: string, refresh?: boolean): Promise<Player> {
     try {
-      const params = { name }
+      const params = { name, refresh }
       const req = await this.http.get(this._url, { params })
       return req.data
     } catch (error) {
