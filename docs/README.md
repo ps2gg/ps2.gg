@@ -6,7 +6,6 @@ The guides in this folder contain everything you need to successfully ship featu
 
 ## New here? This is where you get started
 
-- [Our Workflow](./Workflow.md)p
 - [Prerequisites](./Prerequisites.md)
 - [First Time Setup](./First-Time-Setup.md)
 - [Git Conventions](./Git-Conventions.md)
