@@ -3,7 +3,7 @@ import { APIEmbed } from 'discord.js'
 export class VerifyHintEmbed implements APIEmbed {
   description: string
   thumbnail = {
-    url: 'https://i.imgur.com/ua8y2eo.png',
+    url: 'https://i.imgur.com/sAcwume.png',
   }
 
   constructor() {

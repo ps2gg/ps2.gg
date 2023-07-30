@@ -10,14 +10,14 @@ export class LoginPreviewEmbed implements APIEmbed {
 
   constructor(characters: Player[]) {
     this.description = `## Waiting for your login...
-    Here are the characters peepo knows you as
+    Please start playing on one of your linked characters, so peepo can find the right fights for you.
   
     ${characters.map((c) => `${emojis[factions[c.factionId].toLowerCase()]} **${c.name}**`).join('\n')}
     \u200b
     `
 
     this.footer = {
-      text: 'If a character is missing, please add them via /verify',
+      text: 'If a character is missing, you can add them via /verify',
     }
   }
 }
