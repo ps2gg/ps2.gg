@@ -12,14 +12,14 @@ export class PlayerController {
   constructor(private readonly _queryBus: QueryBus, private readonly _commandBus: CommandBus) {}
 
   @Get('/')
-  async get(@Query('id') id?: string, @Query('name') name?: string): Promise<Player> {
+  async get(@Query('id') id?: string, @Query('name') name?: string, @Query('refresh') refresh?: boolean): Promise<Player> {
     if (id) {
       validateCharacterId(id)
       return this._queryBus.execute(new GetPlayer(id))
     }
     if (name) {
       validateCharacterName(name)
-      return this._queryBus.execute(new GetPlayerByName(name))
+      return this._queryBus.execute(new GetPlayerByName(name, refresh))
     }
     throw new NoParameterException()
   }

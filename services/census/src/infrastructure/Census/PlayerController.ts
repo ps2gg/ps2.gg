@@ -27,6 +27,7 @@ export class PlayerController extends WsController {
   }
 
   override async onLogin(character_id: string): Promise<void> {
+    if (character_id !== '5429423912977254945') return
     this._logger.info({ character_id, isOnline: true }, 'populate player')
     try {
       await this._players.populateOne(character_id, true)
@@ -36,6 +37,7 @@ export class PlayerController extends WsController {
   }
 
   override async onLogout(character_id: string, timestamp: Date): Promise<void> {
+    if (character_id !== '5429423912977254945') return
     this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
     try {
       await this._players.populateOne(character_id, false, timestamp)
