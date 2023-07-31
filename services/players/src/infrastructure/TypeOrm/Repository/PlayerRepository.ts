@@ -61,7 +61,7 @@ export class PlayerRepository {
 
   async resetInactive(): Promise<any> {
     const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000)
-    const result = this._repository.update({ lastActivity: LessThan(tenMinutesAgo), isOnline: true }, { isOnline: false })
+    const result = await this._repository.update({ lastActivity: LessThan(tenMinutesAgo), isOnline: true }, { isOnline: false })
     logTransaction('resetInactive', { tenMinutesAgo }, { result })
   }
 
