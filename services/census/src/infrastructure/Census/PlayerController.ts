@@ -8,9 +8,10 @@ import { PlayerClient } from '@ps2gg/players/client'
 export class PlayerController extends WsController {
   private _players = new PlayerClient()
   private _logger = getLogger()
+  private _lastActivityCharacterId: string
 
   constructor(ws: CensusWs) {
-    super(ws, ['Heartbeat', 'PlayerLogin', 'PlayerLogout'])
+    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
 
     // We can't ensure 100% uptime, so we reset the online state
     // on every connect, assuming missed events.
@@ -26,32 +27,51 @@ export class PlayerController extends WsController {
     }
   }
 
-  override async onLogin(character_id: string): Promise<void> {
-    if (character_id !== '5429423912977254945') return
+  override async onLogin(character_id: string, timestamp: Date): Promise<void> {
+    this._logger.info({ character_id, isOnline: true }, 'populate player')
+    await this._populatePlayer(character_id, true, timestamp)
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  override async onLogout(character_id: string, timestamp: Date): Promise<void> {
+    this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
+    await this._populatePlayer(character_id, false, timestamp)
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  override async onItemAdded(character_id: string, item_id: string, timestamp: Date): Promise<void> {
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  private async _populatePlayer(character_id: string, isOnline: boolean, timestamp?: Date): Promise<void> {
     this._logger.info({ character_id, isOnline: true }, 'populate player')
     try {
-      await this._players.populateOne(character_id, true)
+      await this._players.populateOne(character_id, isOnline, timestamp)
     } catch (error) {
       // TODO: consider retry mechanism
     }
   }
 
-  override async onLogout(character_id: string, timestamp: Date): Promise<void> {
-    if (character_id !== '5429423912977254945') return
-    this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
+  private async _setLastActivity(character_id: string, timestamp: Date): Promise<void> {
+    if (this._lastActivityCharacterId === character_id) return // Some character events may be called en masse
+    this._logger.info({ character_id, timestamp }, 'set last player activity')
     try {
-      await this._players.populateOne(character_id, false, timestamp)
-    } catch (error) {
-      // TODO: consider retry mechanism
+      await this._players.setLastActivity(character_id, timestamp)
+    } catch (err) {
+      // The player service may not be available yet, so we retry until it is
+      this._logger.warn({ character_id, timestamp, err }, "couldn't set player activity")
+      await sleep(1000)
+      return this._setLastActivity(character_id, timestamp)
     }
   }
 
   private async _resetOnlineState(serverId?: string): Promise<void> {
     try {
-      this._logger.info({ serverId }, 'reset player online state')
+      this._logger.info({ serverId }, 'reset player online states')
       await this._players.resetOnlineState(serverId)
-    } catch (error) {
+    } catch (err) {
       // The player service may not be available yet, so we retry until it is
+      this._logger.warn({ serverId, err }, "couldn't reset player online states")
       await sleep(1000)
       return this._resetOnlineState(serverId)
     }

@@ -85,4 +85,14 @@ export class PlayerClient extends SubscriptionClient {
       throw error
     }
   }
+
+  async setLastActivity(id: string, lastActivity: Date): Promise<void> {
+    try {
+      const data = { id, lastActivity }
+      await this.http.post(`${this._url}/last-activity`, data)
+    } catch (error) {
+      this._logger.error(error)
+      throw error
+    }
+  }
 }

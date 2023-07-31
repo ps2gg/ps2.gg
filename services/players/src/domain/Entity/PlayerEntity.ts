@@ -6,6 +6,7 @@ import { Column, Entity, Index, PrimaryColumn } from 'typeorm'
 @Entity()
 @Subscribable()
 @Index(['isOnline', 'serverId'])
+@Index(['lastActivity', 'isOnline'])
 export class PlayerEntity extends SubscribableEntity implements Player {
   @PrimaryColumn('text')
   readonly id: string
@@ -29,11 +30,14 @@ export class PlayerEntity extends SubscribableEntity implements Player {
   @Column('timestamp', { nullable: true })
   readonly lastLogout: Date
 
+  @Column('timestamp', { nullable: true })
+  readonly lastActivity: Date
+
   constructor(player: Player) {
     super()
     if (!player) return
 
-    const { id, name, factionId, serverId, outfitTag, isOnline, lastLogout } = player
+    const { id, name, factionId, serverId, outfitTag, isOnline, lastLogout, lastActivity } = player
     this.id = `Player.${id}`
     this.id = id
     this.name = name
@@ -42,5 +46,6 @@ export class PlayerEntity extends SubscribableEntity implements Player {
     this.outfitTag = outfitTag
     this.isOnline = isOnline
     this.lastLogout = lastLogout
+    this.lastActivity = lastActivity || new Date()
   }
 }

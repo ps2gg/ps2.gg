@@ -20,7 +20,7 @@ export class WsController {
    * These functions are to be overridden by child classes.
    */
   onHeartbeat(heartbeat: Heartbeat): void {}
-  onItemAdded(character_id: string, item_id: string, context: string): void {}
+  onItemAdded(character_id: string, item_id: string, timestamp: Date, context: string): void {}
   onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
   onVehicleDestroy(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout, loadout: string, vehicle: string): void {}
   onGainExperience(experience_id: string, timestamp: Date, character_id: string, other_id: string): void {}
@@ -53,8 +53,8 @@ export class WsController {
 
     if (payload.event_name === 'ItemAdded') {
       const { character_id, context, item_id } = payload
-
-      this.onItemAdded(character_id, item_id, context)
+      const timestamp = new Date(parseInt(payload.timestamp) * 1000)
+      this.onItemAdded(character_id, item_id, timestamp, context)
     }
   }
 

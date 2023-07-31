@@ -8,6 +8,7 @@ import { readFileSync } from 'fs'
 import { ApplicationModule } from '../application/ApplicationModule'
 import { environment } from '../environment'
 import { HttpControllerModule } from './Controller/HttpControllerModule'
+import { ScheduledTasksModule } from './ScheduledTasks/ScheduledTasksModule'
 import { TypeOrmModule } from './TypeOrm/TypeOrmModule'
 
 @Global()
@@ -21,11 +22,8 @@ import { TypeOrmModule } from './TypeOrm/TypeOrmModule'
     DomainEventsModule.forRoot({
       eventStreamDsn: isProd('players') ? `amqp://rabbitmq:${readFileSync('/run/secrets/rabbitmq-pass', 'utf-8')}@rabbitmq:5672` : environment.eventStreamDsn,
     }),
-
-    // infra
     TypeOrmModule,
-
-    // application
+    ScheduledTasksModule,
     ApplicationModule,
   ],
 })

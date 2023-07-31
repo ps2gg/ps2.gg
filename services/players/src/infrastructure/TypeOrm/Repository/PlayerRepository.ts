@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { logTransaction } from '@ps2gg/common/logging'
 import { Player } from '@ps2gg/players/types'
-import { ILike, In, Repository } from 'typeorm'
+import { ILike, In, LessThan, Repository } from 'typeorm'
 import { PlayerEntity } from '../../../domain/Entity/PlayerEntity'
 
 @Injectable()
@@ -14,6 +14,14 @@ export class PlayerRepository {
       where: { id },
     })
     logTransaction('findOne', { id }, { player })
+    return player
+  }
+
+  async findOneByName(name: string): Promise<PlayerEntity | null> {
+    const player = await this._repository.findOne({
+      where: { name: ILike(name) },
+    })
+    logTransaction('findOneByName', { name }, { player })
     return player
   }
 
@@ -45,12 +53,16 @@ export class PlayerRepository {
     return result
   }
 
-  async findOneByName(name: string): Promise<PlayerEntity | null> {
-    const player = await this._repository.findOne({
-      where: { name: ILike(name) },
-    })
-    logTransaction('findOneByName', { name }, { player })
-    return player
+  async updateLastActivity(id: string, lastActivity: Date): Promise<any> {
+    const result = await this._repository.update(id, { id, lastActivity, isOnline: true })
+    logTransaction('updateLastActivity', { id, lastActivity }, { result })
+    return result
+  }
+
+  async resetInactive(): Promise<any> {
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000)
+    const result = await this._repository.update({ lastActivity: LessThan(tenMinutesAgo), isOnline: true }, { isOnline: false })
+    logTransaction('resetInactive', { tenMinutesAgo }, { result })
   }
 
   async resetOnlineState(serverId?: string): Promise<any> {
