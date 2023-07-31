@@ -59,6 +59,7 @@ export class PlayerController extends WsController {
       await this._players.setLastActivity(character_id, timestamp)
     } catch (err) {
       // The player service may not be available yet, so we retry until it is
+      this._logger.warn({ character_id, timestamp, err }, "couldn't set player activity")
       await sleep(1000)
       return this._setLastActivity(character_id, timestamp)
     }
@@ -66,10 +67,11 @@ export class PlayerController extends WsController {
 
   private async _resetOnlineState(serverId?: string): Promise<void> {
     try {
-      this._logger.info({ serverId }, 'reset player online state')
+      this._logger.info({ serverId }, 'reset player online states')
       await this._players.resetOnlineState(serverId)
-    } catch (error) {
+    } catch (err) {
       // The player service may not be available yet, so we retry until it is
+      this._logger.warn({ serverId, err }, "couldn't reset player online states")
       await sleep(1000)
       return this._resetOnlineState(serverId)
     }
