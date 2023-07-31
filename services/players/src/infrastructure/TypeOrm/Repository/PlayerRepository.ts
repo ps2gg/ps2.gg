@@ -54,7 +54,7 @@ export class PlayerRepository {
   }
 
   async updateLastActivity(id: string, lastActivity: Date): Promise<any> {
-    const result = await this._repository.update(id, { id, lastActivity })
+    const result = await this._repository.update(id, { id, lastActivity, isOnline: true })
     logTransaction('updateLastActivity', { id, lastActivity }, { result })
     return result
   }
