@@ -8,6 +8,7 @@ import { PlayerClient } from '@ps2gg/players/client'
 export class PlayerController extends WsController {
   private _players = new PlayerClient()
   private _logger = getLogger()
+  private _lastActivityCharacterId: string
 
   constructor(ws: CensusWs) {
     super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
@@ -52,6 +53,7 @@ export class PlayerController extends WsController {
   }
 
   private async _setLastActivity(character_id: string, timestamp: Date): Promise<void> {
+    if (this._lastActivityCharacterId === character_id) return // Some character events may be called en masse
     this._logger.info({ character_id, timestamp }, 'set last player activity')
     await this._players.setLastActivity(character_id, timestamp)
   }
