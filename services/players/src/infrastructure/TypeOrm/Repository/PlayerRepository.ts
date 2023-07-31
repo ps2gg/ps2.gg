@@ -60,9 +60,9 @@ export class PlayerRepository {
   }
 
   async resetInactive(): Promise<any> {
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000)
-    const result = await this._repository.update({ lastActivity: LessThan(tenMinutesAgo), isOnline: true }, { isOnline: false })
-    logTransaction('resetInactive', { tenMinutesAgo }, { result })
+    const inactive = new Date(Date.now() - 3 * 60 * 1000)
+    const result = await this._repository.update({ lastActivity: LessThan(inactive), isOnline: true }, { isOnline: false })
+    logTransaction('resetInactive', { inactive }, { result })
   }
 
   async resetOnlineState(serverId?: string): Promise<any> {
