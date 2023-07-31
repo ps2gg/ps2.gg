@@ -6,4 +6,5 @@ export interface Player {
   outfitTag: string
   isOnline?: boolean
   lastLogout?: Date
+  lastActivity?: Date
 }

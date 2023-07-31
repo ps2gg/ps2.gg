@@ -45,6 +45,12 @@ export class PlayerRepository {
     return result
   }
 
+  async updateLastActivity(id: string, lastActivity: Date): Promise<any> {
+    const result = await this._repository.update(id, { id, lastActivity })
+    logTransaction('updateLastActivity', { id, lastActivity }, { result })
+    return result
+  }
+
   async findOneByName(name: string): Promise<PlayerEntity | null> {
     const player = await this._repository.findOne({
       where: { name: ILike(name) },

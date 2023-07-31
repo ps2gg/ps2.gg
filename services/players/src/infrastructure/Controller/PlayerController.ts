@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { validateCharacterId, validateCharacterName } from '@ps2gg/common/util'
 import { Player } from '@ps2gg/players/types'
 import { PopulatePlayer } from '../../application/Command/PopulatePlayer'
+import { SetLastActivity } from '../../application/Command/SetLastActivity'
 import { GetPlayer } from '../../application/Query/GetPlayer'
 import { GetPlayerByName } from '../../application/Query/GetPlayerByName'
 import { NoParameterException } from '../../domain/Exception/NoParameterException'
@@ -29,5 +30,11 @@ export class PlayerController {
     validateCharacterId(id)
     const hasLogoutTimestamp = !isNaN(lastLogout.valueOf())
     return this._commandBus.execute(new PopulatePlayer(id, isOnline, hasLogoutTimestamp ? lastLogout : null))
+  }
+
+  @Post('/last-activity')
+  async postLastActivity(@Body('id') id: string, @Body('lastActivity') lastActivity: Date): Promise<void> {
+    validateCharacterId(id)
+    return this._commandBus.execute(new SetLastActivity(id, lastActivity))
   }
 }
