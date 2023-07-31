@@ -55,7 +55,13 @@ export class PlayerController extends WsController {
   private async _setLastActivity(character_id: string, timestamp: Date): Promise<void> {
     if (this._lastActivityCharacterId === character_id) return // Some character events may be called en masse
     this._logger.info({ character_id, timestamp }, 'set last player activity')
-    await this._players.setLastActivity(character_id, timestamp)
+    try {
+      await this._players.setLastActivity(character_id, timestamp)
+    } catch (err) {
+      // The player service may not be available yet, so we retry until it is
+      await sleep(1000)
+      return this._setLastActivity(character_id, timestamp)
+    }
   }
 
   private async _resetOnlineState(serverId?: string): Promise<void> {
