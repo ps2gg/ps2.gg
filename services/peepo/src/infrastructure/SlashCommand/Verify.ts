@@ -14,7 +14,7 @@ export class VerifyCommand extends DiscordCommand {
   @Main(Verify)
   async verify(options: VerifyOptions): Promise<CommandResponse> {
     const name = sanitizeCharacterName(options.name)
-    const { embed, id } = await getSelectedCharacter(name)
+    const { embed, id } = await getSelectedCharacter(name, null, true)
     return {
       interactionContext: [id, name],
       embeds: [embed],

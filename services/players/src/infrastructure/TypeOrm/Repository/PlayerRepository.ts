@@ -71,4 +71,10 @@ export class PlayerRepository {
     logTransaction('resetOnlineStatus', query, { result })
     return result
   }
+
+  async delete(id: string): Promise<any> {
+    const result = await this._repository.delete(id)
+    logTransaction('delete', { id }, { result })
+    return result
+  }
 }

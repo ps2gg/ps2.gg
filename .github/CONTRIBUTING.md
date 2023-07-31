@@ -16,7 +16,7 @@ If it's a small change or bugfix, you can start right away by [creating a new is
 
 ### Significant features
 
-If the contribution can be split up into smaller components, we consider it a new project which we will work through [in sprints](/docs/Workflow.md).<br>
+If the contribution can be split up into smaller components, we consider it a new milestone which we will work through in sprints.<br>
 In that case, please [contact us on Discord](https://discord.gg/8MvTaUQM2E), so we can plan through the project together and assist you all the way from start to finish.
 
 <br>

@@ -14,7 +14,7 @@ Some examples:
 - Publicly log alt lookups by user id
 - Add Command to populate new alt relations
 
-If an issue can be split up into smaller components, we consider it a Project, which consists of a number of issues that we'll approach [in sprints](/docs/Workflow.md).
+If an issue can be split up into smaller components, we consider it a milestone, which consists of a number of issues that we'll approach in sprints. If that's the case, please [contact us on Discord](https://discord.gg/8MvTaUQM2E), so we can onboard you into our workflow and help you plan out the feature.
 
 <br>
 
