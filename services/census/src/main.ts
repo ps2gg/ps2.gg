@@ -8,13 +8,13 @@ const ws = new CensusWs()
 async function subscribe() {
   const assistXpEvents = await getAssistXpEvents()
   const assistXpEventIds = Object.keys(assistXpEvents).map((id) => `GainExperience_experience_id_${id}`)
-  const eventNames = ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock']
+  const eventNames = ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience']
 
   ws.subscribe({
     worlds: ['all'],
     characters: ['all'],
     logicalAndCharactersWithWorlds: true,
-    eventNames: eventNames.concat(assistXpEventIds),
+    eventNames: eventNames,
   })
 }
 

@@ -10,7 +10,7 @@ export class PlayerController extends WsController {
   private _logger = getLogger()
 
   constructor(ws: CensusWs) {
-    super(ws, ['Heartbeat', 'PlayerLogin', 'PlayerLogout'])
+    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
 
     // We can't ensure 100% uptime, so we reset the online state
     // on every connect, assuming missed events.
@@ -26,22 +26,34 @@ export class PlayerController extends WsController {
     }
   }
 
-  override async onLogin(character_id: string): Promise<void> {
+  override async onLogin(character_id: string, timestamp: Date): Promise<void> {
+    this._logger.info({ character_id, isOnline: true }, 'populate player')
+    await this._populatePlayer(character_id, true, timestamp)
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  override async onLogout(character_id: string, timestamp: Date): Promise<void> {
+    this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
+    await this._populatePlayer(character_id, false, timestamp)
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  override async onItemAdded(character_id: string, item_id: string, timestamp: Date): Promise<void> {
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  private async _populatePlayer(character_id: string, isOnline: boolean, timestamp?: Date): Promise<void> {
     this._logger.info({ character_id, isOnline: true }, 'populate player')
     try {
-      await this._players.populateOne(character_id, true)
+      await this._players.populateOne(character_id, isOnline, timestamp)
     } catch (error) {
       // TODO: consider retry mechanism
     }
   }
 
-  override async onLogout(character_id: string, timestamp: Date): Promise<void> {
-    this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
-    try {
-      await this._players.populateOne(character_id, false, timestamp)
-    } catch (error) {
-      // TODO: consider retry mechanism
-    }
+  private async _setLastActivity(character_id: string, timestamp: Date): Promise<void> {
+    this._logger.info({ character_id, timestamp }, 'set last player activity')
+    await this._players.setLastActivity(character_id, timestamp)
   }
 
   private async _resetOnlineState(serverId?: string): Promise<void> {
