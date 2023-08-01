@@ -1,6 +1,9 @@
 [submodule "services/users"]
 	path = services/users
 	url = https://github.com/ps2gg/ps2.gg-users
+[submodule "services/github"]
+	path = services/github
+	url = https://github.com/ps2gg/ps2.gg-github
 [submodule "libs/nx"]
 	path = libs/nx
 	url = https://github.com/ps2gg/ps2.gg-nx
