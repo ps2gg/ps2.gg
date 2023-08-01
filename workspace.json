@@ -44,6 +44,7 @@
     "population-types": "libs/population/types",
     "users": "services/users",
     "users-client": "libs/users/client",
-    "users-types": "libs/users/types"
+    "users-types": "libs/users/types",
+    "github-types": "libs/github/types"
   }
 }
