@@ -71,8 +71,9 @@ If everything is set up correctly, you should see these services with `docker se
 | [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-          |
 | [users](/services/users/)                                   | Verifies and links users on different platforms | :3000      | -/-          |
 | [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-          |
-| alts                                                        | Matches alt characters                          | :3000/3030 | -/-          |
+| [alts](https://github.com/ps2gg/ps2.gg-alts)                | Matches alt characters                          | :3000/3030 | -/-          |
 | [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | :27017     | -/-          |
+| [github](/services/github/)                                 | Communicates our work on Github to followers    | :3000      | -/-          |
 | [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | :6379      | -/-          |
 | [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | :5672      | -/-          |
 | [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-          |
