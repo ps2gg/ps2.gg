@@ -28,8 +28,6 @@
     "friends-client": "libs/friends/client",
     "friends-types": "libs/friends/types",
     "github": "services/github",
-    "github-client": "libs/github/client",
-    "github-types": "libs/github/types",
     "jaeger": "services/jaeger",
     "nx-jest": "libs/nx/jest",
     "nx-nest": "libs/nx/nest",
