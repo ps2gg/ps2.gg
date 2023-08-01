@@ -6,7 +6,6 @@
 <br>
 
 This is the home of ps2.gg, where we provide Planetside's developer community with unique data that can't be found on the Census API.
-This repo includes all microservices that empower our own Bots and UI mods.
 
 <br>
 
