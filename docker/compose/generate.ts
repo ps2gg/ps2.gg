@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import { entrypoint, environment, getAllSecrets, healthcheck, image, networks, secrets, volumes } from './generate-strings'
 
 /**
@@ -34,8 +35,8 @@ function getServices(): Service[] {
 }
 
 function getServiceType(path: string) {
-  const project = require(`../../${path}/project.json`)
-  const isNestApp = project.targets['build-migration'] // only nest apps have this
+  const main = readFileSync(`../../${path}/src/main.ts`, 'utf8')
+  const isNestApp = main.includes('setupWebApp')
   return isNestApp ? 'nest' : 'general'
 }
 
