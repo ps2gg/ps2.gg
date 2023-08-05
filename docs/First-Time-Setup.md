@@ -58,25 +58,25 @@ printf "your secret" | docker secret create your-secret-name -
 
 If everything is set up correctly, you should see these services with `docker service ls`
 
-| Name                                                        | Description                                     | Port       | Secrets        |
-| ----------------------------------------------------------- | ----------------------------------------------- | ---------- | -------------- |
-| [census](/services/census/) 🔹                              | Internally relays Census data                   | -/-        | -/-            |
-| [peepo](/services/peepo/) 🔹                                | Planetside2 Companion                           | -/-        | peepo-token    |
-| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | -/-        | jaeger-token   |
-| [population](/services/population/) 🔹                      | Real-time population data                       | :3000      | -/-            |
-| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-            |
-| [players](/services/players/) 🔹                            | Planetside character information                | :3000      | -/-            |
-| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-            |
-| [friends](/services/players/) 🔹                            | Global alt-wide friend list                     | :3000      | -/-            |
-| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-            |
-| [users](/services/users/)                                   | Verifies and links users on different platforms | :3000      | -/-            |
-| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-            |
-| [alts](https://github.com/ps2gg/ps2.gg-alts)                | Matches alt characters                          | :3000/3030 | -/-            |
-| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | :27017     | -/-            |
-| [github](/services/github/)                                 | Communicates our work on Github to followers    | :3000      | webhook-secret |
-| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | :6379      | -/-            |
-| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | :5672      | -/-            |
-| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-            |
+| Name                                                        | Description                                     | Port       | Secrets                            |
+| ----------------------------------------------------------- | ----------------------------------------------- | ---------- | ---------------------------------- |
+| [census](/services/census/) 🔹                              | Internally relays Census data                   | -/-        | -/-                                |
+| [peepo](/services/peepo/) 🔹                                | Planetside2 Companion                           | -/-        | peepo-token                        |
+| [jaeger](/services/jaeger/) 🔹                              | Jaeger character verification                   | -/-        | jaeger-token                       |
+| [population](/services/population/) 🔹                      | Real-time population data                       | :3000      | -/-                                |
+| [population-db](https://github.com/postgres/postgres) 🔹    | Postgres                                        | :5672      | -/-                                |
+| [players](/services/players/) 🔹                            | Planetside character information                | :3000      | -/-                                |
+| [players-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-                                |
+| [friends](/services/players/) 🔹                            | Global alt-wide friend list                     | :3000      | -/-                                |
+| [friends-db](https://github.com/postgres/postgres) 🔹       | Postgres                                        | :5672      | -/-                                |
+| [users](/services/users/)                                   | Verifies and links users on different platforms | :3000      | -/-                                |
+| [users-db](https://github.com/postgres/postgres) 🔹         | Postgres                                        | :5672      | -/-                                |
+| [alts](https://github.com/ps2gg/ps2.gg-alts)                | Matches alt characters                          | :3000/3030 | -/-                                |
+| [alts_db](https://github.com/mongodb/mongo) 🔹              | Mongodb                                         | :27017     | -/-                                |
+| [github](/services/github/)                                 | Communicates our work on Github to followers    | :3000      | gh-webhook-token, gh-discord-token |
+| [redis](https://github.com/redis/redis) 🔹                  | Caches expensive operations                     | :6379      | -/-                                |
+| [rabbitmq](https://github.com/rabbitmq/rabbitmq-server) 🔹  | Inter-service communication                     | :5672      | -/-                                |
+| [registry](https://github.com/distribution/distribution) 🔹 | Hosts Docker images                             | :5000      | -/-                                |
 
 Services with a 🔹 are open source. Please ask for access if you need to work with a private service.<br>
 Production secrets can be generated with [/docker/create-secrets.sh](/docker/create-secrets.sh).
@@ -87,4 +87,4 @@ Production secrets can be generated with [/docker/create-secrets.sh](/docker/cre
 
 <br>
 
-### Next guide for beginners: [First Time Setup](/docs/First-Time-Setup.md)
+### Next guide for beginners: [Git Conventions](/docs/Git-Conventions.md)

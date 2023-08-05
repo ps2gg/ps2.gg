@@ -6,7 +6,15 @@ services:
   jaeger:
     deploy:
       replicas: 0
+  github:
+    secrets:
+      - gh-discord-token
+      - gh-webhook-token
 
 secrets:
   peepo-token:
+    external: true
+  gh-discord-token:
+    external: true
+  gh-webhook-token:
     external: true
