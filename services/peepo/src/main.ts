@@ -1,4 +1,4 @@
-import { setupDiscordClient } from '@ps2gg/discord/client'
+import { setupDiscordGateway } from '@ps2gg/discord/client'
 import { readFileSync } from 'fs'
 import { DiscordListener } from './infrastructure/Discord/DiscordListener'
 import { PopulationEvent } from './infrastructure/EventStream/PopulationUpdate'
@@ -12,7 +12,7 @@ import { VerifyCommand } from './infrastructure/SlashCommand/Verify'
 import { WhoAmICommand } from './infrastructure/SlashCommand/WhoAmI'
 import { bootstrap } from './worker'
 
-const discord = setupDiscordClient({
+const discord = setupDiscordGateway({
   id: '715535257939607602',
   token: readFileSync('/run/secrets/peepo-token', 'utf-8'),
   activity: 'Sees all',
