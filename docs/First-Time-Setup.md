@@ -16,7 +16,7 @@ If you're on Windows, you can run Linux inside of your Windows via [WSL](https:/
 If you've read the [prerequisites](./Prerequisites.md), you already have these installed and can jump to the next step 😎
 
 - [Docker](https://www.docker.com/) in Swarm Mode.
-- [Bun](https://bun.sh/docs/cli/install) as npm replacement (it's fast, like really fast)
+- [Bun](https://bun.sh/) as npm replacement (it's fast, like really fast)
 
 <br>
 
