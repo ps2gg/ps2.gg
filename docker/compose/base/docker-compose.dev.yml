@@ -1,6 +1,16 @@
 version: "3.4"
 
 services:
+  traefik:
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_USER: rabbitmq

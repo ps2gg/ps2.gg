@@ -73,7 +73,7 @@ function generateService(service: Service, env: string) {
 }
 
 function generateNestService(service: Service, env: string) {
-  return `
+  let str = `
   ${service.name}:
     ${image(env)}
     ${entrypoint(env, service.name)}
@@ -81,8 +81,13 @@ function generateNestService(service: Service, env: string) {
     ${healthcheck(service.name)}
     ${environment('nest', env, service.name)}
     ${secrets('nest', env, service.name)}
-    ${volumes(env)}
+    ${volumes(env)}`
 
+  const noDb = ['github']
+
+  if (noDb.includes(service.name)) return str
+
+  str += `
   ${service.name}-db:
     image: postgres:15.2-alpine
     ${networks(['internal'])}
@@ -91,6 +96,7 @@ function generateNestService(service: Service, env: string) {
     ${environment('postgres', env, service.name)}
     ${secrets('nest', env, service.name, false)}\n
 `
+  return str
 }
 
 function generateGeneralService(service: Service, env: string) {

@@ -57,5 +57,3 @@ docker stack deploy \
   --prune \
   --compose-file "docker/compose/out/docker-compose.$1.yml" \
   "ps2gg_${1}"
-
-echo "🙏 dev garanty no ban you too the circle of paffdaddy 🙏"

@@ -1,12 +1,28 @@
 version: '3.4'
 
 services:
+  traefik:
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:443"
+      # TODO: Add ACME configuration
+    ports:
+      - "443:443"
+
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_USER: rabbitmq
       RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq-pass
     secrets:
       - rabbitmq-pass
+
+  github:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.github.rule=Host(`github.ps2.gg`)"
+      - "traefik.http.routers.github.compress=true"
+      # TODO: Add TLS configuration
 
 secrets:
   rabbitmq-pass:
