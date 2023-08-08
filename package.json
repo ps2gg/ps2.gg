@@ -10,7 +10,6 @@
   "private": true,
   "dependencies": {
     "@baileyherbert/reflection": "^1.2.4",
-    "@dev-thought/nestjs-github-webhooks": "^1.0.0",
     "@fastify/helmet": "^10.1.0",
     "@fastify/static": "^6.9.0",
     "@nestjs/axios": "^2.0.0",

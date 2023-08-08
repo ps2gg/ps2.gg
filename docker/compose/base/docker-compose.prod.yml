@@ -21,6 +21,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.github.rule=Host(`github.ps2.gg`)"
+      - "traefik.http.services.github.loadbalancer.server.port=3000"
       # TODO: Add TLS configuration
 
 secrets:
