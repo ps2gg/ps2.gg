@@ -21,7 +21,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.github.rule=Host(`github.ps2.gg`)"
-      - "traefik.http.routers.github.compress=true"
 
 secrets:
   rabbitmq-pass:
