@@ -34,6 +34,10 @@ export class PlayerController extends WsController {
     await this._setLastActivity(character_id, timestamp)
   }
 
+  override async onGainExperience(experience_id: string, timestamp: Date, character_id: string): Promise<void> {
+    await this._setLastActivity(character_id, timestamp)
+  }
+
   override async onItemAdded(character_id: string, item_id: string, timestamp: Date): Promise<void> {
     await this._setLastActivity(character_id, timestamp)
   }
