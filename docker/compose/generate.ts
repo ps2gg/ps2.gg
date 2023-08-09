@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { entrypoint, environment, getAllSecrets, healthcheck, image, networks, secrets, volumes } from './generate-strings'
 
 /**
@@ -35,8 +35,7 @@ function getServices(): Service[] {
 }
 
 function getServiceType(path: string) {
-  const main = readFileSync(`../../${path}/src/main.ts`, 'utf8')
-  const isNestApp = main.includes('setupWebApp')
+  const isNestApp = existsSync(`../../${path}/src/worker.ts`)
   return isNestApp ? 'nest' : 'general'
 }
 
