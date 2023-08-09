@@ -12,11 +12,6 @@ export class PlayerController extends WsController {
 
   constructor(ws: CensusWs) {
     super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
-
-    // We can't ensure 100% uptime, so we reset the online state
-    // on every connect, assuming missed events.
-    this._resetOnlineState()
-    ws.on('connect', () => this._resetOnlineState())
   }
 
   override async onHeartbeat(heartbeat: Heartbeat): Promise<void> {
