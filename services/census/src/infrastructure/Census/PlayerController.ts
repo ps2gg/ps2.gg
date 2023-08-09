@@ -11,7 +11,7 @@ export class PlayerController extends WsController {
   private _lastActivityCharacterId: string
 
   constructor(ws: CensusWs) {
-    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
+    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'GainExperience'])
   }
 
   override async onHeartbeat(heartbeat: Heartbeat): Promise<void> {
