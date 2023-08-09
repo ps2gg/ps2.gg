@@ -5,6 +5,7 @@ import { reply } from '@ps2gg/discord/util'
 import { User } from '@ps2gg/users/types'
 import { CommandInteraction } from 'discord.js'
 import { getIntroduction } from '../../application/Aggregation/Companion/Introduction'
+import { getLoginPreview } from '../../application/Aggregation/Companion/LoginPreview'
 import { showVerification } from '../../application/Command/Verification/ShowVerification'
 import { showVerificationHint } from '../../application/Command/Verification/ShowVerificationHint'
 import { getSuggestions } from '../../application/Query/Companion/GetSuggestions'
@@ -25,6 +26,8 @@ export class CompanionCommand {
     if (!name && !user.characterIds?.length) await showVerificationHint(interaction, user.discordId)
     if (name) await showVerification(name, user, interaction)
 
+    await this.showLoginPreview(interaction, user)
+
     return this.showSuggestions(user, name)
   }
 
@@ -43,6 +46,13 @@ export class CompanionCommand {
       interactionContext: [],
       embeds: [suggestions],
     }
+  }
+
+  async showLoginPreview(interaction: CommandInteraction, user: User): Promise<void> {
+    const loginPreview = await getLoginPreview(user)
+    reply(interaction, loginPreview)
+
+    const isLoggedIn = await messageCoordinator.awaitInteraction(interaction.id)
   }
 
   @Autocomplete(Companion, 'player')
