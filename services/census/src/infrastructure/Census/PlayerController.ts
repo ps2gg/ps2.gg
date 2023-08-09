@@ -11,12 +11,7 @@ export class PlayerController extends WsController {
   private _lastActivityCharacterId: string
 
   constructor(ws: CensusWs) {
-    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'VehicleDestroy', 'Death', 'ContinentLock', 'GainExperience'])
-
-    // We can't ensure 100% uptime, so we reset the online state
-    // on every connect, assuming missed events.
-    this._resetOnlineState()
-    ws.on('connect', () => this._resetOnlineState())
+    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'GainExperience'])
   }
 
   override async onHeartbeat(heartbeat: Heartbeat): Promise<void> {
@@ -36,6 +31,10 @@ export class PlayerController extends WsController {
   override async onLogout(character_id: string, timestamp: Date): Promise<void> {
     this._logger.info({ character_id, isOnline: false, timestamp }, 'populate player')
     await this._populatePlayer(character_id, false, timestamp)
+    await this._setLastActivity(character_id, timestamp)
+  }
+
+  override async onGainExperience(experience_id: string, timestamp: Date, character_id: string): Promise<void> {
     await this._setLastActivity(character_id, timestamp)
   }
 
