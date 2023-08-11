@@ -5,7 +5,6 @@ import { CommandInteraction } from 'discord.js'
 import { showVerification } from '../../application/Command/Verification/ShowVerification'
 import { showVerificationHint } from '../../application/Command/Verification/ShowVerificationHint'
 import { getAltWideFriends } from '../../application/Query/Friends/GetAltWideFriends'
-import { VerifyHintEmbed } from '../../domain/Embed/Verification/VerifyHintEmbed'
 import { Friends, FriendsOptions } from '../../domain/Meta/Friends'
 
 @Command(Friends)
