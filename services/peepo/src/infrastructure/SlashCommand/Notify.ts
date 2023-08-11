@@ -21,7 +21,11 @@ export class NotifyCommand {
     const { server } = options
     const event = sanitizeObjectNotation(options.event)
     const embed = await addPopulationSubscription(server, event, user)
-    return { interactionContext: [server, event], embeds: [embed] }
+    return {
+      interactionContext: [server, event],
+      embeds: [embed],
+      content: "**🛠️ Development Build**\nThis command is still a proof of concept. We'll announce when it's ready for regular usage.",
+    }
   }
 
   @Autocomplete(Notify, 'event')
