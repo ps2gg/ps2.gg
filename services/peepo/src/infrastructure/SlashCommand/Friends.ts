@@ -12,6 +12,7 @@ import { Friends, FriendsOptions } from '../../domain/Meta/Friends'
 export class FriendsCommand {
   @Main(Friends)
   async friends(options: FriendsOptions, @linkedUser user: User, interaction: CommandInteraction): Promise<CommandResponse> {
+    await interaction.deferReply({ ephemeral: true })
     const { player } = options
 
     if (!player && !user.characterIds?.length) await showVerificationHint(interaction, user.discordId)
