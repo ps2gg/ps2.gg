@@ -8,5 +8,5 @@ export class EarlyAccessGatewayEmbed implements APIEmbed {
   }
   title = 'Early Access'
   description =
-    '## Get a glimpse of new features!\n\nThis is where we release development builds of work-in-progress features. Initial releases will be as minimal as possible - and we gradually improve them based on your feedback.\n\n**Currently testing: Good Fight Notifications**'
+    '## Get a glimpse of new features!\n\nThis is where we release development builds of work-in-progress features. Initial releases will be as minimal as possible - and we gradually improve them based on your feedback.\n\n**Currently testing: Alt-Wide Friends List**'
 }
