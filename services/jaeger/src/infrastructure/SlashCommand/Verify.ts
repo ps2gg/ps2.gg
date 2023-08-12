@@ -2,8 +2,8 @@ import { getPlayerAutocomplete } from '@ps2gg/alts/ws'
 import { sanitizeCharacterName } from '@ps2gg/common/util'
 import { Command, Main, Autocomplete, AutocompleteResponse, CommandResponse, Component, ComponentResponse } from '@ps2gg/discord/command'
 import { DiscordCommand } from '@ps2gg/discord/types'
-import { sendChannel } from '@ps2gg/discord/util'
-import { APIEmbed, ButtonInteraction } from 'discord.js'
+import { defer, sendChannel } from '@ps2gg/discord/util'
+import { APIEmbed, ButtonInteraction, CommandInteraction } from 'discord.js'
 import { verifyCharacter } from '../../application/Command/VerifyCharacter'
 import { getPlayer } from '../../application/Query/GetPlayer'
 import { VerifyReady } from '../../domain/Components/VerifyReady'
@@ -16,7 +16,8 @@ import { Verify, VerifyOptions } from '../../domain/Meta/Verify'
 @Command(Verify)
 export class VerifyCommand extends DiscordCommand {
   @Main(Verify)
-  async verify(options: VerifyOptions, interaction: ButtonInteraction): Promise<CommandResponse> {
+  async verify(options: VerifyOptions, interaction: CommandInteraction): Promise<CommandResponse> {
+    await defer(interaction, true)
     const name = sanitizeCharacterName(options.name)
     const { user } = interaction
     const { embed, id } = await getPlayer(name)
