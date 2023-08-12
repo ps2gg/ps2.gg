@@ -42,6 +42,7 @@ export class CompanionCommand {
     return {
       interactionContext: [],
       embeds: [suggestions],
+      content: "**🛠️ Development Build**\nThis command is still a proof of concept. We'll announce when it's ready for regular usage.",
     }
   }
 

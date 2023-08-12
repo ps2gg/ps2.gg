@@ -10,5 +10,6 @@ export function getIntroduction(interactionId: string): InteractionReplyOptions 
     embeds: [embed],
     ephemeral: true,
     components,
+    content: "**🛠️ Development Build**\nThis command is still a proof of concept. We'll announce when it's ready for regular usage.",
   }
 }
