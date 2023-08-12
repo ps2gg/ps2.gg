@@ -1,6 +1,6 @@
 import { CensusWs } from '@ps2gg/census/api'
 import { WsController } from '@ps2gg/census/controllers'
-import { Heartbeat } from '@ps2gg/census/types'
+import { Heartbeat, PlayerLoadout } from '@ps2gg/census/types'
 import { getLogger } from '@ps2gg/common/logging'
 import { sleep } from '@ps2gg/common/util'
 import { PlayerClient } from '@ps2gg/players/client'
@@ -11,7 +11,7 @@ export class PlayerController extends WsController {
   private _lastActivityCharacterId: string
 
   constructor(ws: CensusWs) {
-    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'GainExperience'])
+    super(ws, ['ItemAdded', 'PlayerLogin', 'PlayerLogout', 'Death'])
   }
 
   override async onHeartbeat(heartbeat: Heartbeat): Promise<void> {
@@ -34,8 +34,9 @@ export class PlayerController extends WsController {
     await this._setLastActivity(character_id, timestamp)
   }
 
-  override async onGainExperience(experience_id: string, timestamp: Date, character_id: string): Promise<void> {
-    await this._setLastActivity(character_id, timestamp)
+  override async onDeath(timestamp: Date, server: string, continent: string, winner: PlayerLoadout, loser: PlayerLoadout): Promise<void> {
+    await this._setLastActivity(winner.character_id, timestamp)
+    await this._setLastActivity(loser.character_id, timestamp)
   }
 
   override async onItemAdded(character_id: string, item_id: string, timestamp: Date): Promise<void> {
