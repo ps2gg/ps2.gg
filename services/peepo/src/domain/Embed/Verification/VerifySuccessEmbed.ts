@@ -10,6 +10,6 @@ export class VerifySuccessEmbed implements APIEmbed {
   footer = { text: 'Verification process powered by ps2.gg' }
 
   constructor(name: string) {
-    this.description = `## You are now verified as ${name}!\nCommands with verification requirements will now always include this character. To see everyone you're verified as, use \`/whoami\`.`
+    this.description = `## You are now verified as ${name}!\nCommands with verification requirements will now include this character. To see everyone you're verified as, use \`/whoami\`.`
   }
 }
