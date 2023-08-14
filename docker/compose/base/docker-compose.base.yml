@@ -13,6 +13,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.8-alpine
+    hostname: rabbitmq
     networks:
       - ps2gg-internal
     volumes:
