@@ -14,6 +14,12 @@ export function volumes(env: string) {
   }
 }
 
+export function logging() {
+  return `logging:
+      options:
+        max-size: "50m"`
+}
+
 export function healthcheck(name: string) {
   if (name === 'peepo') return '' // Doesn't run an HTTP server, should generalize this in the future
   return `healthcheck:

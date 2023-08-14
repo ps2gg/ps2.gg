@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { entrypoint, environment, getAllSecrets, healthcheck, image, networks, secrets, volumes } from './generate-strings'
+import { entrypoint, environment, getAllSecrets, healthcheck, image, logging, networks, secrets, volumes } from './generate-strings'
 
 /**
  * Generates docker-compose files based on available /services
@@ -80,7 +80,8 @@ function generateNestService(service: Service, env: string) {
     ${healthcheck(service.name)}
     ${environment('nest', env, service.name)}
     ${secrets('nest', env, service.name)}
-    ${volumes(env)}`
+    ${volumes(env)}
+    ${logging()}`
 
   const noDb = ['github']
 
@@ -104,7 +105,8 @@ function generateGeneralService(service: Service, env: string) {
     ${image(env)}
     ${entrypoint(env, service.name)}
     ${networks(['internal'])}
-    ${volumes(env)}\n`
+    ${volumes(env)}
+    ${logging()}\n`
 }
 
 function save(compose: string, env: string) {
