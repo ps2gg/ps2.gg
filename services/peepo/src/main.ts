@@ -42,3 +42,7 @@ const discord = setupDiscordGateway({
 
 new DiscordListener(discord)
 bootstrap()
+
+process.on('uncaughtException', (err) => {
+  console.error(err)
+})
